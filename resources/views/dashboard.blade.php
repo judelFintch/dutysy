@@ -11,10 +11,10 @@
 
             <ul class="list-disc">
                <li><a href="{{route('client.index')}}">Clients</a></li>
-               <li><a href="">Declarations</a></li>
-               <li><a href="">Employers</a></li>
-               <li><a href="">Secteurs</a></li>
-               <li><a href="">Caisses</a></li>
+               <li><a href="{{route('dossier.index')}}">Declarations</a></li>
+               <li><a href="{{route('employer.index')}}">Employers</a></li>
+               <li><a href="{{route('secteur.index')}}">Secteurs</a></li>
+               <li><a href="{{route('caisse.index')}}">Caisses</a></li>
                <li><a href="{{route('destination.index')}}">Provenance</a></li>
                 <!-- ... -->
             </ul>

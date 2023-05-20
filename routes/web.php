@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Destination\Destianation;
 use App\Http\Livewire\Clients\Client;
+use App\Http\Livewire\Caisses\Caisse;
+use App\Http\Livewire\Dossiers;
+use App\Http\Livewire\Employers\Employer;
+use App\Http\Livewire\Secteurs\Secteur;
+use App\Http\Livewire\Dossiers\Dossier;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +23,10 @@ Route::get('/', function () { return view('welcome');});
 
 Route::get('/destination', Destianation::class)->name('destination.index');
 Route::get('/client', Client::class)->name('client.index');
+Route::get('/secteur', Secteur::class)->name('secteur.index');
+Route::get('/employer', Employer::class)->name('employer.index');
+Route::get('/caisse', Caisse::class)->name('caisse.index');
+Route::get('/dossier', Dossier::class)->name('dossier.index');
 
 
 
