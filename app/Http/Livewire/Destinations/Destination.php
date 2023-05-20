@@ -22,6 +22,11 @@ class Destination extends Component
         return view('livewire.destinations.destination');
     }
 
+
+    private function resetField(){
+        $this ->libelle = '';
+    }
+
     public function store(){
         $this->validate();
         try {
@@ -30,13 +35,14 @@ class Destination extends Component
                     'destination' => $this->libelle] 
                 );
 
-            session()->flash('success','Insertion reussi pour la ville de destination');
+            session()->flash('message','Ville cree Avec succee');
+            $this ->resetField();
 
         }
         catch(\Exception $e) {
-            session()->flash('error', 'errur lors de la creation de la ville ');
+            session()->flash('message', 'erreur lors de la creation de la ville ');
             
-            //$this ->resetField();
+            $this ->resetField();
 
         }
        
