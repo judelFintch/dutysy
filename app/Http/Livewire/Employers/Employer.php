@@ -10,4 +10,5 @@ class Employer extends Component
     {
         return view('livewire.employers.employer');
     }
+    
 }
