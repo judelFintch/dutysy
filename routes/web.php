@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Livewire\Destination\Destianation;
+use App\Http\Livewire\Clients\Client;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function () { return view('welcome');});
+
+Route::get('/destination', Destianation::class)->name('destination.index');
+Route::get('/client', Client::class)->name('client.index');
+
+
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
