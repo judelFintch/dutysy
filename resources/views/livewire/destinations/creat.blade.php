@@ -1,5 +1,6 @@
 
 <div class="card">
+    <label>Creation ville</label>
     <input placeholder="Tapez le nom de la ville" class="@error('libelle') is-invalid @enderror" type="text" wire:model="libelle">
         @error('libelle') <span> {{ $message }}</span> @enderror
    
