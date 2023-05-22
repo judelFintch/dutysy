@@ -6,9 +6,11 @@
         <div class="alert alert-success">
              {{ session('message') }}
          </div>
-        @endif
-<p></p>
-@if($updateclient)
+ @endif
+<br/>
+<br/><br>
+
+    @if($updateclient)
         @include('livewire.clients.update')
     @else
         @include('livewire.clients.creat')

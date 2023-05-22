@@ -19,15 +19,15 @@
         <tr>
         <td>{{$idcount++}}</td>
         <td>{{$res->name}}</td>
-        <td>{{$res->name}}</td>
-        <td>{{$res->name}}</td>
-        <td>{{$res->name}}</td>
+        <td>{{$res->type}}</td>
+        <td>{{$res->rccm}}</td>
+        <td>{{$res->tel}}</td>
         <td>{{ $res->type }}</td>
         <td>{{ $res->email }}</td>
         
         <td>
            <button  wire:click="edit({{$res->id}})">  Edit </button>|
-           <button  onclick="deleteDest({{$res->id}})"> delete</button>
+           <button  onclick="deleteCli({{$res->id}})"> delete</button>
         </td>
        
         </tr>
@@ -46,11 +46,11 @@
 
 
 <script>
-  function deleteDest(id){
+  function deleteCli(id){
     
     if(confirm("Etes vous sur de supprimer cette enregistrement"))
   
-       window.livewire.emit('deleteDest', id);
+       window.livewire.emit('deleteCli', id);
       }
 
 </script>

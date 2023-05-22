@@ -54,6 +54,7 @@ class Destination extends Component
         $this->resetField();
     }
 
+    
 
     public function edit($id_dest){
          $this-> id_dest=$id_dest;
