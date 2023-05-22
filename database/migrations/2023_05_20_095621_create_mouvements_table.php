@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('mouvements', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("dossier_id");
+            $table->string("type")->default("entree");
+            $table->string("libelle");
+            $table->float("montant");
             $table->timestamps();
         });
     }

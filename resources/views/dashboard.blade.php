@@ -16,6 +16,7 @@
                <li><a href="{{route('secteur.index')}}">Secteurs</a></li>
                <li><a href="{{route('caisse.index')}}">Caisses</a></li>
                <li><a href="{{route('destination.index')}}">Provenance</a></li>
+               <li><a href="{{route('dossier.index')}}">Dossier</a></li>
                 <!-- ... -->
             </ul>
 
