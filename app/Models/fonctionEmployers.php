@@ -13,6 +13,4 @@ class fonctionEmployers extends Model
     public function employees(){
         return $this->hasMany(Employeers::class);
     }
-
-
 }

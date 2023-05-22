@@ -1,3 +1,13 @@
 <div>
-    {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
+
+
+
+@if($updateemployees)
+    @include('livewire.employers.update')
+@else
+    @include('livewire.employers.creat')
+@endif
+
+@include('livewire.employers.list')
+    
 </div>
