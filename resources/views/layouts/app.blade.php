@@ -14,19 +14,29 @@
         <!-- Scripts 
         @vite(['resources/css/app.css', 'resources/js/app.js'])-->
 
-        <link href="{{asset('assets/css/app.css')}}" rel="stylesheet" />
-
+        <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/line-awesome.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/plugins/alertify/alertify.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/plugins/lightbox/glightbox.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/plugins/c3-chart/c3.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/plugins//toastr/toatr.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/select2.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/bootstrap-datetimepicker.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/fullcalendar.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/plugins/summernote/dist/summernote-bs4.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/dataTables.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
-        <x-banner />
-        <div class="min-h-screen bg-gray-100">
+    <body>
+        <div >
             @livewire('navigation-menu')
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header>
+                    <div >
                         {{ $header }}
                     </div>
                 </header>
@@ -34,14 +44,28 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                <div class="main-wrapper">
+                     {{ $slot }}
+                </div>
             </main>
         </div>
 
         @stack('modals')
 
         @livewireScripts
-
-        <script src="{{ asset('assets/js/app.js') }}"></script>
+        <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
+        <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.slimscroll.min.js')}}"></script>
+        <script src="{{asset('assets/js/select2.min.js')}}"></script>
+        <script src="{{asset('assets/js/moment.min.js')}}"></script>
+        <script src="{{asset('assets/js/bootstrap-datetimepicker.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js')}}"></script>
+        <script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
+        <script src="{{asset('assets/js/fullcalendar.min.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.fullcalendar.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('assets/js/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('assets/js/validation.init.js')}}"></script>
+        <script src="{{asset('assets/js/app.js')}}"></script>
     </body>
 </html>
