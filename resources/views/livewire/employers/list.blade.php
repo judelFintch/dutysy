@@ -12,14 +12,15 @@
   <tbody>
 
   @if(count($employees)>0)
-    @foreach($employees as $dest)
+    @foreach($employees as $resu)
         <tr>
         <td>{{$idcount++}}</td>
-        <td>{{$dest->second_first}}</td>
-        <td>{{ $dest->fonction->fonction }}</td>
+        <td>{{$resu->first_name}}</td>
+        <td>{{$resu->second_name}}</td>
+        <td>{{ $resu->fonction->fonction }}</td>
         <td>
-           <button  wire:click="edit({{$dest->id}})">  Edit </button>|
-           <button  onclick="deleteDest({{$dest->id}})"> delete</button>
+           <button  wire:click="edit({{$resu->id}})">  Edit </button>|
+           <button  onclick="deleteDest({{$resu->id}})"> delete</button>
         </td>
        
         </tr>

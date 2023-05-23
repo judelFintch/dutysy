@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('employeers', function (Blueprint $table) {
             $table->id();
-            $table->string('second_first',30);
+            $table->string('first_name',30);
             $table->string('second_name',30);
+            $table->string('tel',15);
+            $table->string('email',30);
             $table->string('sexe',30);
             $table->date('birth_date');
             $table->unsignedBigInteger('fonction_id');

@@ -73,15 +73,11 @@ class Destination extends Component
             ])->save();
             $this->resetField();
             session()->flash('message', 'Update success');
-
-
         }
         catch(\Exception $e){
             session()->flash('message', 'Update error');
             $this->resetField();
-
         }
-
     }
 
     public function destroy($id){

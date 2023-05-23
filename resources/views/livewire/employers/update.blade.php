@@ -2,8 +2,8 @@
 
 
 <div class="card">
-    <label>Creation client</label>
-   
+    <label>Creation update client</label>
+    <input  type="hidden" wire:model="id_employe">
         <input placeholder="Nom Employer" class="@error('firs_name') is-invalid @enderror" type="text" wire:model="first_name">
             @error('first_name') <span> {{ $message }}</span> @enderror
         <input placeholder="Tapez le post nom" class="@error('second_name') is-invalid @enderror" type="text" wire:model="second_name">
@@ -28,8 +28,5 @@
                 @endforeach
             </select>-->
 
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button" wire:click.prevent="store()">Valider</button>
-
-    
-</div>
-
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button" wire:click.prevent="update()">Valider</button>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button" wire:click="cancel()">Annuler</button>
