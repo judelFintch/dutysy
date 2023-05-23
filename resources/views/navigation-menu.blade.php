@@ -1,219 +1,304 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+<div class="header">
+            <div class="header-left">
+                <a href="dashboard" class="logo">
+                    <img src="assets/img/new-castorms.jpg" width="40" height="40" alt="">
+                </a>
+            </div>
+
+            <a id="toggle_btn" href="javascript:void(0);">
+                <span class="bar-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </a>
+
+            <div class="page-title-box">
+                <h3>{{ config('app.name', 'Laravel') }}</h3>
+            </div>
+
+            <a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
+
+            <ul class="nav user-menu">
+
+                <li class="nav-item">
+                    <div class="top-nav-search">
+                        <a href="javascript:void(0);" class="responsive-search">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <form action="search">
+                            <input class="form-control" type="text" placeholder="Search here">
+                            <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </li>
+
+
+                <li class="nav-item dropdown has-arrow flag-nav">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+                        <img src="assets/img/flags/us.png" alt="" height="20"> <span>English</span>
                     </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-            </div>
-
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <!-- Teams Dropdown -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="ml-3 relative">
-                        <x-dropdown align="right" width="60">
-                            <x-slot name="trigger">
-                                <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                        {{ Auth::user()->currentTeam->name }}
-
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </x-slot>
-
-                            <x-slot name="content">
-                                <div class="w-60">
-                                    <!-- Team Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
-                                    </div>
-
-                                    <!-- Team Settings -->
-                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Team Settings') }}
-                                    </x-dropdown-link>
-
-                                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                        <x-dropdown-link href="{{ route('teams.create') }}">
-                                            {{ __('Create New Team') }}
-                                        </x-dropdown-link>
-                                    @endcan
-
-                                    <!-- Team Switcher -->
-                                    @if (Auth::user()->allTeams()->count() > 1)
-                                        <div class="border-t border-gray-200"></div>
-
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('Switch Teams') }}
-                                        </div>
-
-                                        @foreach (Auth::user()->allTeams() as $team)
-                                            <x-switchable-team :team="$team" />
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </x-slot>
-                        </x-dropdown>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="javascript:void(0);" class="dropdown-item">
+                            <img src="assets/img/flags/us.png" alt="" height="16"> English
+                        </a>
+                        <a href="javascript:void(0);" class="dropdown-item">
+                            <img src="assets/img/flags/fr.png" alt="" height="16"> French
+                        </a>
+                        <a href="javascript:void(0);" class="dropdown-item">
+                            <img src="assets/img/flags/es.png" alt="" height="16"> Spanish
+                        </a>
+                        <a href="javascript:void(0);" class="dropdown-item">
+                            <img src="assets/img/flags/de.png" alt="" height="16"> German
+                        </a>
                     </div>
-                @endif
+                </li>
 
-                <!-- Settings Dropdown -->
-                <div class="ml-3 relative">
-                    <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
-                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                                </button>
-                            @else
-                                <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                        {{ Auth::user()->name }}
 
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            @endif
-                        </x-slot>
-
-                        <x-slot name="content">
-                            <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
-                            </div>
-
-                            <x-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
-                            </x-dropdown-link>
-
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
-                                </x-dropdown-link>
-                            @endif
-
-                            <div class="border-t border-gray-200"></div>
-
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}" x-data>
-                                @csrf
-
-                                <x-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
-                        </x-slot>
-                    </x-dropdown>
-                </div>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
-                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                    <div class="shrink-0 mr-3">
-                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                    </div>
-                @endif
-
-                <div>
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                </div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <!-- Account Management -->
-                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                        {{ __('API Tokens') }}
-                    </x-responsive-nav-link>
-                @endif
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}" x-data>
-                    @csrf
-
-                    <x-responsive-nav-link href="{{ route('logout') }}"
-                                   @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-
-                <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200"></div>
-
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
-                    </div>
-
-                    <!-- Team Settings -->
-                    <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
-                    </x-responsive-nav-link>
-
-                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
-                        </x-responsive-nav-link>
-                    @endcan
-
-                    <!-- Team Switcher -->
-                    @if (Auth::user()->allTeams()->count() > 1)
-                        <div class="border-t border-gray-200"></div>
-
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Switch Teams') }}
+                <li class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i> <span class="badge rounded-pill">3</span>
+                    </a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Notifications</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
                         </div>
+                        <div class="noti-content">
+                            <ul class="notification-list">
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="assets/img/profiles/avatar-02.jpg">
+                                            </span>
+                                            <div class="media-body flex-grow-1">
+                                                <p class="noti-details"><span class="noti-title">John Doe</span> added
+                                                    new task <span class="noti-title">Patient appointment booking</span>
+                                                </p>
+                                                <p class="noti-time"><span class="notification-time">4 mins ago</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="assets/img/profiles/avatar-03.jpg">
+                                            </span>
+                                            <div class="media-body flex-grow-1">
+                                                <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
+                                                    changed the task name <span class="noti-title">Appointment booking
+                                                        with payment gateway</span></p>
+                                                <p class="noti-time"><span class="notification-time">6 mins ago</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="assets/img/profiles/avatar-06.jpg">
+                                            </span>
+                                            <div class="media-body flex-grow-1">
+                                                <p class="noti-details"><span class="noti-title">Misty Tison</span>
+                                                    added <span class="noti-title">Domenic Houston</span> and <span
+                                                        class="noti-title">Claire Mapes</span> to project <span
+                                                        class="noti-title">Doctor available module</span></p>
+                                                <p class="noti-time"><span class="notification-time">8 mins ago</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="assets/img/profiles/avatar-17.jpg">
+                                            </span>
+                                            <div class="media-body flex-grow-1">
+                                                <p class="noti-details"><span class="noti-title">Rolland Webber</span>
+                                                    completed task <span class="noti-title">Patient and Doctor video
+                                                        conferencing</span></p>
+                                                <p class="noti-time"><span class="notification-time">12 mins ago</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="assets/img/profiles/avatar-13.jpg">
+                                            </span>
+                                            <div class="media-body flex-grow-1">
+                                                <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
+                                                    added new task <span class="noti-title">Private apps-chat
+                                                        module</span></p>
+                                                <p class="noti-time"><span class="notification-time">2 days ago</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="activities">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
 
-                        @foreach (Auth::user()->allTeams() as $team)
-                            <x-switchable-team :team="$team" component="responsive-nav-link" />
-                        @endforeach
-                    @endif
-                @endif
-            </div>
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <i class="fa fa-comment-o"></i> <span class="badge rounded-pill">8</span>
+                    </a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Messages</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                        </div>
+                        <div class="noti-content">
+                            <ul class="notification-list">
+                                <li class="notification-message">
+                                    <a href="apps-chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="assets/img/profiles/avatar-09.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author">Richard Miles </span>
+                                                <span class="message-time">12:28 AM</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur
+                                                    adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="apps-chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="assets/img/profiles/avatar-02.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author">John Doe</span>
+                                                <span class="message-time">6 Mar</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur
+                                                    adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="apps-chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="assets/img/profiles/avatar-03.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author"> Tarah Shropshire </span>
+                                                <span class="message-time">5 Mar</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur
+                                                    adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="apps-chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="assets/img/profiles/avatar-05.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author">Mike Litorus</span>
+                                                <span class="message-time">3 Mar</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur
+                                                    adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="apps-chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="assets/img/profiles/avatar-08.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author"> Catherine Manseau </span>
+                                                <span class="message-time">27 Feb</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur
+                                                    adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="apps-chat">View all Messages</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown has-arrow main-drop">
+                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <span class="user-img"><img src="assets/img/profiles/avatar-21.jpg" alt="">
+                            <span class="status online"></span></span>
+                        <span>Admin</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="profile">My Profile</a>
+                        <a class="dropdown-item" href="settings">Settings</a>
+                        <form method="POST" action="{{ route('logout') }}" x-data>
+                         @csrf
+                            <a class="dropdown-item" href="{{ route('logout') }}" @click.prevent="$root.submit();"> {{ __('Log Out') }}</a>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
         </div>
-    </div>
-</nav>
+
+
+@if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+<x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
+    {{ __('API Tokens') }}
+</x-responsive-nav-link>
+@endif
+
+<!-- Authentication -->
+<form method="POST" action="{{ route('logout') }}" x-data>
+    @csrf
+
+    <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+        {{ __('Log Out') }}
+    </x-responsive-nav-link>
+</form>
+
+
+<a href="{{route('dashboard')}}">Home</a>

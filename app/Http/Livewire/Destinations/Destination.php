@@ -54,6 +54,7 @@ class Destination extends Component
         $this->resetField();
     }
 
+    
 
     public function edit($id_dest){
          $this-> id_dest=$id_dest;
@@ -72,15 +73,11 @@ class Destination extends Component
             ])->save();
             $this->resetField();
             session()->flash('message', 'Update success');
-
-
         }
         catch(\Exception $e){
             session()->flash('message', 'Update error');
             $this->resetField();
-
         }
-
     }
 
     public function destroy($id){
