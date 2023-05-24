@@ -63,6 +63,7 @@ class Client extends Component
                     'adresse' => $this->adresse_cl
                 ]
             );
+            $this->resetField();
             session()->flash('message', 'Creation effectuer');
         }
         catch(\Exception $e){
@@ -100,6 +101,8 @@ class Client extends Component
                     'adresse' => $this->adresse_cl
                 ]
             )->save();
+            $this->resetField();
+            $this->updateclient=true;
             session()->flash('message', 'Modification reussi');
 
         }

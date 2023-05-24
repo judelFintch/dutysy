@@ -1,5 +1,5 @@
 
-
+<div class="form-update" id="form-update">
 <div class="card">
     <label>Modification </label>
     <input type="hidden" wire:model="cl_id">
@@ -28,4 +28,5 @@
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button" wire:click.prevent="update()">Valider</button>
 
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button" wire:click="cancel()">Annuler</button>
+</div>
 </div>
