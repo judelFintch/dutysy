@@ -54,6 +54,7 @@
                         <button wire:click.prevent="reinit" class="btn btn-success">Nouveau dossier</button>
                     </div>
                 </form>
+                
 
     </div>
     <div class="col-lg-8">
