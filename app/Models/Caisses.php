@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Caisses extends Model
 {
     use HasFactory;
+    protected $fillable = [
+         "entree",
+         "amount",
+         "reference_id"
+    ];
 }

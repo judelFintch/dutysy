@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mouvements', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("dossier_id");
-            $table->string("type")->default("entree");
-            $table->string("libelle");
-            $table->float("montant");
-            $table->timestamps();
+        Schema::table('caisses', function (Blueprint $table) {
+            $table->float("amount")->default(0);
+            $table->boolean("entree")->default(0);
+            $table->unsignedBigInteger("reference_id")->nullable();
         });
     }
 
@@ -26,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mouvements');
+        Schema::table('table_caisses', function (Blueprint $table) {
+            //
+        });
     }
 };
