@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Dossiers extends Model
 {
@@ -29,6 +30,16 @@ class Dossiers extends Model
         return $this->hasMany(Mouvement::class, 'dossier_id', 'id');
     }
 
+    /**
+     * Get all of the comments for the Dossiers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function caisse(): HasOne
+    {
+        return $this->hasOne(Caisses::class, 'reference_id', 'id');
+    }
+
    /**
     * Get the client that owns the Dossiers
     *
@@ -36,7 +47,7 @@ class Dossiers extends Model
     */
    public function client(): BelongsTo
    {
-       return $this->belongsTo(Client::class);
+       return $this->belongsTo(Clients::class);
    }
 
    /**
@@ -46,6 +57,6 @@ class Dossiers extends Model
     */
    public function destination(): BelongsTo
    {
-       return $this->belongsTo(Destination::class);
+       return $this->belongsTo(Destinations::class);
    }
 }
