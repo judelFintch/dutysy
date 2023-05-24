@@ -1,9 +1,7 @@
 <x-app-layout>
     @include('partials.nav_left')
-
     <div class="page-wrapper">
         <div class="content container-fluid">
-
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
