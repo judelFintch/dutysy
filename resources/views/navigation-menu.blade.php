@@ -250,4 +250,3 @@
 </form>
 
 
-<a href="{{route('dashboard')}}">Home</a>
