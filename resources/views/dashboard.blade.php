@@ -3,134 +3,38 @@
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
+                       
+                        <li class="">
+                            <a href="leads"><i class="la la-user-ticket"></i> <span>Dossier</span></a>
+                        </li>
+                        <li class="">
+                            <a href="clients"><i class="la la-dollar"></i> <span>Caisses</span></a>
+                        </li>
+                        <li class="">
+                            <a href="clients"><i class="la la-user"></i> <span>Clients</span></a>
+                        </li>
+                       
+                       
+                        <li class="">
+                            <a href="clients"><i class="la la-users"></i> <span>Employés</span></a>
+                        </li>
+
+                      
+
                         <li class="menu-title">
-                            <span>Main</span>
+                            <span>Rapport</span>
                         </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a class="active" href="dashboard">Admin Dashboard</a></li>
-                                <li><a class="" href="employee_dashboard">Employee Dashboard</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-cube"></i> <span> Apps</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a class="" href="apps-chat">Chat</a></li>
-                                <li class="submenu">
-                                    <a href="#"><span> Calls</span> <span class="menu-arrow"></span></a>
-                                    <ul style="display: none;">
-                                        <li><a class="" href="voice_call">Voice Call</a></li>
-                                        <li><a class="" href="video_call">Video Call</a></li>
-                                        <li><a class="" href="outgoing_call">Outgoing Call</a></li>
-                                        <li><a class="" href="incoming_call">Incoming Call</a></li>
-                                    </ul>
-                                </li>
-                                <li><a class="" href="apps-calendar">Calendar</a></li>
-                                <li><a class="" href="contact">Contacts</a></li>
-                                <li><a class="" href="inbox">Email</a></li>
-                                <li><a class="" href="file_manager">File Manager</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-title">
-                            <span>Employees</span>
-                        </li>
-                        <li class="submenu">
-                            <a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a class="" href="employees">All Employees</a></li>
-                                <li><a class="" href="holidays">Holidays</a></li>
-                                <li><a class="" href="leaves">Leaves (Admin) <span
-                                            class="badge rounded-pill bg-primary float-end">1</span></a></li>
-                                <li><a class="" href="leaves_employee">Leaves (Employee)</a></li>
-                                <li><a class="" href="leaves_settings">Leave Settings</a></li>
-                                <li><a class="" href="attendance">Attendance (Admin)</a></li>
-                                <li><a class="" href="attendance_employee">Attendance (Employee)</a></li>
-                                <li><a class="" href="departments">Departments</a></li>
-                                <li><a class="" href="designations">Designations</a></li>
-                                <li><a class="" href="timesheet">Timesheet</a></li>
-                                <li><a class="" href="shift_scheduling">Shift & Schedule</a></li>
-                                <li><a class="" href="overtime">Overtime</a></li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a href="clients"><i class="la la-users"></i> <span>Clients</span></a>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-rocket"></i> <span> Projects</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a class="" href="projects">Projects</a></li>
-                                <li><a class="" href="tasks">Tasks</a></li>
-                                <li><a class="" href="task_board">Task Board</a></li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a href="leads"><i class="la la-user-secret"></i> <span>Leads</span></a>
-                        </li>
-                        <li class="">
-                            <a href="tickets"><i class="la la-ticket"></i> <span>Tickets</span></a>
-                        </li>
-                        <li class="menu-title">
-                            <span>HR</span>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-files-o"></i> <span> Sales </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a class="" href="estimates">Estimates</a></li>
-                                <li><a class="" href="invoices">Invoices</a></li>
-                                <li><a class="" href="payments">Payments</a></li>
-                                <li><a class="" href="expenses">Expenses</a></li>
-                                <li><a class="" href="provident_fund">Provident Fund</a></li>
-                                <li><a class="" href="taxes">Taxes</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-files-o"></i> <span> Accounting </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a class="" href="categories">Categories</a></li>
-                                <li><a class="" href="budgets">Budgets</a></li>
-                                <li><a class="" href="budget_expenses">Budget Expenses</a></li>
-                                <li><a class="" href="budget_revenues">Budget Revenues</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-money"></i> <span> Payroll </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a class="" href="salary"> Employee Salary </a></li>
-                                <li><a class="" href="salary_view"> Payslip </a></li>
-                                <li><a class="" href="payroll_item"> Payroll Items </a></li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a href="policies"><i class="la la-file-pdf-o"></i> <span>Policies</span></a>
-                        </li>
+                        
                         <li class="submenu">
                             <a href="#"><i class="la la-pie-chart"></i> <span> Reports </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li><a class="" href="expense_reports"> Expense Report </a></li>
                                 <li><a class="" href="invoice_reports"> Invoice Report </a></li>
-                                <li><a class="" href="payment_reports"> Payments Report </a></li>
-                                <li><a class="" href="project_reports"> Project Report </a></li>
-                                <li><a class="" href="task_reports"> Task Report </a></li>
-                                <li><a class="" href="user_reports"> User Report </a></li>
-                                <li><a class="" href="employee_reports"> Employee Report </a></li>
-                                <li><a class="" href="payslip_reports"> Payslip Report </a></li>
-                                <li><a class="" href="attendance_reports"> Attendance Report </a></li>
-                                <li><a class="" href="leave_reports"> Leave Report </a></li>
-                                <li><a class="" href="daily_reports"> Daily Report </a></li>
+                                
                             </ul>
                         </li>
-                        <li class="menu-title">
-                            <span>Performance</span>
-                        </li>
+                       
                         <li class="submenu">
                             <a href="#"><i class="la la-graduation-cap"></i> <span> Performance </span> <span
                                     class="menu-arrow"></span></a>
@@ -140,31 +44,8 @@
                                 <li><a class="" href="performance_appraisal"> Performance Appraisal </a></li>
                             </ul>
                         </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-crosshairs"></i> <span> Goals </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a class="" href="goal_tracking"> Goal List </a></li>
-                                <li><a class="" href="goal_type"> Goal Type </a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="la la-edit"></i> <span> Training </span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a class="" href="training"> Training List </a></li>
-                                <li><a class="" href="trainers"> Trainers</a></li>
-                                <li><a class="" href="training_type"> Training Type </a></li>
-                            </ul>
-                        </li>
-                        <li class=""><a href="promotions"><i class="la la-bullhorn"></i> <span>Promotion</span></a></li>
-                        <li class=""><a href="resignation"><i class="la la-external-link-square"></i>
-                                <span>Resignation</span></a></li>
-                        <li class=""><a href="termination"><i class="la la-times-circle"></i>
-                                <span>Termination</span></a></li>
-                        <li class="menu-title">
-                            <span>Administration</span>
-                        </li>
+                       
+                      
                         <li class="">
                             <a href="assets_list"><i class="la la-object-ungroup"></i> <span>Assets</span></a>
                         </li>
