@@ -11,7 +11,6 @@
     <div class="main-wrapper">
         <div class="account-content">
             <div class="container">
-
                 <div class="account-logo">
                     <a href="dashboard">
                         <img src="assets/img/new-castorms.jpg" alt="New Castorms"></a>
@@ -23,7 +22,6 @@
                         <form method="POST" action="{{ route('login') }}" class="needs-validation custom-form mt-4 pt-2"
                             novalidate action="dashboard">
                             @csrf
-
                             <div class="form-group">
                                 <label for="useremail" for="email" value="{{ __('Email') }}"
                                     class="form-label">Email</label>
