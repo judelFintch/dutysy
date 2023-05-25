@@ -9,8 +9,8 @@ class Caisses extends Model
 {
     use HasFactory;
     protected $fillable = [
-         "entree",
-         "amount",
-         "reference_id"
+         "name_caisse",
+         "montant",
+         "type_caisse"
     ];
 }

@@ -25,16 +25,13 @@
         <div class="form-group">
         <select wire:model="type_caisse" class="form-control @error('type_caisse') is-invalid @enderror">
             <option value="">Type caisse</option>
-            <option>Entree</option>
-            <option>Sortie</option>
+            <option>Fonctionnement</option>
+            <option>Divers</option>
+            <option>Depense Courante</option>
         </select>
        
         </div>
     </div>
-    
-
-
-    
 
     <div class="submit-section">
         <button type="button" wire:click.prevent="store()" class="btn btn-primary submit-btn">Save</button>

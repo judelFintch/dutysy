@@ -66,8 +66,12 @@
                     </div>
                 </div>
             </div>
-
-    
+            @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+            @endif
+           
             @if($creat)
               @include('livewire.caisses.creat')
             @endif

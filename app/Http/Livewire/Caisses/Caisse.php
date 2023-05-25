@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Caisse extends Component
 {
-    public $creat=true;
+    public $creat=false;
     public $caisse_name,$init_montant,$type_caisse;
     public function render()
     {
@@ -20,25 +20,29 @@ class Caisse extends Component
         'type_caisse' => 'required'
     ];
     public function showform(){
-        $this->creat=false;
-
-        try{
-
-            Caisses::creat([
-                ''
-
-            ]);
-
-        }
-
-        catch(\Exception $e){
-
-        }
-    }
+            }
 
 
     public function store(){
         $this->validate();
+        $this->creat=false;
+
+        try{
+
+            Caisses::create([
+                'name_caisse' => $this->caisse_name,
+                'montant' => $this->init_montant,
+                'type_caisse' => $this->type_caisse
+            ]);
+            session()->flash('message', 'Creation reussi');
+
+        }
+
+        catch(\Exception $e){
+            dd($e);
+            session()->flash('message', 'Creation echouee');
+        }
+
     }
 
 }
