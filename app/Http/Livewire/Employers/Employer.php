@@ -9,7 +9,7 @@ use Livewire\Component;
 class Employer extends Component
 {
     public $employees,$idcount,$listfonction,$id_employe;
-    public $updateemployees=false;
+    public $updateemployees=false,$creat=false;
     public $first_name,$second_name,$tel,$email,$sexe,$birth_date,$fonction_id= 1;
     public function render()
     {   
@@ -44,9 +44,14 @@ class Employer extends Component
         $this->updateemployees=false;
     }
 
+    public function showform(){
+        $this->creat =true;
+
+    }
+
 
     public function store(){
-        //$this ->validate();
+        $this ->validate();
         try{
             Employeers::create([
                 'first_name'=> $this->first_name,
@@ -61,7 +66,7 @@ class Employer extends Component
 
         }
         catch(\Exception $e){
-            dd( $this->fonction_id);
+            dd( $this->$e);
             session()->flash('message', 'Erreur lors de la creation');
         }
 
@@ -108,7 +113,6 @@ class Employer extends Component
     public function delete(){
 
     }
-
-
-    
+ 
 }
+

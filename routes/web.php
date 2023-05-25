@@ -7,6 +7,8 @@ use App\Http\Livewire\Caisses\Caisse;
 use App\Http\Livewire\Employers\Employer;
 use App\Http\Livewire\Secteurs\Secteur;
 use App\Http\Livewire\Dossiers\Dossier;
+use App\Http\Livewire\Depenses\Depense;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,7 @@ Route::get('/', function () { return view('auth.login');});
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
     Route::get('/destination', Destination::class)->name('destination.index');
+    Route::get('/depense', Depense::class)->name('depense.index');
     Route::get('/client', Client::class)->name('client.index');
     Route::get('/secteur', Secteur::class)->name('secteur.index');
     Route::get('/employer', Employer::class)->name('employer.index');

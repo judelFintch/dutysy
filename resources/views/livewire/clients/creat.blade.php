@@ -1,4 +1,5 @@
-<div class="row">
+<div id="form-client" >
+<div class="row" >
     <div class="col-sm-6">
         <div class="form-group">
 
@@ -10,9 +11,10 @@
     </div>
     <div class="col-sm-6">
 
-        <input class="form-control" type="text" placeholder="Tapez le nom d"
-            class="@error('name_cl') is-invalid @enderror" type="text" wire:model="name_cl">
-        @error('name_cl') <span> {{ $message }}</span> @enderror
+        <input class="form-control" placeholder="Tapez idnat" class="@error('idnat_cl') is-invalid @enderror"
+            type="text" wire:model="idnat_cl">
+        @error('idnat_cl') <span class=" alert-danger"> {{ $message }}</span> @enderror
+
     </div>
 </div>
 
@@ -62,14 +64,11 @@
 
         </div>
     </div>
-    <div class="col-sm-6">
-
-        <input class="form-control" placeholder="Tapez idnat" class="@error('idnat_cl') is-invalid @enderror"
-            type="text" wire:model="idnat_cl">
-        @error('idnat_cl') <span class=" alert-danger"> {{ $message }}</span> @enderror
-
-    </div>
+    
 
     <div class="submit-section">
         <button type="button" wire:click.prevent="store()" class="btn btn-primary submit-btn">Save</button>
     </div>
+</div>
+
+</div>

@@ -10,7 +10,7 @@ class Client extends Component
 {
     public $updateclient = false;
     public $cl_id,$name_cl,$type_cl,$tel_cl,$email_cl,$rccm_cl,$idnat_cl,$adresse_cl;
-    public $idcount,$test;
+    public $idcount,$test,$creatclient=false;
     public $clients;
      
     protected $rules =[
@@ -27,6 +27,11 @@ class Client extends Component
         'deleteCli' => 'destroy'
 
     ];
+
+    public function showform(){
+
+        $this->creatclient=true;
+    }
 
     public function resetField(){
         $this->name_cl = '';
@@ -64,6 +69,7 @@ class Client extends Component
                 ]
             );
             $this->resetField();
+            $this->creatclient=false;
             session()->flash('message', 'Creation effectuer');
         }
         catch(\Exception $e){
