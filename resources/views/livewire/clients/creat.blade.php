@@ -10,6 +10,7 @@
         </div>
     </div>
     <div class="col-sm-6">
+        
 
         <input class="form-control" placeholder="Tapez idnat" class="@error('idnat_cl') is-invalid @enderror"
             type="text" wire:model="idnat_cl">

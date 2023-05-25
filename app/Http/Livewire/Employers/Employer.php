@@ -25,7 +25,6 @@ class Employer extends Component
         $this->tel ='';
         $this->email ='';
         $this->birth_date ='';
-
     }
 
     protected $rules =
@@ -36,7 +35,6 @@ class Employer extends Component
         'email' => 'required',
         'sexe' => 'required',
         'birth_date' => 'required',
-
     ];
 
     public function cancel(){

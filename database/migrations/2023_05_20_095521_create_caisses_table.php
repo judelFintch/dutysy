@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('caisses', function (Blueprint $table) {
             $table->id();
+            $table->string('name_caisse', 60)->unique();
+            $table->float('montant');
+            $table->string('type_caisse', 60)->unique();
             $table->timestamps();
         });
     }
