@@ -1,8 +1,6 @@
-<div class="container-fluid">
-    <div class="pt-3 pb-3 px-2  ">
-   <div class="row">
-    <div class="col-lg-4">
-        <div class="text-center h3 fw-bold"> Crée un dossier</div>
+<div class="row" >
+    <div class="col-sm-8">
+        <div class="form-group">
                 <form wire:submit.prevent="{{ $update_dossier ? 'update' : 'store' }}" method="POST" class="bg-white shadow rounded px-3 pt-2 pb-2">
                     <div class="form-group">
                         <label for="montant_init">Plaque</label>
