@@ -1,28 +1,37 @@
 @extends('layouts.guest')
+@section('content')
+<body class="account-page">
+    <div class="main-wrapper">
+        <div class="account-content">
+            <div class="container">
+                <div class="account-logo">
+                    <a href="dashboard">
+                        <img src="assets/img/new-castorms.jpg" alt="New Castorms"></a>
+                </div>
 
-        <x-validation-errors class="mb-4" />
-
+                <div class="account-box">
+                <div class="account-wrapper">
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <div class="form-group">
+                <x-label   class="form-label" for="name" value="{{ __('Name') }}" />
+                <x-input  class="form-control" id="name" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
                 <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                <x-input  class="form-control" id="email" type="email" name="email" :value="old('email')" required autocomplete="username" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                <x-input id="password" class="form-control" id="email" type="password" name="password" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <x-input id="password_confirmation" class="form-control" id="email" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
@@ -43,13 +52,11 @@
             @endif
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+            
 
-                <x-button class="ml-4">
+                <x-button class="btn btn-primary">
                     {{ __('Register') }}
                 </x-button>
             </div>
         </form>
-  
+  @endsection()
