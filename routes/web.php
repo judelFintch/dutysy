@@ -23,7 +23,7 @@ use App\Http\Livewire\Depenses\Depense;
 Route::get('/', function () { return view('auth.login');});
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
+    Route::get('/dashboard', Dossier::class)->name('dashboard');
     Route::get('/destination', Destination::class)->name('destination.index');
     Route::get('/depense', Depense::class)->name('depense.index');
     Route::get('/client', Client::class)->name('client.index');

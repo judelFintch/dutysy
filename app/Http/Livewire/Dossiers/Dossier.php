@@ -10,9 +10,9 @@ use App\Models\Caisses;
 
 class Dossier extends Component
 {
-    public $client, $destination, $type_marchandise, $chauffeur, $plaque, $provenance, $montant_init;
+    public $client, $destination,$creat=false,$type_marchandise, $chauffeur, $plaque, $provenance, $montant_init;
     public $selected_id, $search;
-    public $update_dossier = false;
+    public $update_dossier = false,$idcount=0,$list=true;
 
     protected $updatesQueryString = ['search'];
     protected $rules = [
@@ -24,6 +24,11 @@ class Dossier extends Component
         'provenance' => 'required',
         'montant_init' => 'required'
     ];
+
+    public function showform(){
+        $this->creat =true;
+        $this->list =false;
+    }
 
     public function render()
     {

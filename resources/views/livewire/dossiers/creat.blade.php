@@ -54,53 +54,5 @@
                         <button wire:click.prevent="reinit" class="btn btn-success">Nouveau dossier</button>
                     </div>
                 </form>
-                
-
     </div>
-    <div class="col-lg-8">
-        <div class="pt-3 pb-2 px-3" style="overflow-x: scroll">
-            <table class="table table-bordered " >
-                <thead>
-                  <tr>
-                    <th>Client</th>
-                    <th>plaque</th>
-                    <th>destination</th>
-                    <th>type marchandise</th>
-                    <th>chauffeur</th>
-                    <th>provenance</th>
-                    <th>montant initiale</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach ($dossiers as $doss)
-                    <tr>
-                        <td>{{ $doss->client->name??"" }}</td>
-                        <td>{{ $doss->plaque }}</td>
-                        <td>{{ $doss->destination->destination }}</td>
-                        <td>{{ $doss->type_marchandise }}</td>
-                        <td>{{ $doss->chauffeur }}</td>
-                        <td>{{ $doss->provenance }}</td>
-                        <td>{{ $doss->montant_init }}</td>
-                        <td>
-                            <button wire:click.prevent="destroy({{ $doss->id }})" class="btn btn-danger btn-sm">Supprimer</button>
-                        </td>
-                        <td>
-                            <button wire:click.prevent="edit({{ $doss->id }})" class="btn btn-primary btn-sm">Modifier</button>
-                        </td>
-                      </tr>
-
-                    @endforeach
-
-
-                </tbody>
-              </table>
-
-
-            </div>
-
-
-        </div>
-
-   </div>
-    </div>
-</div>
+   

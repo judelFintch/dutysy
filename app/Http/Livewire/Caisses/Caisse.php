@@ -8,9 +8,10 @@ use Livewire\Component;
 class Caisse extends Component
 {
     public $creat=false;
-    public $caisse_name,$init_montant,$type_caisse;
+    public $caisse_name,$init_montant,$type_caisse,$details_caisse;
     public function render()
     {
+        $this->details_caisse =Caisses::all();
         return view('livewire.caisses.caisse');
     }
 
@@ -20,7 +21,8 @@ class Caisse extends Component
         'type_caisse' => 'required'
     ];
     public function showform(){
-            }
+        $this->creat=true;
+    }
 
 
     public function store(){
