@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="{{asset('assets/plugins/summernote/dist/summernote-bs4.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/dataTables.bootstrap4.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
         <!-- Styles -->
         @livewireStyles
     </head>
@@ -70,5 +71,6 @@
         <script src="{{asset('assets/js/dataTables.bootstrap4.min.js')}}"></script>
         <script src="{{asset('assets/js/validation.init.js')}}"></script>
         <script src="{{asset('assets/js/app.js')}}"></script>
+        <script src="{{asset('assets/js/main.js')}}"></script>
     </body>
 </html>

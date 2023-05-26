@@ -221,7 +221,7 @@
                         <span>Admin</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile">My Profile</a>
+                        <a class="dropdown-item" href="{{ route('profile.show') }}">My Profile</a>
                         <a class="dropdown-item" href="settings">Settings</a>
                         <form method="POST" action="{{ route('logout') }}" x-data>
                          @csrf

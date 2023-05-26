@@ -3,6 +3,8 @@
         {{ __('Browser Sessions') }}
     </x-slot>
 
+    <h1>Bonjour judel</h1>
+
     <x-slot name="description">
         {{ __('Manage and log out your active sessions on other browsers and devices.') }}
     </x-slot>
