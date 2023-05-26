@@ -1,7 +1,7 @@
 <div class="header">
             <div class="header-left">
-                <a href="dashboard" class="logo">
-                    <img src="assets/img/new-castorms.jpg" width="40" height="40" alt="">
+                <a href="{{route('dashboard')}}" class="logo">
+                    <img src="{{asset('assets/img/new-castorms.jpg')}}" width="40" height="40" alt="">
                 </a>
             </div>
 
