@@ -24,7 +24,7 @@
             </div>
             @endif
             @if($update_dossier)
-                 @include('livewire.clients.update')
+                 @include('livewire.dossiers.update')
 
             @endif
             @if($creat)
@@ -32,7 +32,7 @@
             @endif
 
             @if($list)
-                 @include('livewire.clients.list')
+                 @include('livewire.dossiers.list')
             @endif
         </div>
     </div>
