@@ -8,6 +8,7 @@ use App\Http\Livewire\Employers\Employer;
 use App\Http\Livewire\Secteurs\Secteur;
 use App\Http\Livewire\Dossiers\Dossier;
 use App\Http\Livewire\Depenses\Depense;
+use App\Http\Livewire\DetailsCaisse\Detailscaisse;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified'])
     Route::get('/employer', Employer::class)->name('employer.index');
     Route::get('/caisse', Caisse::class)->name('caisse.index');
     Route::get('/dossier', Dossier::class)->name('dossier.index');
+    Route::get('/details_caisse/{id}',DetailsCaisse::class)->name('detailcaisse.index');
 
 });
 

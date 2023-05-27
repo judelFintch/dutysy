@@ -11,10 +11,7 @@
                             <a href="{{route('caisse.index')}}"><i class="la la-dollar"></i> <span>Caisses</span></a>
                         </li>
 
-                        <li class="">
-                            <a href="{{route('depense.index')}}"><i class="la la-edit"></i> <span>Depenses</span></a>
-                        </li>
-
+    
                         <li class="">
                             <a href="{{route('client.index')}}"><i class="la la-user"></i> <span>Clients</span></a>
                         </li>
