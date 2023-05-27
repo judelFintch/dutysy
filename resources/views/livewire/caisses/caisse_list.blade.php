@@ -9,7 +9,6 @@
                         <h3>{{number_format($res->montant)}}</h3>
                         <span>{{$res->name_caisse}}</span>
                     </div>
-
                 </div>
             </div>
         </a>

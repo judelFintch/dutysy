@@ -6,10 +6,10 @@
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">Caisse - {{$caisse->name_caisse}}   </h3>
+                            <h3 class="page-title">Caisse - {{$caisse->name_caisse}} </h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Solde  $ {{ number_format($caisse->montant)}} </li>
+                                <li class="breadcrumb-item active">Solde $ {{ number_format($caisse->montant)}} </li>
                             </ul>
                         </div>
                         <div class="col-auto float-end ms-auto">
@@ -18,6 +18,9 @@
                         </div>
                     </div>
                 </div>
+
+                @include('livewire.detailscaisse.creat')
+
             </div>
         </div>
     </x-app-layout>
