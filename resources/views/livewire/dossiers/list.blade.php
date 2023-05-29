@@ -35,7 +35,7 @@
                         <td>{{ $doss->provenance }}</td>
                         <td>{{ $doss->destination->destination }}</td>
                         <td>{{ $doss->montant_init }}</td>
-                        <td><a class="btn btn-sm btn-primary" href="salary_view">Detail</a></td>
+                        <td><a class="btn btn-sm btn-primary" href="{{route('details.mvt',['id'=>$doss->id])}}"">Detail</a></td>
                         <td class="text-end">
                             <div class="dropdown dropdown-action">
                                 <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"

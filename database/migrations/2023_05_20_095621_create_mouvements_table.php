@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string("type")->default("entree");
             $table->string("libelle");
             $table->float("montant");
+            $table->string("motif");
+            $table->string("beneficiaire");
+            $table->string("observation");
+            $table->unsignedBigInteger("caisse_id");
             $table->timestamps();
         });
     }

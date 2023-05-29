@@ -1,5 +1,5 @@
 <div>
-    <x-app-layout>
+<x-nav_left />
         <div class="page-wrapper">
             @include('partials.nav_left')
             <div class="content container-fluid">
@@ -18,10 +18,13 @@
                         </div>
                     </div>
                 </div>
-
-                @include('livewire.detailscaisse.creat')
-
+                @if (session()->has('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                    </div>
+                @endif
+                    @include('livewire.detailscaisse.creat')
             </div>
         </div>
-    </x-app-layout>
+   
     <div>

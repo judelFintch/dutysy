@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="{{asset('assets/plugins/summernote/dist/summernote-bs4.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/dataTables.bootstrap4.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+       
         <!-- Styles -->
         @livewireStyles
     </head>

@@ -33,7 +33,7 @@
                         <td>{{$res->email}}</td>
 
                         <td>{{$res->rccm}}</td>
-                        <td><a class="btn btn-sm btn-primary" href="salary_view">Generate Slip</a></td>
+                        <td><a class="btn btn-sm btn-primary" href="salary_view">Fiche</a></td>
                         <td class="text-end">
                             <div class="dropdown dropdown-action">
                                 <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"

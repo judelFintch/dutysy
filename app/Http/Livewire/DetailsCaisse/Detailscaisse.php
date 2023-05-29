@@ -7,7 +7,7 @@ use App\Models\Caisses as Caisse;
 
 class Detailscaisse extends Component
 {
-    public $id_caisse,$montant,$motif,$beneficiaire,$observation;
+    public $id_caisse,$montant,$motif,$beneficiaire,$observation,$type;
 
     public function mount($id)
     {
@@ -19,7 +19,7 @@ class Detailscaisse extends Component
         'observation' =>'required',
         'montant' =>'required',
         'beneficiaire' =>'required',
-         'motif' =>'required'
+        'motif' =>'required'
 
     ];
     public function render()
@@ -31,6 +31,15 @@ class Detailscaisse extends Component
 
     public function store(){
         $this->validate();
+        try {
+            session()->flash('message', 'error');
+
+        }
+        catch(\Exception $e)
+        {
+            session()->flash('message', 'error');
+        }
+
 
     }
 
