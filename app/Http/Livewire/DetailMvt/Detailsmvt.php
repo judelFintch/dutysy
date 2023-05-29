@@ -10,6 +10,7 @@ use App\Models\Caisses as Caisse;
 class Detailsmvt extends Component
 {
 
+
     public $id_dossier,$idcount=0, $creat=false,$list=true;
     public $type,$motif,$observation,$beneficiaire,$montant;
 
@@ -40,10 +41,13 @@ class Detailsmvt extends Component
     }
     public function render()
     {
+        $type ="entree";
         $dossier = Dossiers::find($this->id_dossier);
+        $tt_int = Mouvements::where('type', 'Entree')->where('dossier_id', $dossier->id)->sum('montant');
+        $tt_out = Mouvements::where('type', 'Sortie')->where('dossier_id', $dossier->id)->sum('montant');
         $mouvements = Mouvements::
         where('dossier_id', 'like',$dossier->id)->get();
-        return view('livewire.detailmvt.detailsmvt', compact('dossier','mouvements'));
+        return view('livewire.detailmvt.detailsmvt', compact('dossier','mouvements','tt_int','tt_out'));
     }
 
 
@@ -67,6 +71,7 @@ class Detailsmvt extends Component
 
             session()->flash('message','Operation reussi');
             $this->creat =false;
+            $this->list =true;
             $this->resetField();
 
         }

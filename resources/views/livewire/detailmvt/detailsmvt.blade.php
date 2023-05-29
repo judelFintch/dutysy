@@ -8,7 +8,7 @@
                         <h3 class="page-title">Dessier</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
-                            <li class="breadcrumb-item active">{{$dossier->plaque}}</li>
+                            <li class="breadcrumb-item active">{{$dossier->plaque}} / {{$dossier->client->name}}</li>
                         </ul>
                     </div>
                     <div class="col-auto float-end ms-auto">
@@ -24,28 +24,23 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                     <div class="stats-info">
-                        <h6>Total </h6>
-                        <h4>12 <span>this month</span></h4>
+                        <h6>Entrées </h6>
+                        <h4>{{number_format($tt_int)}} <span>$</span></h4>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                     <div class="stats-info">
-                        <h6 class="text-success">Overtime Hours</h6>
-                        <h4>118 <span>this month</span></h4>
+                        <h6 class="text-success">Sortie</h6>
+                        <h4>{{number_format($tt_out)}} <span>$</span></h4>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                     <div class="stats-info">
-                        <h6>Pending Request</h6>
-                        <h4>23</h4>
+                        <h6>Solde</h6>
+                        <h4>{{number_format($tt_int-$tt_out)}} <span>$</span></h4>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                    <div class="stats-info">
-                        <h6>Rejected</h6>
-                        <h4>5</h4>
-                    </div>
-                </div>
+               
             </div>
             @if (session()->has('message'))
                     <div class="alert alert-success">

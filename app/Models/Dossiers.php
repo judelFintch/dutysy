@@ -13,6 +13,7 @@ class Dossiers extends Model
     use HasFactory;
     protected $fillable = [
             "client_id",
+            "dossier_id",
             "destination_id",
             "type_marchandise",
             "chauffeur",
