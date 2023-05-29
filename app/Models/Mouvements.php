@@ -13,16 +13,26 @@ class Mouvements extends Model
         "dossier_id",
         "type",
         "libelle",
-        "montant"
+        "montant",
+        "motif",
+        "beneficiaire",
+        "observation",
+        'caisse_id'
     ];
 
     /**
      * Get the dossier that owns the Mouvements
-     *
+     *observation
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function dossier(): BelongsTo
     {
         return $this->belongsTo(Dossiers::class);
+    }
+
+
+    public function Mouvement(): BelongsTo
+    {
+        return $this->belongsTo(Mouvements::class);
     }
 }

@@ -59,4 +59,12 @@ class Dossiers extends Model
    {
        return $this->belongsTo(Destinations::class);
    }
+
+
+   public function mouvements(): HasMany
+    {
+        return $this->hasMany(Mouvements::class);
+
+    }
+
 }
