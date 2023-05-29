@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("client_id");
             $table->unsignedBigInteger("destination_id");
-
             $table->string("type_marchandise");
             $table->string("chauffeur");
             $table->string("plaque");
             $table->string("provenance");
+            $table->boolean("status");
             $table->float("montant_init")->default(0);
             $table->timestamps();
         });

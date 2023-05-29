@@ -63,7 +63,7 @@
 
         <div class="form-group pt-3 d-flex justify-content-center align-items-center">
             <button type="submit" class="btn btn-primary">{{ $update_dossier ? 'Modifier' : 'Enregistrer' }}</button>
-            <button wire:click.prevent="reinit" class="btn btn-success">Nouveau dossier</button>
+           
         </div>
 </form>
 </div>

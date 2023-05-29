@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email', 60);
             $table->string('rccm', 20);
             $table->string('idnatat', 20);
-            $table->string('adresse', 80);
+            $table->string('adresse');
             $table->timestamps();
         });
     }

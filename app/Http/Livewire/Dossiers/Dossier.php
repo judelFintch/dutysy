@@ -64,8 +64,8 @@ public function reinit(){
 
 public function store()
 {
-    //$validatedData =
-//$this->validate();
+//$validatedData =
+$this->validate();
 
 try{
 $dossier =  Dossiers::create([
@@ -93,7 +93,7 @@ $dossier =  Dossiers::create([
         Mouvements::create(
         [
             'dossier_id' => $dossier->id,
-            'type' => 'Entree',
+            'type' => 'int',
             'libelle' => 'Ouverture Dossier',
             'montant' => $this->montant_init,
             'motif' => 'Ouverture Dossier',

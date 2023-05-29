@@ -20,7 +20,6 @@ class Detailscaisse extends Component
         'montant' =>'required',
         'beneficiaire' =>'required',
         'motif' =>'required'
-
     ];
     public function render()
     {

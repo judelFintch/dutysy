@@ -43,8 +43,8 @@ class Detailsmvt extends Component
     {
         $type ="entree";
         $dossier = Dossiers::find($this->id_dossier);
-        $tt_int = Mouvements::where('type', 'Entree')->where('dossier_id', $dossier->id)->sum('montant');
-        $tt_out = Mouvements::where('type', 'Sortie')->where('dossier_id', $dossier->id)->sum('montant');
+        $tt_int = Mouvements::where('type', 'int')->where('dossier_id', $dossier->id)->sum('montant');
+        $tt_out = Mouvements::where('type', 'out')->where('dossier_id', $dossier->id)->sum('montant');
         $mouvements = Mouvements::
         where('dossier_id', 'like',$dossier->id)->get();
         return view('livewire.detailmvt.detailsmvt', compact('dossier','mouvements','tt_int','tt_out'));
@@ -56,7 +56,7 @@ class Detailsmvt extends Component
         try{
             $seacrh ="Dossier";
             $caisse = Caisse::where('name_caisse', 'like', $seacrh)->first();
-            Mouvements::create(
+           $mouvement =Mouvements::create(
                 [
                     'dossier_id' =>$this->id_dossier,
                     'montant' =>$this->montant,
@@ -69,14 +69,26 @@ class Detailsmvt extends Component
                 ]
             );
 
-            session()->flash('message','Operation reussi');
-            $this->creat =false;
-            $this->list =true;
-            $this->resetField();
+            if($mouvement){
+                    $old_mt = $caisse->montant;
+                    if($this->type =='int'){
+                        $new_mt = $this->montant+$old_mt;
+                    }
+                    if($this->type == 'out'){
+                        $new_mt = $old_mt-$this->montant;
+                    }
+
+                    $caisse->montant =$new_mt;
+                    $caisse->save();
+
+                session()->flash('message','Operation reussi');
+                    $this->creat =false;
+                    $this->list =true;
+                    $this->resetField();
+                    }
 
         }
         catch(\Exception $e) {
-
             session()->flash('message',dd($e));
         }
 

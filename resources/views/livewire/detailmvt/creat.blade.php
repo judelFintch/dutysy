@@ -10,8 +10,8 @@
         <div class="col-sm-6">
             <select wire:model="type" class="form-control @error('motif') is-invalid @enderror">
                 <option value="">Operation</option>
-                <option>Entree</option>
-                <option>Sortie</option>
+                <option value="int">Entree</option>
+                <option value="out">Sortie</option>
             </select>
         </div>
     </div>

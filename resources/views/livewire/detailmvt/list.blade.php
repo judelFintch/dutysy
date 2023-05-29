@@ -8,8 +8,8 @@
                         <th>Client</th>
                         <th>Type</th>
                         <th>Plaque</th>
-                        <th>Provenance</th>
-                       
+
+
                         <th>Montant</th>
                         <th>Motif</th>
                         <th class="text-end">Beneficiaire</th>
@@ -18,6 +18,11 @@
                 <tbody>
                     @if(count($mouvements)>0)
                     @foreach ($mouvements as $doss)
+                    @if($doss->type == 'Entree')
+                    <?php $tag = '+'?>
+                    @else
+                    <?php $tag = '-'?>
+                    @endif
                     <tr>
                         <td>{{$idcount+=1}}</td>
                         <td>
@@ -26,15 +31,17 @@
                             </h2>
                         </td>
                         <td>{{ $doss->type }}</td>
-                        <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                data-cfemail="dbb7bea8b7bea2bca9baaebea99bbea3bab6abb7bef5b8b4b6">{{ $doss->plaque }}</a>
+                        <td>{{ $doss->dossier->plaque }}
                         </td>
-                        <td>{{ $doss->dossier->provenance }}</td>
-                       
-                        <td>{{ number_format($doss->montant) }} $</td>
+
+
+                        <td>
+
+                            {{$tag}} {{ number_format($doss->montant) }} $
+                        </td>
                         <td>{{ $doss->motif }}</td>
                         <td>{{ $doss->beneficiaire }}</td>
-                        
+
                     </tr>
                     @endforeach
                     @else
