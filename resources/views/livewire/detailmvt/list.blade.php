@@ -18,7 +18,7 @@
                 <tbody>
                     @if(count($mouvements)>0)
                     @foreach ($mouvements as $doss)
-                    @if($doss->type == 'Entree')
+                    @if($doss->type == 'int')
                     <?php $tag = '+'?>
                     @else
                     <?php $tag = '-'?>

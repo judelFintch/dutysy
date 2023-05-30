@@ -5,12 +5,10 @@
                 <thead>
                     <tr>
                         <th>#id</th>
-                        <th>Client</th>
-                        <th>Type</th>
+                        <th>Date</th>
                         <th>Plaque</th>
-                        <th>Provenance</th>
-                        <th>Destination</th>
                         <th>Montant</th>
+                        <th>Detail</th>
                         <th>Detail</th>
                         <th class="text-end">Action</th>
                     </tr>
@@ -21,18 +19,12 @@
                     @foreach ($dossiers as $doss)
                     <tr>
                         <td>{{$idcount+=1}}</td>
-                        <td>
-                            <h2 class="table-avatar">
-                                <a href="profile" class="avatar"><img src="assets/img/profiles/avatar-01.jpg"
-                                        alt=""></a>
-                                <a href="profile">{{ $doss->client->name??""}}<span></span></a>
-                            </h2>
-                        </td>
-                        <td>{{ $doss->type_marchandise }}</td>
+                       
+                        <td>{{ $doss->created_at }}</td>
                         <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
                                 data-cfemail="dbb7bea8b7bea2bca9baaebea99bbea3bab6abb7bef5b8b4b6">{{ $doss->plaque }}</a>
                         </td>
-                        <td>{{ $doss->provenance }}</td>
+                       
                         <td>{{ $doss->destination->destination }}</td>
                         <td>{{ $doss->montant_init }}</td>
                         <td><a class="btn btn-sm btn-primary" href="{{route('details.mvt',['id'=>$doss->id])}}"">Detail</a></td>

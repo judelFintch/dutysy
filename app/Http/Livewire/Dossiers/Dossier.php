@@ -106,7 +106,7 @@ $dossier =  Dossiers::create([
         session()->flash('message', 'operation reussi');
         $this->resetInput();
         $this->creat=false;
-        $this->creat=true;
+        $this->list=true;
     
 }
 catch(\Exception $e) {
