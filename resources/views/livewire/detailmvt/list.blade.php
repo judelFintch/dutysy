@@ -6,20 +6,18 @@
                     <tr>
                         <th>#id</th>
                         <th>Client</th>
-                        <th>Type</th>
                         <th>Plaque</th>
-
-
                         <th>Montant</th>
                         <th>Motif</th>
-                        <th class="text-end">Beneficiaire</th>
+                        <th>observation</th>
+                        <th class="text-end">bénéficiaire</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if(count($mouvements)>0)
                     @foreach ($mouvements as $doss)
                     @if($doss->type == 'int')
-                    <?php $tag = '+'?>
+                    <?php $tag = '<span>+</span>'?>
                     @else
                     <?php $tag = '-'?>
                     @endif
@@ -30,16 +28,22 @@
                                 <a href="profile">{{ $doss->dossier->client->name}}<span></span></a>
                             </h2>
                         </td>
-                        <td>{{ $doss->type }}</td>
+
                         <td>{{ $doss->dossier->plaque }}
                         </td>
 
 
                         <td>
 
-                            {{$tag}} {{ number_format($doss->montant) }} $
+                            @if($doss->type=='int')
+                            <span class="badge bg-inverse-success"> +{{ number_format($doss->montant) }} $</span>
+                            @else
+                            <span class="badge bg-inverse-danger"> - {{ number_format($doss->montant) }} $</span>
+                            @endif
+
                         </td>
                         <td>{{ $doss->motif }}</td>
+                        <td>{{ $doss->observation }}</td>
                         <td>{{ $doss->beneficiaire }}</td>
 
                     </tr>

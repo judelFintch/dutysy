@@ -10,8 +10,7 @@ use App\Http\Livewire\Dossiers\Dossier;
 use App\Http\Livewire\Depenses\Depense;
 use App\Http\Livewire\DetailsCaisse\Detailscaisse;
 use App\Http\Livewire\DetailMvt\Detailsmvt;
-
-
+use App\Http\Livewire\Printdetail\Printdetail;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +36,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified'])
     Route::get('/dossier', Dossier::class)->name('dossier.index');
     Route::get('/details_caisse/{id}',DetailsCaisse::class)->name('detailcaisse.index');
     Route::get('/details_mvt/{id}',Detailsmvt::class)->name('details.mvt');
+    Route::get('/details_print/{id}',Printdetail::class)->name('print.details');
 
 });
 
@@ -44,6 +44,5 @@ Route::get('logout', function ()
 {
     auth()->logout();
     Session()->flush();
-
     return Redirect::to('/');
 })->name('logout');

@@ -5,7 +5,7 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">Dessier</h3>
+                        <h3 class="page-title">Dossier</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item active">{{$dossier->plaque}} / {{$dossier->client->name}}</li>
@@ -14,12 +14,14 @@
                     <div class="col-auto float-end ms-auto">
                         <a href="#" wire:click="showform()" class="btn add-btn" id="add_client"><i
                                 class="fa fa-plus"></i>Operation</a>
+                    </div> 
+
+                    <div class="col-auto float-end ms-auto">
+                        <a href="{{route('print.details',['id'=>$id_dossier])}}"  class="btn add-btn" id="add_client"><i
+                                class="fa fa-print"></i>Imprimer</a>
                     </div>
                 </div>
             </div>
-
-
-
 
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
