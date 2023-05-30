@@ -45,8 +45,6 @@
             </div>
         </li>
 
-
-    
         <li class="nav-item dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                 <i class="fa fa-comment-o"></i> <span class="badge rounded-pill">8</span>
@@ -58,9 +56,6 @@
                 </div>
                 <div class="noti-content">
                     <ul class="notification-list">
-
-
-
                     </ul>
                 </div>
                 <div class="topnav-dropdown-footer">

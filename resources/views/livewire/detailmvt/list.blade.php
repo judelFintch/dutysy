@@ -5,12 +5,13 @@
                 <thead>
                     <tr>
                         <th>#id</th>
-                        <th>Client</th>
-                        <th>Plaque</th>
+                      
+                        <th>Date</th>
                         <th>Montant</th>
                         <th>Motif</th>
                         <th>observation</th>
                         <th class="text-end">bénéficiaire</th>
+                        <th class="text-end">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,13 +24,9 @@
                     @endif
                     <tr>
                         <td>{{$idcount+=1}}</td>
-                        <td>
-                            <h2 class="table-avatar">
-                                <a href="profile">{{ $doss->dossier->client->name}}<span></span></a>
-                            </h2>
-                        </td>
+                        
 
-                        <td>{{ $doss->dossier->plaque }}
+                        <td>{{ $doss->dossier->created_at }}
                         </td>
 
 
@@ -45,6 +42,19 @@
                         <td>{{ $doss->motif }}</td>
                         <td>{{ $doss->observation }}</td>
                         <td>{{ $doss->beneficiaire }}</td>
+                        <td class="text-end">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
+                                    aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a wire:click.prevent="edit({{ $doss->id }})" class="dropdown-item" href="#"
+                                        data-bs-toggle="modal" data-bs-target="#edit_salary"><i
+                                            class="fa fa-pencil m-r-5"></i>
+                                        Transfer</a>
+                                    
+                                </div>
+                            </div>
+                        </td>
 
                     </tr>
                     @endforeach
