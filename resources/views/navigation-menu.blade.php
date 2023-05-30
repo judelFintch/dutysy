@@ -35,13 +35,9 @@
 
 
         <li class="nav-item dropdown has-arrow flag-nav">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
-                <img src="{{asset('assets/img/flags/us.png')}}" alt="" height="20"> <span>English</span>
-            </a>
+           
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="{{asset('assets/img/flags/us.png')}}" alt="" height="16"> English
-                </a>
+               
                 <a href="javascript:void(0);" class="dropdown-item">
                     <img src="{{asset('assets/img/flags/fr.png')}}" alt="" height="16"> French
                 </a>
@@ -50,23 +46,7 @@
         </li>
 
 
-        <li class="nav-item dropdown">
-            <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                <i class="fa fa-bell-o"></i> <span class="badge rounded-pill">3</span>
-            </a>
-            <div class="dropdown-menu notifications">
-                <div class="topnav-dropdown-header">
-                    <span class="notification-title">Notifications</span>
-                    <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-                </div>
-
-                <div class="topnav-dropdown-footer">
-                    <a href="activities">View all Notifications</a>
-                </div>
-            </div>
-        </li>
-
-
+    
         <li class="nav-item dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                 <i class="fa fa-comment-o"></i> <span class="badge rounded-pill">8</span>

@@ -19,6 +19,7 @@ class Dossiers extends Model
             "chauffeur",
             "plaque",
             "provenance",
+            'status',
             "montant_init"
     ];
     /**

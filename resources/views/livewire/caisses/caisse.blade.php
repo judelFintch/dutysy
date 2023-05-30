@@ -1,7 +1,7 @@
 <div>
-<x-app-layout>
+<x-nav_left />
     <div class="page-wrapper">
-        @include('partials.nav_left')
+     
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row align-items-center">
@@ -33,5 +33,5 @@
         </div>
     </div>
 
-</x-app-layout>
+
 <div>

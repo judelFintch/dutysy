@@ -1,5 +1,5 @@
 <div>
-    <x-nav_left />
+<x-nav_left />
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">

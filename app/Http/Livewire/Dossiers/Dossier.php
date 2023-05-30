@@ -75,7 +75,8 @@ $dossier =  Dossiers::create([
         'chauffeur' => $this->chauffeur,
         'plaque' => $this->plaque,
         'provenance' => $this->provenance,
-        'montant_init' => $this->montant_init
+        'montant_init' => $this->montant_init,
+        'status' => true
     ]);
 
     
