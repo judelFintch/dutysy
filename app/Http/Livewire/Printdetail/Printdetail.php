@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Printdetail;
 use App\Models\Mouvements as Mouvements;
 use App\Models\Dossiers as Dossiers;
 use App\Models\Clients  as Clients;
+use APP\Utils\MontantConverter as Convert;
 
 use Livewire\Component;
 
@@ -18,10 +19,16 @@ class Printdetail extends Component
     }
     public function render()
     {
-        $mouvements = Mouvements::where('dossier_id',  $this->dossier_id)->get(); 
+        $mv_int = Mouvements::where('dossier_id',  $this->dossier_id)
+        ->where('type', 'int')
+        ->get(); 
+
+        $mv_out = Mouvements::where('dossier_id',  $this->dossier_id)
+        ->where('type', 'out')
+        ->get();
         $dossier = Dossiers::where('id',  $this->dossier_id)->first(); 
         $id_client =$dossier->client_id;
         $client = Clients::where('id', $id_client)->first(); 
-        return view('livewire.printdetail.printdetail', compact('mouvements','dossier','client'));
+        return view('livewire.printdetail.printdetail', compact('mv_int','mv_out','dossier','client'));
     }
 }

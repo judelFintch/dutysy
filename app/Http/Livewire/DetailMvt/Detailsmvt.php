@@ -36,7 +36,6 @@ class Detailsmvt extends Component
         $this->observation = '';
         $this->motif = '';
         $this->beneficiaire = '';
-
     }
 
     public function render()
@@ -50,9 +49,7 @@ class Detailsmvt extends Component
         return view('livewire.detailmvt.detailsmvt', compact('dossier','mouvements','tt_int','tt_out','dossiers'));
     }
 
-
     public function transfert_edit($id){
-
         $this->id_mouvement_tr=$id;
         $data_tr=Mouvements::find($this->id_mouvement_tr);
         $this->montant_tr=$data_tr->montant;
@@ -64,12 +61,8 @@ class Detailsmvt extends Component
         $this->list=false;
     }
 
-
     public function update_tranfert(){
         try{
-
-        
-
            $update = Mouvements::find($this->id_mouvement_tr)->fill(
                 [
                     'dossier_id' => $this->id_dossier_tr
@@ -85,7 +78,6 @@ class Detailsmvt extends Component
 
         }
     }
-
 
     public function store(){
         $this->validate();
