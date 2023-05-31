@@ -58,17 +58,31 @@
 
 
             <div class="row filter-row">
-                 
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+                        <div class="form-group form-focus">
+                            <input type="text" class="form-control floating">
+                            <label class="focus-label">Libelle</label>
+                        </div>
+                    </div>
                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group custom-select">
                             <select class="select floating">
-                                <option value="">Type</option>
-                                <option value="">Entree</option>
-                                <option value="1">Sortie</option>
+                                <option value="">Toute</option>
+                                <option value="">Sortie</option>
+                                <option value="1">Entree</option>
                             </select>
                         </div>
                     </div>
-                   
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+                        <div class="form-group custom-select">
+                            <select class="select floating">
+                                <option>Leave Status</option>
+                                <option> Pending </option>
+                                <option> Approved </option>
+                                <option> Rejected </option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <div class="cal-icon">
@@ -91,7 +105,7 @@
                 </div>
 
 
-
+                
             @if (session()->has('message'))
                     <div class="alert alert-success">
                         {{ session('message') }}
