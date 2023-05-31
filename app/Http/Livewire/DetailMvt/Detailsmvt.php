@@ -9,10 +9,9 @@ use App\Models\Caisses as Caisse;
 
 class Detailsmvt extends Component
 {
-
-
-    public $id_dossier,$idcount=0, $creat=false,$list=true;
-    public $type,$motif,$observation,$beneficiaire,$montant;
+    public $id_dossier ,$idcount=0, $creat=false,$list=true;
+    public $id_mouvement_tr,$motif_tr,$montant_tr,$observation_tr,$type_tr,$beneficiaire_tr,$id_dossier_tr;
+    public $type,$motif,$observation,$beneficiaire,$montant,$transfer=false,$transfer_id;
 
     public function mount($id){
         $this->id_dossier = $id;
@@ -39,15 +38,52 @@ class Detailsmvt extends Component
         $this->beneficiaire = '';
 
     }
+
     public function render()
     {
         $type ="entree";
-        $dossier = Dossiers::find($this->id_dossier);
-        $tt_int = Mouvements::where('type', 'int')->where('dossier_id', $dossier->id)->sum('montant');
-        $tt_out = Mouvements::where('type', 'out')->where('dossier_id', $dossier->id)->sum('montant');
-        $mouvements = Mouvements::
-        where('dossier_id', 'like',$dossier->id)->get();
-        return view('livewire.detailmvt.detailsmvt', compact('dossier','mouvements','tt_int','tt_out'));
+        $dossiers = Dossiers::all();
+        $dossier =  Dossiers::find($this->id_dossier);
+        $tt_int =   Mouvements::where('type', 'int')->where('dossier_id', $dossier->id)->sum('montant');
+        $tt_out =   Mouvements::where('type', 'out')->where('dossier_id', $dossier->id)->sum('montant');
+        $mouvements = Mouvements::where('dossier_id', 'like',$dossier->id)->get();
+        return view('livewire.detailmvt.detailsmvt', compact('dossier','mouvements','tt_int','tt_out','dossiers'));
+    }
+
+
+    public function transfert_edit($id){
+
+        $this->id_mouvement_tr=$id;
+        $data_tr=Mouvements::find($this->id_mouvement_tr);
+        $this->montant_tr=$data_tr->montant;
+        $this->type_tr=$data_tr->type;
+        $this->beneficiaire_tr=$data_tr->beneficiaire;
+        $this->motif_tr=$data_tr->motif;
+        $this->observation_tr=$data_tr->observation;
+        $this->transfer=true;
+        $this->list=false;
+    }
+
+
+    public function update_tranfert(){
+        try{
+
+        
+
+           $update = Mouvements::find($this->id_mouvement_tr)->fill(
+                [
+                    'dossier_id' => $this->id_dossier_tr
+                    ]
+            )->save();
+
+            $this->list=true;
+            $this->transfer=false;
+            session()->flash('message', 'Trasfert reussi');
+        }
+        catch(\Exception $e){
+            dd($e);
+
+        }
     }
 
 

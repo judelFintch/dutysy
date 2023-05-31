@@ -5,7 +5,7 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">Dossier /{{$dossier->plaque}}</h3>
+                        <h3 class="page-title">Dossier /  <span style="color: brown;">{{$dossier->plaque}}</span></h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item active">{{$dossier->plaque}} / {{$dossier->client->name}}</li>
@@ -20,9 +20,19 @@
                         <a href="{{route('print.details',['id'=>$id_dossier])}}"  class="btn add-btn" id="add_client"><i
                                 class="fa fa-print"></i>Imprimer</a>
                     </div>
+
+                    <div class="col-auto float-end ms-auto">
+                    <select wire:model="id_dossier" class="form-control @error('motif') is-invalid @enderror">
+            @foreach($dossiers as $dossier)
+                <option value="{{$dossier->id}}">{{$dossier->plaque}}</option>
+                
+            @endforeach
+            </select>
+
+                    </div>
                 </div>
             </div>
-
+          
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                     <div class="stats-info">
@@ -53,6 +63,11 @@
             @if($creat)
                  @include('livewire.detailmvt.creat')
             @endif
+
+            @if($transfer)
+                 @include('livewire.detailmvt.transfer')
+            @endif
             @if($list)
+           
                  @include('livewire.detailmvt.list')
             @endif
