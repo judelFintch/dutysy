@@ -25,8 +25,8 @@
                     <a href="#"><i class="la la-pie-chart"></i> <span> Reports </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a class="" href="expense_reports"> Expense Report </a></li>
-                        <li><a class="" href="invoice_reports"> Invoice Report </a></li>
+                        <li><a class="" href="expense_reports"> Dossier </a></li>
+                        <li><a class="" href="invoice_reports"> Rapport General</a></li>
 
                     </ul>
                 </li>

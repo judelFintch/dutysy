@@ -40,9 +40,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified'])
 
 });
 
-Route::get('logout', function ()
-{
+Route::get('logout', function () {
     auth()->logout();
     Session()->flush();
-    return Redirect::to('/');
+    return redirect('/');
 })->name('logout');
