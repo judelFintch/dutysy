@@ -5,15 +5,15 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">Dossier</h3>
+                        <h3 class="page-title">Taux</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Dossier</li>
+                            <li class="breadcrumb-item active">Taux</li>
                         </ul>
                     </div>
                     <div class="col-auto float-end ms-auto">
                         <a href="#" wire:click="showform()" class="btn add-btn" id="add_client"><i
-                                class="fa fa-plus"></i> Nouveau Dossier</a>
+                                class="fa fa-plus"></i> Operation</a>
                     </div>
                 </div>
             </div>
@@ -23,17 +23,7 @@
                     {{ session('message') }}
                 </div>
                 @endif
-                @if($update_dossier)
-                    @include('livewire.dossiers.update')
-
-                @endif
-                @if($creat)
-                    @include('livewire.dossiers.creat')
-                @endif
-
-                @if($list)
-                    @include('livewire.dossiers.list')
-                @endif
+               
         </div>
     </div>
 </div>

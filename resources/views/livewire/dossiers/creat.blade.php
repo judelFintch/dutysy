@@ -5,13 +5,13 @@
         <div class="col-sm-6">
             <div class="form-group">
                
-                <input placeholder="Entree la plaque" type="text" id="plaque" name="plaque" wire:model="plaque" class="form-control">
+                <input placeholder="Entree la plaque" type="text" id="plaque" name="plaque" wire:model.defer="plaque" class="form-control">
                 @error('plaque') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
         <div class="col-sm-6">
            
-            <input  type="text" wire:model="type_marchandise" name="type_marchandise" placeholder="Type marchandise"
+            <input  type="text" wire:model.defer="type_marchandise" name="type_marchandise" placeholder="Type marchandise"
                 class="form-control text-secondary">
             @error('type_marchandise') <span class="error">{{ $message }}</span> @enderror
         </div>
@@ -21,7 +21,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                
-                <select name="client" id="clients" wire:model="client" class="form-control">
+                <select name="client" id="clients" wire:model.defer="client" class="form-control">
                     <option value="">Selectionner client</option>
                     @foreach ($clients as $client)
                     <option value="{{ $client->id }}">{{ $client->name }}</option>
@@ -32,7 +32,7 @@
         </div>
         <div class="col-sm-6">
         
-            <select name="destination" wire:model="destination" id="destination" class="form-control">
+            <select name="destination" wire:model.defer="destination" id="destination" class="form-control">
                 <option value="">Dechargement</option>
                 @foreach ($destinations as $destination)
                 <option value="{{ $destination->id }}">{{ $destination->destination }}</option>
@@ -46,18 +46,18 @@
         <div class="col-sm-6">
             <div class="form-group">
               
-                <input type="text" placeholder="Chauffeur" id="chauffeur" wire:model="chauffeur" name="chauffeur" class="form-control">
+                <input type="text" placeholder="Chauffeur" id="chauffeur" wire:model.defer="chauffeur" name="chauffeur" class="form-control">
                 @error('chauffeur') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
                
-                <input type="text" id="provenance" name="provenance" wire:model="provenance" placeholder="Provenance" class="form-control">
+                <input type="text" id="provenance" name="provenance" wire:model.defer="provenance" placeholder="Provenance" class="form-control">
                 @error('provenance') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
         <div class="col-sm-6">
             <label for="montant_init">Montant</label>
-            <input type="number" id="montant_init" name="montant_init" wire:model="montant_init" class="form-control">
+            <input type="number" id="montant_init" name="montant_init" wire:model.defer="montant_init" class="form-control">
             @error('montant_init') <span class="error">{{ $message }}</span> @enderror
         </div>
 

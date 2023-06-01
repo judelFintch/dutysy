@@ -17,8 +17,8 @@ class Destination extends Component
         ];
 
     public function render()
-    {   $this->destinations = Destinations::select('id','destination')->get();
-        return view('livewire.destinations.destination');
+    {   $destinations = Destinations::select('id','destination')->get();
+        return view('livewire.destinations.destination',compact('$destinations'));
     }
 
 
@@ -62,7 +62,7 @@ class Destination extends Component
          $this->libelle = $dest->destination;
          $this->id_dest = $dest->id;
          $this->updated_dest =true;
-        // session()->flash('message', 'Update success ');
+        session()->flash('message', 'Update success ');
     }
     public function update(){
         $this->validate();

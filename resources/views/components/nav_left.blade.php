@@ -38,6 +38,7 @@
                         <li><a class="" href="{{route('destination.index')}}"> Destination</a></li>
                         <li><a class="" href="performance"> Secteur </a></li>
                         <li><a class="" href="performance_appraisal"> Fonction Employes </a></li>
+                        <li><a class="" href="{{route('taux.index')}}">Gestion du taux  </a></li>
                     </ul>
                 </li>
             </ul>
