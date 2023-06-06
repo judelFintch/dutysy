@@ -9,18 +9,33 @@
                 visibility: hidden;
             }
 
-            #contenu,
-            #contenu * {
+            #contenu_original,
+            #contenu_original * {
                 visibility: visible;
             }
 
-            #contenu {
+            #contenu_original {
                 position: static;
                 max-width: none;
                 padding: 0;
                 background-color: transparent;
                 box-shadow: none;
-                margin-top: -130px;
+                margin-top: -150px;
+            }
+
+
+            #contenu_copy,
+            #contenu_copy * {
+                visibility: visible;
+            }
+
+            #contenu_copy {
+                position: static;
+                max-width: none;
+                padding: 0;
+                background-color: transparent;
+                box-shadow: none;
+                margin-top: -50px;
             }
         }
     </style>
@@ -51,7 +66,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div id="contenu" class="card-body">
+                            <div id="contenu_original" class="card-body">
 
                                 <div class="row">
                                     <div class="col-sm-6 m-b-20">
@@ -90,7 +105,7 @@
                                 </div>
                                 <h4 class="payslip-title">#/O/NCA/OP/{{$dossier->type}}/{{$id_ticket}}/{{date('d')}}/ {{date('y-m')}}</h4>
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-12">
                                         <div>
                                             
                                             <table class="table table-bordered">
@@ -147,7 +162,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div id="contenu" class="card-body">
+                            <div id="contenu_copy" class="card-body">
 
                                 <div class="row">
                                     <div class="col-sm-6 m-b-20">
@@ -186,7 +201,7 @@
                                 </div>
                                 <h4 class="payslip-title">#/Copy/NCA/OP/{{$dossier->type}}/{{$id_ticket}}/{{date('d')}}/ {{date('y-m')}}</h4>
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-12">
                                         <div>
                                             
                                             <table class="table table-bordered">
