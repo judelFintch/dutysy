@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TauxJour extends Model
 {
     use HasFactory;
+
+    protected $fillable =['taux'];
 }

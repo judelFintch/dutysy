@@ -4,7 +4,6 @@
             <img src="{{asset('assets/img/new-castorms.jpg')}}" width="40" height="40" alt="">
         </a>
     </div>
-
     <a id="toggle_btn" href="javascript:void(0);">
         <span class="bar-icon">
             <span></span>
@@ -12,7 +11,6 @@
             <span></span>
         </span>
     </a>
-
     <div class="page-title-box">
         <h3>{{ config('app.name', 'New Castoms') }}</h3>
     </div>

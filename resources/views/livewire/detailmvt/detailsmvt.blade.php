@@ -57,7 +57,7 @@
 
             @if (session()->has('message'))
             <div class="alert alert-success">
-                {{ session('message') }}
+                {{ session('message') }} <a href="{{route('ticket.details', ['id' =>$op_print])}}"> Imprimer le recu</a>
             </div>
             @endif
 

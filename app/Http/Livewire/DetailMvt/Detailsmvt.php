@@ -9,7 +9,7 @@ use App\Models\Caisses as Caisse;
 
 class Detailsmvt extends Component
 {
-    public $id_dossier ,$idcount=0, $creat=false,$list=true;
+    public $id_dossier ,$idcount=0, $creat=false,$list=true, $op_print=false;
     public $id_mouvement_tr,$motif_tr,$montant_tr,$observation_tr,$type_tr,$beneficiaire_tr,$id_dossier_tr;
     public $type,$motif,$observation,$beneficiaire,$montant,$transfer=false,$transfer_id;
 
@@ -108,11 +108,14 @@ class Detailsmvt extends Component
 
                     $caisse->montant =$new_mt;
                     $caisse->save();
+                    $this->op_print = $mouvement->id;
 
                 session()->flash('message','Operation reussi');
-                    $this->creat =false;
-                    $this->list =true;
-                    $this->resetField();
+                   $this->creat =false;
+                   $this->list =true;
+                   $this->resetField();
+
+                  
                     }
 
         }

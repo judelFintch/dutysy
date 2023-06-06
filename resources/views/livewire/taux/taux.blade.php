@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-auto float-end ms-auto">
                         <a href="#" wire:click="showform()" class="btn add-btn" id="add_client"><i
-                                class="fa fa-plus"></i> Operation</a>
+                                class="fa fa-plus"></i> </a>
                     </div>
                 </div>
             </div>
@@ -22,6 +22,11 @@
                 <div class="alert alert-success">
                     {{ session('message') }}
                 </div>
+                @endif
+
+
+                @if($create)
+                    @include('livewire.taux.create')
                 @endif
                
         </div>
