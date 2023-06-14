@@ -18,8 +18,6 @@ class Destination extends Component
 
     public function render()
     {   $destinations = Destinations::All();
-    
-        
         return view('livewire.destinations.destination',['destination'=>$destinations]);
     }
 

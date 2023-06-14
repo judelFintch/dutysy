@@ -1,4 +1,4 @@
-
+bonjour
 <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
@@ -20,14 +20,14 @@
                         </li>
 
                         <li class="menu-title">
-                            <span>Operations</span>
+                            <span>Operation</span>
                         </li>
                         
                         <li class="submenu">
-                            <a href="#"><i class="la la-pie-chart"></i> <span> Reports </span> <span
+                            <a href="{{route('rapport.index')}}"><i class="la la-pie-chart"></i> <span> Reportsj </span> <span
                                     class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a class="" href="expense_reports"> Expense Report </a></li>
+                                <li><a class="" href=""> Expense Report </a></li>
                                 <li><a class="" href="invoice_reports"> Invoice Report </a></li>
                                 
                             </ul>
