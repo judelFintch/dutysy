@@ -29,6 +29,7 @@ class Detailsmvt extends Component
         'beneficiaire' =>'required',
         'motif' =>'required',
         'type' =>'required',
+       
     ];
 
     public function resetField(){
@@ -67,7 +68,7 @@ class Detailsmvt extends Component
                 [
                     'dossier_id' => $this->id_dossier_tr
                     ]
-            )->save();
+            );
 
             $this->list=true;
             $this->transfer=false;
@@ -75,7 +76,6 @@ class Detailsmvt extends Component
         }
         catch(\Exception $e){
             dd($e);
-
         }
     }
 
@@ -114,9 +114,7 @@ class Detailsmvt extends Component
                    $this->creat =false;
                    $this->list =true;
                    $this->resetField();
-
-                  
-                    }
+                }
 
         }
         catch(\Exception $e) {
