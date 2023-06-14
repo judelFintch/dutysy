@@ -17,10 +17,11 @@ class Destination extends Component
         ];
 
     public function render()
-    {   $destinations = Destinations::select('id','destination')->get();
-        return view('livewire.destinations.destination',compact('$destinations'));
+    {   $destinations = Destinations::All();
+    
+        
+        return view('livewire.destinations.destination',['destination'=>$destinations]);
     }
-
 
     private function resetField(){
         $this ->libelle = '';

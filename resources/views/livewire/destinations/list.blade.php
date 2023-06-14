@@ -11,8 +11,10 @@
   </thead>
   <tbody>
 
-  @if(count($destinations)>0)
-    @foreach($destinations as $dest)
+ 
+
+  @if(count($destination)>0)
+    @foreach($destination as $dest)
         <tr>
         <td>{{$idcount++}}</td>
         <td>{{$dest->destination}}</td>
