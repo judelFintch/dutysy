@@ -4,7 +4,7 @@
         <div class="col-sm-6">
             <input type="hidden" wire:model.defer="id_mouvement_tr">
             <div class="form-group">
-                <input type="number" class="form-control" type="text" placeholder="Saisisez le montant"
+                <input type="number" class="form-control" type="text" readonly placeholder="Saisisez le montant"
                     class="@error('montant_tr') is-invalid @enderror" type="text" wire:model.defer="montant_tr">
                 @error('montant_tr') <span> {{ $message }}</span> @enderror
             </div>

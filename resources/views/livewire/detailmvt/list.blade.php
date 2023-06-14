@@ -35,7 +35,7 @@
                     <td>{{ $doss->motif }}</td>
                     <td>{{ $doss->observation }}</td>
                     <td>{{ $doss->beneficiaire }}</td>
-                    <td><a class="badge bg-inverse-success" wire:click="transfert_edit({{$doss->id}})">Transfert</a></td>
+                    <td><a class="badge bg-inverse-warning" wire:click="transfert_edit({{$doss->id}})">Operations</a></td>
                     
                 </tr>
                 @endforeach

@@ -66,9 +66,12 @@ class Detailsmvt extends Component
         try{
            $update = Mouvements::find($this->id_mouvement_tr)->fill(
                 [
-                    'dossier_id' => $this->id_dossier_tr
+                    'dossier_id' => $this->id_dossier_tr,
+                    'montant' => $this->montant_tr,
+                    'motif' => $this->motif_tr,
+                    'beneficiaire' => $this->beneficiaire_tr,
                     ]
-            );
+            )->save();
 
             $this->list=true;
             $this->transfer=false;
