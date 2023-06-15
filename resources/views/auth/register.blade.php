@@ -1,5 +1,7 @@
+@if (Auth::user())
 @extends('layouts.guest')
 @section('content')
+
 <body class="account-page">
     <div class="main-wrapper">
         <div class="account-content">
@@ -59,4 +61,14 @@
                 </x-button>
             </div>
         </form>
+
+ 
+
   @endsection()
+
+
+  @else
+    <?php header('location:/')?>
+    @endif
+
+  

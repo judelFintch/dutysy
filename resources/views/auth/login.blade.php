@@ -6,6 +6,7 @@
 </div>
 @endif
 
+
 @section('content')
 <body class="account-page">
     <div class="main-wrapper">
