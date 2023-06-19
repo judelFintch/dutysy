@@ -68,7 +68,7 @@
 
 
   @else
-    <?php header('location:/')?>
-    @endif
+    
+@endif
 
   
