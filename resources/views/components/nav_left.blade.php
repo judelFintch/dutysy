@@ -22,7 +22,7 @@
                 </li>
 
                 <li class="submenu">
-                    <a href="#"><i class="la la-pie-chart"></i> <span> Reports </span> <span
+                    <a href="#"><i class="la la-pie-chart"></i> <span> Raports </span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
                         <li><a class="" href="{{route('rapport.index')}}"> Rapport </a></li>

@@ -43,8 +43,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified'])
     Route::get('/ticket/{id}',Ticket::class)->name('ticket.details');
     Route::get('/taux',Taux::class)->name('taux.index');
     Route::get('/rapport',Rapport::class)->name('rapport.index');
-    
-
 });
 
 Route::get('logout', function () {
