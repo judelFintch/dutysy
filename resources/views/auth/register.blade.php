@@ -1,4 +1,4 @@
-@if (Auth::user())
+
 @extends('layouts.guest')
 @section('content')
 
@@ -67,8 +67,5 @@
   @endsection()
 
 
-  @else
-    
-@endif
 
   
