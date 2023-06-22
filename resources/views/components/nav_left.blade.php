@@ -3,9 +3,12 @@
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-
                 <li class="">
                     <a href="{{route('dossier.index')}}"><i class="la la-briefcase"></i> <span>Dossier</span></a>
+                </li>
+
+                <li class="">
+                    <a href="{{route('dossier.index')}}"><i class="la la-briefcase"></i> <span>Dossier Cloturé</span></a>
                 </li>
                 <li class="">
                     <a href="{{route('caisse.index')}}"><i class="la la-dollar"></i> <span>Caisses</span></a>
@@ -37,8 +40,7 @@
                     <ul style="display: none;">
                         <li><a class="" href="{{route('destination.index')}}"> Destination</a></li>
                         <li><a class="" href="performance"> Secteur </a></li>
-                        <li><a class="" href="performance_appraisal"> Fonction Employes </a></li>
-                        <li><a class="" href="{{route('taux.index')}}">Gestion du taux  </a></li>
+                        
                     </ul>
                 </li>
             </ul>
