@@ -21,7 +21,7 @@
 
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
-                <a href="{{route('short.index')}}">
+                <a href="{{route('short.index' ,['op' => 'byday'])}}">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
@@ -31,13 +31,12 @@
                                 <span>Dossier(s) du jour({{$bigin_date}})</span>
                             </div>
                             
-                      
                         </div>
                     </div>
                 </a>
                 </div>
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
-                <a href="{{route('short.index')}}">
+                <a href="{{route('short.index',['op' => 'close'])}}">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-address-card-o"></i></span>
@@ -51,7 +50,7 @@
                 </a>
                 </div>
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
-                <a href="{{route('short.index')}}">
+                <a href="{{route('short.index',['op' => 'negatif'])}}">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-file-image-o"></i></span>
@@ -63,12 +62,8 @@
                     </div>
                 </a>
                 </div>
-               
             </div>
           
-
-
-
             @if (session()->has('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
