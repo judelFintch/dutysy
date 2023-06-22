@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="{{asset('assets/css/select2.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap-datetimepicker.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/fullcalendar.min.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/plugins/summernote/dist/summernote-bs4.css')}}">
+      
         <link rel="stylesheet" href="{{asset('assets/css/dataTables.bootstrap4.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
        
@@ -51,9 +51,6 @@
             </main>
         </div>
 
-
- 
-
         @stack('modals')
 
         @livewireScripts
@@ -63,7 +60,7 @@
         <script src="{{asset('assets/js/select2.min.js')}}"></script>
         <script src="{{asset('assets/js/moment.min.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap-datetimepicker.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js')}}"></script>
+       
         <script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
         <script src="{{asset('assets/js/fullcalendar.min.js')}}"></script>
         <script src="{{asset('assets/js/jquery.fullcalendar.js')}}"></script>
