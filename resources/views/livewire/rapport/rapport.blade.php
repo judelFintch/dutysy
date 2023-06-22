@@ -15,9 +15,7 @@
 
                     </div>
                 </div>
-
-                 <x-filter-rapport/>
-                 
+                   <x-filter-rapport/>
                    @include('livewire.rapport.list')
             </div>
         </div>
