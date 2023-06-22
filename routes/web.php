@@ -14,6 +14,10 @@ use App\Http\Livewire\Printdetail\Printdetail;
 use App\Http\Livewire\Taux\Taux;
 use App\Http\Livewire\Ticket\Ticket;
 use App\Http\Livewire\Rapport\Rapport;
+use App\Http\Livewire\ShortDetails\ShortDetails;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +47,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified'])
     Route::get('/ticket/{id}',Ticket::class)->name('ticket.details');
     Route::get('/taux',Taux::class)->name('taux.index');
     Route::get('/rapport',Rapport::class)->name('rapport.index');
+    Route::get('/shortdetails',ShortDetails::class)->name('short.index');
 });
 
 Route::get('logout', function () {

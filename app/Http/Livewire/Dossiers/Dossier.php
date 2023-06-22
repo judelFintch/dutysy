@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dossiers;
 
 use App\Models\Mouvements;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Dossiers;
 use App\Models\Clients;
@@ -45,8 +46,21 @@ use App\Models\Caisses;
                 $destinations = Destinations::all();
                 $dossier_day = Dossiers ::whereDate('created_at',$this->bigin_date)->count();
                 $dossiers = Dossiers::orderBy('id', 'DESC')->get();
+                $negatif = DB::table(function ($query) {
+                        $query->select('mouvements.dossier_id')
+                            ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS solde')
+                            ->from('mouvements')
+                            ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
+                            ->where('dossiers.status', '=', 1)
+                            ->groupBy('mouvements.dossier_id');
+                    }, 'sub')
+                    ->where('solde', '<', 0)
+                    ->distinct()
+                    ->count('dossier_id');
+
+
                 $dossiers_close = Dossiers ::where('status', 0)->count();
-                return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossiers','dossier_day','dossiers_close'));
+                return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossiers','dossier_day','dossiers_close','negatif'));
         }
 
 

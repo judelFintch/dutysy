@@ -21,17 +21,23 @@
 
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <a href="{{route('short.index')}}">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
+                            
                             <div class="dash-widget-info">
                                 <h3>{{$dossier_day}}</h3>
                                 <span>Dossier(s) du jour({{$bigin_date}})</span>
                             </div>
+                            
+                      
                         </div>
                     </div>
+                </a>
                 </div>
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <a href="{{route('short.index')}}">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-address-card-o"></i></span>
@@ -42,17 +48,20 @@
                             </div>
                         </div>
                     </div>
+                </a>
                 </div>
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <a href="{{route('short.index')}}">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-file-image-o"></i></span>
                             <div class="dash-widget-info">
-                                <h3>0</h3>
+                                <h3>{{$negatif}}</h3>
                                 <span>Dossier avec Solde Negatif  </span>
                             </div>
                         </div>
                     </div>
+                </a>
                 </div>
                
             </div>
