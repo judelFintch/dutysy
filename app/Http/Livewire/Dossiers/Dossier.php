@@ -62,13 +62,10 @@ use App\Models\Caisses;
         public function reinit(){
                    $this->resetInput();
         }
-
-
         public function store()
         {
         //$validatedData =
         $this->validate();
-
                 try{
                 $dossier =Dossiers::create([
                         'client_id' => $this->client,
