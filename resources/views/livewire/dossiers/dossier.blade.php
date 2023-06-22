@@ -34,7 +34,7 @@
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
                     <div class="card dash-widget">
                         <div class="card-body">
-                            <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
+                            <span class="dash-widget-icon"><i class="fa fa-address-card-o"></i></span>
                             <div class="dash-widget-info">
                                 <h3>{{ $dossiers_close }}</h3>
                                 <span>Dossier(s) Cloturé</span>
@@ -46,7 +46,7 @@
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
                     <div class="card dash-widget">
                         <div class="card-body">
-                            <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
+                            <span class="dash-widget-icon"><i class="fa fa-file-image-o"></i></span>
                             <div class="dash-widget-info">
                                 <h3>0</h3>
                                 <span>Dossier avec Solde Negatif  </span>
