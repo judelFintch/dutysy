@@ -15,6 +15,7 @@
 
                     </div>
                 </div>
+                @json($listeners);
                    @include('partials.filter_rapport')
                    @include('livewire.rapport.list')
             </div>

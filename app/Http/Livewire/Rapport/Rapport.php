@@ -9,6 +9,14 @@ use Livewire\Component;
 class Rapport extends Component
 {
     public $bigin_date, $end_date, $type_op;
+    public $listeners =['setDate'];
+
+
+    public function setDate($data){
+       
+        $this->bigin_date = $data;
+
+    }
     public function mount (){
         //default date day
         $this->bigin_date = date('Y-m-d');
@@ -24,5 +32,11 @@ class Rapport extends Component
         ->get();
 
         return view('livewire.rapport.rapport', compact('mouvements','idcount'));
+    }
+
+
+    public function filter(){
+       dd($this->bigin_date);
+
     }
 }

@@ -18,7 +18,7 @@
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
         <div class="form-group form-focus">
             <div class="cal-icon">
-                <input wire:model="bigin_end" class="form-control floating datetimepicker" type="text">
+                <input wire:model="bigin_date" class="form-control floating datetimepicker" onchange="Livewire.emit('setDate', this.value)" >
             </div>
             <label class="focus-label">From</label>
         </div>
@@ -26,12 +26,14 @@
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
         <div class="form-group form-focus">
             <div class="cal-icon">
-                <input wire:model="end_date" class="form-control floating datetimepicker" type="text">
+                <input wire:model.defer="end_date" class="form-control floating datetimepicker" type="text">
             </div>
             <label class="focus-label">To</label>
         </div>
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-        <a href="#" class="btn btn-success w-100"> Search </a>
+        <form>
+               <button type="button" wire:click="filter()" class="btn btn-success w-100"> Search </button>
+        </form>
     </div>
 </div>
