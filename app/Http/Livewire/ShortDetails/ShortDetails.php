@@ -9,14 +9,9 @@ class ShortDetails extends Component
 {
 
     public $op, $today;
-
-
-
     public function mount($op){
-
         $this->op = $op;
         $this->today = date('Y-m-d');
-
     }
     public function render()
     {   
@@ -33,14 +28,11 @@ class ShortDetails extends Component
             ->distinct()
             ->get();
 
-            
             $id_dossier =$dossiers->pluck('dossier_id');
             $dossiers = Dossiers::find($id_dossier);
-            
-        
+    
         } else if($this->op === 'byday'){
             $dossiers = Dossiers ::whereDate('created_at',$this->today)->get();
-
         }
         else{
             $dossiers = Dossiers ::where('status',0)->get();
