@@ -43,6 +43,11 @@
                         
                     </ul>
                 </li>
+
+                <li class="">
+                    <a href="{{route('trash.index')}}"><i class="la la-trash"></i> <span>Corbeille</span></a>
+                </li>
+
             </ul>
         </div>
     </div>
