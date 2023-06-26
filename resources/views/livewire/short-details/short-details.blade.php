@@ -17,5 +17,6 @@
                     </div>
                 </div>
             </div>
+            
      @include('livewire.short-details.list')
 </div>
