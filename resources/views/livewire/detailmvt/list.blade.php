@@ -35,7 +35,10 @@
                     <td>{{ $doss->motif }}</td>
                     <td>{{ $doss->observation }}</td>
                     <td>{{ $doss->beneficiaire }}</td>
-                    <td><a class="badge bg-inverse-warning" wire:click="transfert_edit({{$doss->id}})">Operations</a></td>
+                    <td>
+                        <a class="badge bg-inverse-warning" wire:click="transfert_edit({{$doss->id}})">Operations</a>
+                        <button onclick="deleteMvt({{$doss->id}})" class="btn btn-danger">Del</button>
+                    </td>
                     
                 </tr>
                 @endforeach
@@ -51,8 +54,8 @@
 </div>
 
 <script>
-function deleteCli(id) {
+function deleteMvt(id) {
     if (confirm("Etes vous sur de supprimer cette enregistrement"))
-        window.livewire.emit('deleteCli', id);
+        window.livewire.emit('deleteMvt', id);
 }
 </script>

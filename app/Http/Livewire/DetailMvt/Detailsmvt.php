@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Mouvements as Mouvements;
 use App\Models\Dossiers as Dossiers;
 use App\Models\Caisses as Caisse;
+use App\Models\CorbeilleMouvement as CorbeilleMouvement;
 
 class Detailsmvt extends Component
 {
@@ -13,7 +14,8 @@ class Detailsmvt extends Component
     public $id_mouvement_tr,$motif_tr,$montant_tr,$observation_tr,$type_tr,$beneficiaire_tr,$id_dossier_tr;
     public $type,$motif,$observation,$beneficiaire,$montant,$transfer=false,$transfer_id;
     protected $listeners = [
-        'closeFolder' => 'closeFolder'
+        'closeFolder' => 'closeFolder',
+        'deleteMvt' => 'deleteMvt'
     ];
 
     public function mount($id){
@@ -51,15 +53,15 @@ class Detailsmvt extends Component
     }
 
     public function transfert_edit($id){
-        $this->id_mouvement_tr=$id;
-        $data_tr=Mouvements::find($this->id_mouvement_tr);
-        $this->montant_tr=$data_tr->montant;
-        $this->type_tr=$data_tr->type;
-        $this->beneficiaire_tr=$data_tr->beneficiaire;
-        $this->motif_tr=$data_tr->motif;
-        $this->observation_tr=$data_tr->observation;
-        $this->transfer=true;
-        $this->list=false;
+            $this->id_mouvement_tr=$id;
+            $data_tr=Mouvements::find($this->id_mouvement_tr);
+            $this->montant_tr=$data_tr->montant;
+            $this->type_tr=$data_tr->type;
+            $this->beneficiaire_tr=$data_tr->beneficiaire;
+            $this->motif_tr=$data_tr->motif;
+            $this->observation_tr=$data_tr->observation;
+            $this->transfer=true;
+            $this->list=false;
     }
     public function update_tranfert(){
         try{
@@ -129,5 +131,43 @@ class Detailsmvt extends Component
                 'status' => false,
             ]
         )->save();
+    }
+
+    public function deleteMvt($id){
+      try{
+        $mvt_by_id=Mouvements::find($id);
+        
+            if($mvt_by_id){
+                $userEmail = auth()->user()->email;
+                    $store=CorbeilleMouvement::create(
+                        [
+                            'dossier_id' =>$mvt_by_id->dossier_id,
+                            'montant' =>$mvt_by_id->montant,
+                            'type' => $mvt_by_id->type,
+                            'libelle' =>$mvt_by_id->libelle,
+                            'motif'=>$mvt_by_id->motif,
+                            'observation'=>$mvt_by_id->observation,
+                            'beneficiaire' =>$mvt_by_id->beneficiaire,
+                            'caisse_id' => $mvt_by_id->caisse_id,
+                            'user_id' => $userEmail
+                            ]
+                        );
+                            if($store){
+                                $caisse = Caisse ::find(1);
+                                if($mvt_by_id->type=='int'){
+                                    $caisse->decrement('montant', $mvt_by_id->montant);
+                                }
+                                else{
+                                    $caisse->increment('montant', $mvt_by_id->montant);
+    
+                                 }
+                                $caisse->save();
+                                $mvt_by_id->delete();
+                            }
+                }
+        }
+        catch (\Exception $e){
+            dd($e);
+        }
     }
 }
