@@ -12,12 +12,13 @@ class Detailsmvt extends Component
     public $id_dossier ,$idcount=0, $creat=false,$list=true, $op_print=false;
     public $id_mouvement_tr,$motif_tr,$montant_tr,$observation_tr,$type_tr,$beneficiaire_tr,$id_dossier_tr;
     public $type,$motif,$observation,$beneficiaire,$montant,$transfer=false,$transfer_id;
+    protected $listeners = [
+        'closeFolder' => 'closeFolder'
+    ];
 
     public function mount($id){
         $this->id_dossier = $id;
-
     }
-
     public function showform(){
         $this->creat=true;
         $this->list=false;
@@ -29,7 +30,6 @@ class Detailsmvt extends Component
         'beneficiaire' =>'required',
         'motif' =>'required',
         'type' =>'required',
-       
     ];
 
     public function resetField(){
@@ -61,10 +61,9 @@ class Detailsmvt extends Component
         $this->transfer=true;
         $this->list=false;
     }
-
     public function update_tranfert(){
         try{
-           $update = Mouvements::find($this->id_mouvement_tr)->fill(
+            Mouvements::find($this->id_mouvement_tr)->fill(
                 [
                     'dossier_id' => $this->id_dossier_tr,
                     'montant' => $this->montant_tr,
@@ -108,7 +107,6 @@ class Detailsmvt extends Component
                     if($this->type == 'out'){
                         $new_mt = $old_mt-$this->montant;
                     }
-
                     $caisse->montant =$new_mt;
                     $caisse->save();
                     $this->op_print = $mouvement->id;
@@ -118,11 +116,18 @@ class Detailsmvt extends Component
                    $this->list =true;
                    $this->resetField();
                 }
-
         }
         catch(\Exception $e) {
             session()->flash('message',dd($e));
         }
 
+    }
+
+    public function closeFolder($id_dossier){
+        Dossiers ::find($id_dossier)->fill(
+            [
+                'status' => false,
+            ]
+        )->save();
     }
 }

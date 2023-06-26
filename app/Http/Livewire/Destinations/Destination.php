@@ -91,6 +91,5 @@ class Destination extends Component
        }
 
         
-
     }
 }

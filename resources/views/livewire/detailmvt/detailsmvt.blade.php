@@ -20,11 +20,15 @@
                         <a href="{{route('print.details',['id'=>$id_dossier])}}" class="btn add-btn" id="add_client"><i
                                 class="fa fa-print"></i>Imprimer</a>
                     </div>
+                    <div class="col-auto float-end ms-auto">
+                       <button  onclick="closeFolder({{ $id_dossier }})" class="btn alert-danger" id="add_client"><i
+                                class="fa fa-delete"></i>Cloturer</button>
+                    </div>
 
                     <div class="col-auto float-end ms-auto">
                         <select wire:model="id_dossier" class="form-control @error('id_dossier') is-invalid @enderror">
                             @foreach($dossiers as $dossier)
-                            <option value="{{$dossier->id}}">{{$dossier->plaque}}</option>
+                                     <option value="{{$dossier->id}}">{{$dossier->plaque}}</option>
                             @endforeach
                         </select>
 
@@ -71,3 +75,11 @@
 
             @include('livewire.detailmvt.list')
             @endif
+
+
+    <script>
+        function closeFolder(id) {
+            if (confirm("Etes vous sur de vouloir cloture le dossier " +id))
+                window.livewire.emit('closeFolder', id);
+        }
+    </script>

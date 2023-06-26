@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 @section('content')
 @if (Auth::user())
-
+<!--
 <body class="account-page">
 <div class="main-wrapper">
 <div class="account-content">
@@ -62,13 +62,11 @@
                 @endif
 
                 <div class="flex items-center justify-end mt-4">
-
-
                     <x-button class="btn btn-primary">
                         {{ __('Register') }}
                     </x-button>
                 </div>
-            </form>
+            </form>-->
 
             @endif
 
