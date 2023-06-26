@@ -51,7 +51,6 @@ class Detailsmvt extends Component
         $mouvements = Mouvements::where('dossier_id', 'like',$dossier->id)->get();
         return view('livewire.detailmvt.detailsmvt', compact('dossier','mouvements','tt_int','tt_out','dossiers'));
     }
-
     public function transfert_edit($id){
             $this->id_mouvement_tr=$id;
             $data_tr=Mouvements::find($this->id_mouvement_tr);
@@ -101,7 +100,7 @@ class Detailsmvt extends Component
                 ]
             );
 
-            if($mouvement){
+        if($mouvement){
                     $old_mt = $caisse->montant;
                     if($this->type =='int'){
                         $new_mt = $this->montant+$old_mt;
@@ -131,6 +130,7 @@ class Detailsmvt extends Component
                 'status' => false,
             ]
         )->save();
+        redirect('shortdetails/close');
     }
 
     public function deleteMvt($id){
@@ -159,7 +159,6 @@ class Detailsmvt extends Component
                                 }
                                 else{
                                     $caisse->increment('montant', $mvt_by_id->montant);
-    
                                  }
                                 $caisse->save();
                                 $mvt_by_id->delete();
