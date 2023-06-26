@@ -9,7 +9,7 @@
                         <h3 class="page-title">Informations Dossiers</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard">Dashboard</a></li>
-                            <li class="breadcrumb-item active"><b class="alert alert-danger">mise à jour en cours </b></li>
+                           
                         </ul>
                     </div>
                     <div class="col-auto float-end ms-auto">
