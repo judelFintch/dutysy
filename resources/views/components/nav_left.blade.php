@@ -48,6 +48,10 @@
                     <a href="{{route('trash.index')}}"><i class="la la-trash"></i> <span>Corbeille</span></a>
                 </li>
 
+                <li class="">
+                    <a href=""><i class="la la-archive"></i> <span>Archives</span></a>
+                </li>
+
             </ul>
         </div>
     </div>
