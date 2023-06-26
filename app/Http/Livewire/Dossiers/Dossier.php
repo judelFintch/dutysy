@@ -45,7 +45,9 @@ use App\Models\Caisses;
                 $clients = Clients::all();
                 $destinations = Destinations::all();
                 $dossier_day = Dossiers ::whereDate('created_at',$this->bigin_date)->count();
-                $dossiers = Dossiers::orderBy('id', 'DESC')->get();
+                $dossiers = Dossiers::orderBy('id', 'DESC')
+                ->where('status', 1)
+                ->get();
                 $negatif = DB::table(function ($query) {
                         $query->select('mouvements.dossier_id')
                             ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS solde')
