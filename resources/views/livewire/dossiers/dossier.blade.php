@@ -65,7 +65,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-5">
-                    <input type="text" placeholder="Tapez la plaque du dossier" wire:model="query"
+                    <input type="text" placeholder="Tapez la plaque du dossier" wire:model.debounce.500ms="query"
                         class="form-control mb-3 col-sm-5 ">
                 </div>
             </div>
