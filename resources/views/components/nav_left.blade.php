@@ -48,7 +48,7 @@
                 </li>
 
                 <li class="">
-                    <a href=""><i class="la la-archive"></i> <span>Archives</span></a>
+                    <a href="{{route('archives.index')}}"><i class="la la-archive"></i> <span>Archives</span></a>
                 </li>
 
             </ul>

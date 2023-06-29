@@ -63,8 +63,7 @@ use App\Models\Caisses;
                      }else{
                         $dossiers = Dossiers::where('plaque', 'like',$search)
                         ->where('status', 1)
-                        ->get();
-                                
+                        ->get();      
                         }
 
                 $negatif = DB::table(function ($query) {

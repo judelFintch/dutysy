@@ -51,7 +51,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified'])
     Route::get('/rapport',Rapport::class)->name('rapport.index');
     Route::get('/shortdetails/{op}',ShortDetails::class)->name('short.index');
     Route::get('/corbeille',Trash::class)->name('trash.index');
-    Route::get('/Archives',Trash::class)->name('archives.index');
+    Route::get('/Archives',Archives::class)->name('archives.index');
    // Route::get('/register', function () { return view('auth.register')->name('register');});
 });
 
