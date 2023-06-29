@@ -13,14 +13,24 @@ use App\Models\Caisses;
     class Dossier extends Component
     {
             public $client, $destination,$creat=false,$type_marchandise, $chauffeur, $plaque, $provenance, $montant_init;
-            public $selected_id, $search;
+            public $selected_id;
             public $update_dossier = false,$idcount=0,$list=true;
             public $bigin_date,$end_date;
+            public $query,$search;
 
-    protected $updatesQueryString = ['search'];
+           //protected $search;
+
+        public function updatedQuery(){
+                if($this->query != ''){
+                        $this->search =$this->query;
+                }
+                else{
+                        $this->query =false;
+                }
+        }
 
         public function mount(){
-                 $this->search = request()->query('search', $this->search);
+                 //$this->search = request()->query('search', $this->search);
                  $this->bigin_date = date('Y-m-d');
                  $this->end_date = date('Y-m-d');
         }
@@ -41,13 +51,22 @@ use App\Models\Caisses;
 
         public function render()
         {
+                //dd($this->search );
                 $search = '%'.$this->search.'%';
                 $clients = Clients::all();
                 $destinations = Destinations::all();
                 $dossier_day = Dossiers ::whereDate('created_at',$this->bigin_date)->count();
-                $dossiers = Dossiers::orderBy('id', 'DESC')
-                ->where('status', 1)
-                ->get();
+                     if($this->search === false){
+                                $dossiers = Dossiers::orderBy('id', 'DESC')
+                                ->where('status', 1)
+                                ->get();
+                     }else{
+                        $dossiers = Dossiers::where('plaque', 'like',$search)
+                        ->where('status', 1)
+                        ->get();
+                                
+                        }
+
                 $negatif = DB::table(function ($query) {
                         $query->select('mouvements.dossier_id')
                             ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS solde')
