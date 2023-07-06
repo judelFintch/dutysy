@@ -11,10 +11,12 @@
                             <li class="breadcrumb-item active">{{$dossier->plaque}} / {{$dossier->client->name}}</li>
                         </ul>
                     </div>
+                    @if($dossier->status ===1)
                     <div class="col-auto float-end ms-auto">
                         <a href="#" wire:click="showform()" class="btn add-btn" id="add_client"><i
                                 class="fa fa-plus"></i>Operation</a>
                     </div>
+                    @endif
 
                     <div class="col-auto float-end ms-auto">
                         <a href="{{route('print.details',['id'=>$id_dossier])}}" class="btn add-btn" id="add_client"><i
