@@ -11,7 +11,7 @@
                         </ul>
                     </div>
                     <div class="col-auto float-end ms-auto">
-                        <a href="#" wire:click="showform()" class="btn add-btn" id="add_client"><i
+                        <a href="#" wire:click="showForm()" class="btn add-btn" id="add_client"><i
                                 class="fa fa-plus"></i> Nouveau Dossier</a>
                     </div>
                 </div>
