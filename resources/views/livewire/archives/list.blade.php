@@ -9,11 +9,14 @@
                         <th>Date</th>
                         <th>Plaque(s)</th>
                         <th>Client</th>
-                        <th>Operation</th>
+    
                     </tr>
                 </thead>
                 <tbody>
+
+                
                     @if(count($dossiers)>0)
+                    
                     @foreach ($dossiers as $doss)
                     <tr>
                         <td>{{$idcount+=1}}</td>
@@ -22,11 +25,7 @@
                         <td><a href="{{route('details.mvt',['id'=>$doss->id])}}">{{ $doss->plaque }}</a>
                         </td>
                         <td>{{ $doss->client->name  }}</td>
-                            @if($archive)
-                                <td>
-                                    <button class="btn btn-danger">Archives</button>
-                                </td>
-                            @endif
+                       
                       
                     </tr>
                     @endforeach

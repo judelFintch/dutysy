@@ -7,8 +7,7 @@ use Livewire\Component;
 use App\Models\Dossiers;
 class ShortDetails extends Component
 {
-
-    public $op, $today;
+    public $op, $today,$archives = false;
     public function mount($op){
         $this->op = $op;
         $this->today = date('Y-m-d');
@@ -27,10 +26,8 @@ class ShortDetails extends Component
             ->where('solde', '<', 0)
             ->distinct()
             ->get();
-
-            $id_dossier =$dossiers->pluck('dossier_id');
-            $dossiers = Dossiers::find($id_dossier);
-    
+                $id_dossier =$dossiers->pluck('dossier_id');
+                $dossiers = Dossiers::find($id_dossier);
         } else if($this->op === 'byday'){
             $dossiers = Dossiers ::whereDate('created_at',$this->today)->get();
         }
@@ -38,6 +35,7 @@ class ShortDetails extends Component
             $dossiers = Dossiers ::where('status',0)->get();
         }
         $idcount =1;
-        return view('livewire.short-details.short-details',compact('idcount','dossiers'));
+        $archive = $this->archives =true;
+        return view('livewire.short-details.short-details',compact('idcount','dossiers','archive'));
     }
 }

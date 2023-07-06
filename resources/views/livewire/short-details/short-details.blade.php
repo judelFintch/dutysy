@@ -18,5 +18,5 @@
                 </div>
             </div>
             
-     @include('livewire.short-details.list')
+             @include('livewire.short-details.list')
 </div>

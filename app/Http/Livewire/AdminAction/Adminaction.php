@@ -9,5 +9,6 @@ class Adminaction extends Component
     public function render()
     {
         return view('livewire.admin-action.adminaction');
+        
     }
 }
