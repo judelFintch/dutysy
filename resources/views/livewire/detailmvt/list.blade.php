@@ -36,8 +36,12 @@
                     <td>{{ $doss->observation }}</td>
                     <td>{{ $doss->beneficiaire }}</td>
                     <td>
+                     @if($doss->dossier->status==1)
+                    
+
                         <a class="badge bg-inverse-warning" wire:click="transfert_edit({{$doss->id}})">Operations</a>
                         <button onclick="deleteMvt({{$doss->id}})" class="btn btn-danger">Del</button>
+                    @endif
                     </td>
                     
                 </tr>

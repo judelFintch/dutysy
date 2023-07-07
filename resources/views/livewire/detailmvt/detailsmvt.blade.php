@@ -63,6 +63,9 @@
 
             </div>
 
+            <button onclick="goBack()">Retour</button>
+
+
             @if (session()->has('message'))
             <div class="alert alert-success">
                 {{ session('message') }} <a href="{{route('ticket.details', ['id' =>$op_print])}}"> Imprimer le recu</a>
@@ -88,3 +91,5 @@
                 window.livewire.emit('closeFolder', id);
         }
     </script>
+
+
