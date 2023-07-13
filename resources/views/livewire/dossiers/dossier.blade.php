@@ -18,6 +18,21 @@
             </div>
 
             <div class="row">
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                    <a href="{{route('short.index',['op' => 'negatif'])}}">
+                        <div class="card dash-widget">
+                            <div class="card-body">
+                                <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
+                                <div class="dash-widget-info">
+                                    <h3> {{ number_format($montantTotal) }}</h3>
+                                    <span>Solde de <b>{{$outstading_count}}</b> Dossier(s) Encours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
                     <a href="{{route('short.index' ,['op' => 'byday'])}}">
                         <div class="card dash-widget">
@@ -45,19 +60,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
-                    <a href="{{route('short.index',['op' => 'negatif'])}}">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
-                                <div class="dash-widget-info">
-                                    <h3> {{ number_format($montantTotal) }}</h3>
-                                    <span>Solde de <b>{{$outstading_count}}</b> Dossier(s) encours</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                
             </div>
             <div class="row">
                 <div class="col-sm-5">
