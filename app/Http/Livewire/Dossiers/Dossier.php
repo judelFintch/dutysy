@@ -10,6 +10,7 @@ use App\Models\Clients;
 use App\Models\Destinations;
 use App\Models\Caisses;
 
+
 class Dossier extends Component
 {
     public $client, $destination, $creat = false, $type_marchandise, $chauffeur, $plaque, $provenance, $montant_init;
@@ -33,13 +34,11 @@ class Dossier extends Component
         $this->creat = true;
         $this->list = false;
     }
-
     public function mount()
     {
         $this->bigin_date = date('Y-m-d');
         $this->end_date = date('Y-m-d');
     }
-
     public function updatedQuery()
     {
         $this->search = $this->query != '' ? $this->query : false;
@@ -51,15 +50,11 @@ class Dossier extends Component
         $clients = Clients::all();
         $destinations = Destinations::all();
         $dossier_day = Dossiers::whereDate('created_at', $this->bigin_date)->count();
-
         $dossiers = Dossiers::orderBy('id', 'DESC')->where('status', 1);
-
-        if ($this->search) {
-            $dossiers->where('plaque', 'like', $search);
-        }
-
+            if ($this->search) {
+                $dossiers->where('plaque', 'like', $search);
+            }
         $dossiers = $dossiers->get();
-
         $negatif = DB::table(function ($query) {
             $query->select('mouvements.dossier_id')
                 ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS solde')
@@ -71,10 +66,15 @@ class Dossier extends Component
             ->where('solde', '<', 0)
             ->distinct()
             ->count('dossier_id');
-
         $dossiers_close = Dossiers::where('status', 0)->count();
+        $outstading_count = Dossiers::where('status', 1)->count();
 
-        return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif'));
+        $montantTotal = Dossiers::where('status', 1)
+                ->where('type', 'int')
+                ->join('mouvements', 'dossiers.id', '=', 'mouvements.dossier_id')
+                ->sum('mouvements.montant');
+
+        return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif','outstading_count', 'montantTotal'));
     }
 
     private function resetInput()
@@ -165,22 +165,21 @@ class Dossier extends Component
             'montant_init' => 'required'
         ]);
 
-        $record = Dossiers::findOrFail($this->selected_id);
-        $record->caisse->update(["amount" => $validatedData["montant_init"]]);
-        $record->update($validatedData);
-        $this->update_dossier = false;
-        $this->resetInput();
+            $record = Dossiers::findOrFail($this->selected_id);
+            $record->caisse->update(["amount" => $validatedData["montant_init"]]);
+            $record->update($validatedData);
+            $this->update_dossier = false;
+            $this->resetInput();
     }
 
     public function destroy($id)
     {
         if ($id) {
             $record = Dossiers::where('id', $id)->first();
-
-            if ($record) {
-                $record->caisse->delete();
-                $record->delete();
-            }
+                if ($record) {
+                    $record->caisse->delete();
+                    $record->delete();
+                }
         }
     }
 }
