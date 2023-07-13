@@ -20,13 +20,13 @@
             <div class="row">
 
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
-                    <a href="{{route('short.index',['op' => 'negatif'])}}">
+                    <a href="">
                         <div class="card dash-widget">
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3> {{ number_format($montantTotal) }}</h3>
-                                    <span>Solde de <b>{{$outstading_count}}</b> Dossier(s) Encours</span>
+                                    <h3> </h3>
+                                    <span></span>
                                 </div>
                             </div>
                         </div>

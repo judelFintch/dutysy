@@ -14,6 +14,9 @@
                     <a href=""><i class="la la-dollar"></i> <span>Caisses</span></a>
                 </li>
                 <li class="">
+                    <a href="{{route('short.index',['op' => 'negatif'])}}"><i class="la la-briefcase"></i> <span>Dossier Negatif</span></a>
+                </li>
+                <li class="">
                     <a href="{{route('client.index')}}"><i class="la la-user"></i> <span>Clients</span></a>
                 </li>
                 <li class="">
