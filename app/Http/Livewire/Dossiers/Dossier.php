@@ -73,14 +73,7 @@ class Dossier extends Component
 
         $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez récupérer les mouvements
 
-/*$montantTotal = DB::table('mouvements')
-    ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
-    ->where('dossiers.status', '=', 1)
-    
-    ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS solde')
-    ->groupBy('dossiers.id')
-    ->get();*/
-    $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez calculer la somme des soldes
+        
 
 $montantTotal = DB::table('mouvements')
     ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
