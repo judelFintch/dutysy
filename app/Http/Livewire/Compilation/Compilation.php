@@ -12,6 +12,8 @@ use App\Models\Caisses;
 
 class Compilation extends Component
 {
+
+    
     public function render()
     {
         $compile = DB::table('mouvements')
@@ -22,8 +24,15 @@ class Compilation extends Component
     ->groupBy('dossiers.id', 'dossiers.plaque')
     ->get();
 
+    $montantTotal = DB::table('mouvements')
+    ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
+    ->where('dossiers.status', '=', 1)
+   
+    ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS somme_solde')
+    ->value('somme_solde');
+
 // Passer les résultats à la vue
 
-        return view('livewire.compilation.compilation', compact('compile'));
+        return view('livewire.compilation.compilation', compact('compile','montantTotal'));
     }
 }

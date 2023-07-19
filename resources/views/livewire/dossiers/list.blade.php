@@ -10,7 +10,6 @@
                         <th>Plaque(s)</th>
                         <th>Client</th>
                        
-                      
                     </tr>
                 </thead>
                 <tbody>
