@@ -25,8 +25,7 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>{{$montantTotal}} </h3>
-                                    <span> Caisse </span>
+                                   
                                 </div>
                             </div>
                         </div>
