@@ -69,10 +69,25 @@ class Dossier extends Component
         $dossiers_close = Dossiers::where('status', 0)->count();
         $outstading_count = Dossiers::where('status', 1)->count();
 
-        $montantTotal = Dossiers::where('status', 1)
-                ->where('type', 'int')
-                ->join('mouvements', 'dossiers.id', '=', 'mouvements.dossier_id')
-                ->sum('mouvements.montant');
+        $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez récupérer les mouvements
+
+        $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez récupérer les mouvements
+
+/*$montantTotal = DB::table('mouvements')
+    ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
+    ->where('dossiers.status', '=', 1)
+    
+    ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS solde')
+    ->groupBy('dossiers.id')
+    ->get();*/
+    $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez calculer la somme des soldes
+
+$montantTotal = DB::table('mouvements')
+    ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
+    ->where('dossiers.status', '=', 1)
+   
+    ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS somme_solde')
+    ->value('somme_solde');
 
         return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif','outstading_count', 'montantTotal'));
     }
