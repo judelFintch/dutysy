@@ -26,7 +26,7 @@
                                 <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
                                 <div class="dash-widget-info">
                                 <h3>{{ number_format($montantTotal)}} $</h3>
-                                    <span>Pour {{ $outstading_count}} Dossier(s) non cloturer</span>
+                                    <span>Pour {{ $outstading_count}} Dossier(s) non Cloturé</span>
                                 </div>
                             </div>
                         </div>
