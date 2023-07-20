@@ -68,13 +68,9 @@ class Dossier extends Component
             ->count('dossier_id');
         $dossiers_close = Dossiers::where('status', 0)->count();
         $outstading_count = Dossiers::where('status', 1)->count();
-
         $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez récupérer les mouvements
-
         $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez récupérer les mouvements
-
-        
-
+  
 $montantTotal = DB::table('mouvements')
     ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
     ->where('dossiers.status', '=', 1)
@@ -82,8 +78,25 @@ $montantTotal = DB::table('mouvements')
     ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS somme_solde')
     ->value('somme_solde');
 
-        return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif','outstading_count', 'montantTotal'));
+
+
+        $montantTotalclose = DB::table('mouvements')
+        ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
+        ->where('dossiers.status', '=', 0)
+
+        ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS somme_solde')
+        ->value('somme_solde');
+
+
+
+        return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif','outstading_count', 'montantTotal','montantTotalclose'));
     }
+
+
+    
+
+
+
 
     private function resetInput()
     {

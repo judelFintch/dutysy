@@ -25,8 +25,8 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
                                 <div class="dash-widget-info">
-                                <h3>{{ number_format($montantTotal)}}</h3>
-                                    <span>Total Caisse</span>
+                                <h3>{{ number_format($montantTotal)}} $</h3>
+                                    <span>Pour {{ $outstading_count}} Dossier(s) non cloturer</span>
                                 </div>
                             </div>
                         </div>
@@ -53,8 +53,8 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-address-card-o"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>{{ $dossiers_close }}</h3>
-                                    <span>Dossier(s) Cloturé</span>
+                                    <h3>{{ $montantTotalclose }}</h3>
+                                    <span>Pour {{$dossiers_close}} Dossier(s) Cloturé</span>
                                 </div>
                             </div>
                         </div>
@@ -62,6 +62,9 @@
                 </div>
                 
             </div>
+
+            
+
             <div class="row">
                 <div class="col-sm-5">
                     <input type="text" placeholder="Tapez la plaque du dossier" wire:model.debounce.500ms="query"
