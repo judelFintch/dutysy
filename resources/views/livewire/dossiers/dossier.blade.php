@@ -53,7 +53,7 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-address-card-o"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>{{ $montantTotalclose }}</h3>
+                                    <h3>{{ number_format($montantTotalclose) }} $</h3>
                                     <span>Pour {{$dossiers_close}} Dossier(s) Cloturé</span>
                                 </div>
                             </div>
