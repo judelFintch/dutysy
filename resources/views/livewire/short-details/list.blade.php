@@ -8,6 +8,7 @@
                         <th>Detail</th>
                         <th>Date</th>
                         <th>Plaque(s)</th>
+                        <th>Types</th>
                         <th>Client</th>
                         <th>Operation</th>
                     </tr>
@@ -21,8 +22,10 @@
                         <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
                         <td><a href="{{route('details.mvt',['id'=>$doss->id])}}">{{ $doss->plaque }}</a>
                         </td>
+                        <td>{{ $doss->type_marchandise }}</td>
                         <td>{{ $doss->client->name  }}</td>
                             @if($archive)
+
                                 <td>
                                     <button class="btn btn-danger">Archives</button>
                                 </td>

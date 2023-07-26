@@ -34,7 +34,7 @@ class ShortDetails extends Component
         else{
             $dossiers = Dossiers ::where('status',0)->get();
         }
-        $idcount =1;
+        $idcount =0;
         $archive = $this->archives =true;
         return view('livewire.short-details.short-details',compact('idcount','dossiers','archive'));
     }
