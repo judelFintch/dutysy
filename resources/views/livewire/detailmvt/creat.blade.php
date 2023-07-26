@@ -39,7 +39,10 @@
             </div>
         </div>
         <div class="submit-section">
-            <button type="button" wire:click.prevent="store()" class="btn btn-primary">Valider</button>
+            <form>
+                     @csrf
+                    <button type="button" wire:click.prevent="store()" class="btn btn-primary">Valider</button>
+            </form>
         </div>
     </div>
 </div>

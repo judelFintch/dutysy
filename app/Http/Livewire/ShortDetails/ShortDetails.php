@@ -5,6 +5,7 @@ namespace App\Http\Livewire\ShortDetails;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Dossiers;
+
 class ShortDetails extends Component
 {
     public $op, $today,$archives = false;
@@ -12,6 +13,7 @@ class ShortDetails extends Component
         $this->op = $op;
         $this->today = date('Y-m-d');
     }
+    
     public function render()
     {   
         if($this->op === 'negatif'){

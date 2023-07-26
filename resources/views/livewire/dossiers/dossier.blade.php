@@ -1,4 +1,7 @@
 <div>
+
+
+
     <x-nav_left />
     <div class="page-wrapper">
         <div class="content container-fluid">
@@ -63,6 +66,7 @@
                 
             </div>
 
+  
             
 
             <div class="row">
