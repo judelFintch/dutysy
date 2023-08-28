@@ -9,11 +9,14 @@ use App\Models\Dossiers;
 use App\Models\Clients;
 use App\Models\Destinations;
 use App\Models\Caisses;
+use Illuminate\Session\SessionManager ;
 
 
 class Dossier extends Component
 {
     public $client, $destination, $creat = false, $type_marchandise, $chauffeur, $plaque, $provenance, $montant_init;
+
+
     public $selected_id;
     public $update_dossier = false, $idcount = 0, $list = true;
     public $bigin_date, $end_date;
@@ -34,7 +37,7 @@ class Dossier extends Component
         $this->creat = true;
         $this->list = false;
     }
-    public function mount()
+    public function mount(SessionManager $sessionManager)
     {
         $this->bigin_date = date('Y-m-d');
         $this->end_date = date('Y-m-d');
@@ -43,7 +46,6 @@ class Dossier extends Component
     {
         $this->search = $this->query != '' ? $this->query : false;
     }
-
     public function render()
     {
         $search = '%' . $this->search . '%';
@@ -71,13 +73,12 @@ class Dossier extends Component
         $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez récupérer les mouvements
         $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez récupérer les mouvements
   
-$montantTotal = DB::table('mouvements')
-    ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
-    ->where('dossiers.status', '=', 1)
-   
-    ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS somme_solde')
-    ->value('somme_solde');
+            $montantTotal = DB::table('mouvements')
+            ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
+            ->where('dossiers.status', '=', 1)
 
+            ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS somme_solde')
+            ->value('somme_solde');
 
 
         $montantTotalclose = DB::table('mouvements')
@@ -86,10 +87,12 @@ $montantTotal = DB::table('mouvements')
 
         ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS somme_solde')
         ->value('somme_solde');
+        
+        define('compte_bureau' ,'COMPTE BUREAU');
 
+        $cpb = Dossiers::where('plaque', '=',compte_bureau)->first();
 
-
-        return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif','outstading_count', 'montantTotal','montantTotalclose'));
+        return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif','outstading_count', 'montantTotal','montantTotalclose','cpb'));
     }
 
 

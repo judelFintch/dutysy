@@ -22,21 +22,21 @@
 
             <div class="row">
 
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+            <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <a href="{{route('compilation.index')}}">
                         <div class="card dash-widget">
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
                                 <div class="dash-widget-info">
                                 <h3>{{ number_format($montantTotal)}} $</h3>
-                                    <span>Pour {{ $outstading_count}} Dossier(s) non Cloturé</span>
+                                    <span> {{ $outstading_count}} Dossier(s) non Cloturé</span>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
 
-                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <a href="{{route('short.index' ,['op' => 'byday'])}}">
                         <div class="card dash-widget">
                             <div class="card-body">
@@ -50,7 +50,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <a href="{{route('short.index',['op' => 'close'])}}">
                         <div class="card dash-widget">
                             <div class="card-body">
@@ -63,18 +63,23 @@
                         </div>
                     </a>
                 </div>
-                
+
+
+               
             </div>
 
   
-            
+            <hr>
 
             <div class="row">
+                <legend>Filtrez le Dossier</legend>
                 <div class="col-sm-5">
                     <input type="text" placeholder="Tapez la plaque du dossier" wire:model.debounce.500ms="query"
                         class="form-control mb-3 col-sm-5 ">
                 </div>
             </div>
+
+            <hr>
 
                 @if (session()->has('message'))
                 <div class="alert alert-success">

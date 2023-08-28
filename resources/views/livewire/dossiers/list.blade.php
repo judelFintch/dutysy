@@ -9,24 +9,21 @@
                         <th>Date</th>
                         <th>Plaque(s)</th>
                         <th>Client</th>
-                       
                     </tr>
                 </thead>
                 <tbody>
                     @if(count($dossiers)>0)
                     
-                    @foreach ($dossiers as $doss)
-                    <tr>
-                        <td>{{$idcount+=1}}</td>
-                        <td><a class="btn btn-sm btn-warning" href="{{route('details.mvt',['id'=>$doss->id])}}">Detail</a></td>
-                        <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
-                        <td><a href="{{route('details.mvt',['id'=>$doss->id])}}">{{ $doss->plaque }}</a>
-                        </td>
-                        <td>{{ $doss->client->name  }}</td>
-                       
-                      
-                    </tr>
-                    @endforeach
+                        @foreach ($dossiers as $doss)
+                        <tr>
+                            <td>{{$idcount+=1}}</td>
+                            <td><a class="btn btn-sm btn-warning" href="{{route('details.mvt',['id'=>$doss->id])}}">Detail</a></td>
+                            <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
+                            <td><a href="{{route('details.mvt',['id'=>$doss->id])}}">{{ $doss->plaque }}</a>
+                            </td>
+                            <td>{{ $doss->client->name  }}</td>
+                        </tr>
+                        @endforeach
                     @else
                     <tr>
                         <td> Aucune Donnee</td>
