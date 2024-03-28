@@ -36,7 +36,7 @@ class Rapport extends Component
 
 
     public function filter(){
-       dd($this->bigin_date);
+      
 
     }
 }

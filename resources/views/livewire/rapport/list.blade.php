@@ -23,7 +23,7 @@
                     @endif
                     <tr>
                         <td>{{$idcount+=1}}</td>
-                        <td>{{ date("Y-m-d", strtotime($doss->dossier->created_at)) }}
+                        <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}
                         </td>
                         <td>
                             @if($doss->type=='int')
@@ -35,8 +35,6 @@
                         <td>{{ $doss->motif }}</td>
                         <td>{{ $doss->observation }}</td>
                         <td>{{ $doss->beneficiaire }}</td>
-
-
                     </tr>
                     @endforeach
                     @else

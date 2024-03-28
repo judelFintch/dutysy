@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="account-logo">
                     <a href="dashboard">
-                        <img src="assets/img/new-castorms.jpg" alt="New Castorms"></a>
+                        <img src="assets/img/logo2.png" alt="New Castorms"></a>
                 </div>
 
                 <div class="account-box">
@@ -57,9 +57,7 @@
                             <div class="form-group text-center">
                                 <button class="btn btn-primary account-btn" type="submit">Login</button>
                             </div>
-                            <div class="account-footer">
-                                <p>Don't have an account yet? <a href="auth-register">Register</a></p>
-                            </div>
+                            
                         </form>
 
                     </div>

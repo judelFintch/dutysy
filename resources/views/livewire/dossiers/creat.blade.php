@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <input type="text" wire:model.defer="type_marchandise" name="type_marchandise" placeholder="Type marchandise" class="form-control text-secondary">
+            <input type="text" wire:model.defer="type_marchandise" name="type_marchandise" placeholder="Type" class="form-control text-secondary">
             @error('type_marchandise') <span class="error">{{ $message }}</span> @enderror
         </div>
     </div>
