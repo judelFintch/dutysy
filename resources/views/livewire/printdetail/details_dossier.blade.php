@@ -91,43 +91,33 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div>
-                                        <h4 class="m-b-10"><strong>Entree</strong></h4>
+                                        <h4 class="m-b-10"><strong>Entrées</strong></h4>
                                         <table class="table table-bordered">
                                             <tbody>
-                                                <?php $tot_out=0; $tot_int=0;?>
+                                                <?php $tot_out = 0;
+                                                $tot_int = 0; ?>
                                                 @foreach($mv_int as $mvt_int)
-                                                <?php $tot_int+=$mvt_int->montant?>
+                                                <?php $tot_int += $mvt_int->montant ?>
                                                 <tr>
-                                                <td>
-                                                        <strong>Date</strong> <span
-                                                            class="float-end">{{ date("Y-m-d", strtotime($mvt_int->created_at)) }}</span>
-                                                    </td>
-                                                   
-                                                   
-                                                <td>
-                                                        <strong>Motif</strong> <span
-                                                            class="float-end">{{$mvt_int->motif}}</span>
+                                                    <td>
+                                                        <strong>Date</strong> <span class="float-end">{{ date("Y-m-d", strtotime($mvt_int->created_at)) }}</span>
                                                     </td>
                                                     <td>
-                                                        <strong>Observation</strong> <span
-                                                            class="float-end">${{$mvt_int->observation}}</span>
+                                                        <span class="float-end">{{$mvt_int->motif}}</span>
                                                     </td>
-
                                                     <td>
-                                                        <strong>Montant</strong> <span
-                                                            class="float-end">${{$mvt_int->montant}}</span>
+                                                        <span class="float-end">{{$mvt_int->observation}}</span>
                                                     </td>
-
-                                                    
+                                                    <td>
+                                                        <strong> $ </strong> <span class="float-end">{{$mvt_int->montant}}</span>
+                                                    </td>
                                                 </tr>
                                                 @endforeach
-
                                                 <tr>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td><strong>Total Entree</strong> <span
-                                                            class="float-end"><strong>$
+                                                    <td><strong>$</strong> <span class="float-end"><strong>
                                                                 {{$tot_int}}</strong></span></td>
                                                 </tr>
                                             </tbody>
@@ -140,35 +130,27 @@
                                         <table class="table table-bordered">
                                             <tbody>
                                                 @foreach($mv_out as $mvt_out)
-                                                <?php $tot_out+=$mvt_out->montant?>
+                                                <?php $tot_out += $mvt_out->montant ?>
                                                 <tr>
-                                                <td>
-                                                        <strong>Date</strong> <span
-                                                            class="float-end">{{ date("Y-m-d", strtotime($mvt_out->created_at)) }}</span>
-                                                    </td>
-                                                   
-                                                <td>
-                                                        <strong>Motif</strong> <span
-                                                            class="float-end">{{$mvt_out->motif}}</span>
+                                                    <td>
+                                                        <strong>Date</strong> <span class="float-end">{{ date("Y-m-d", strtotime($mvt_out->created_at)) }}</span>
                                                     </td>
                                                     <td>
-                                                        <strong>Observation</strong> <span
-                                                            class="float-end">${{$mvt_out->observation}}</span>
+                                                        <span class="float-end">{{$mvt_out->motif}}</span>
                                                     </td>
-
                                                     <td>
-                                                        <strong>Montant</strong> <span
-                                                            class="float-end">${{$mvt_out->montant}}</span>
+                                                        <span class="float-end"> {{$mvt_out->observation}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <strong>$</strong> <span class="float-end">{{$mvt_out->montant}}</span>
                                                     </td>
                                                 </tr>
-
                                                 @endforeach
                                                 <tr>
-                                                <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td><strong>Total Charge</strong> <span
-                                                            class="float-end"><strong>$
+                                                    <td></td>
+                                                    <td><strong>$</strong> <span class="float-end"><strong>$
                                                                 {{$tot_out}}</strong></span></td>
                                                 </tr>
                                             </tbody>
@@ -177,8 +159,9 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <p>
-                                        <strong>Solde Dossier: ${{$tot_int -$tot_out}}</strong> </p>
-</div>
+                                        <strong>Solde Dossier: ${{$tot_int -$tot_out}}</strong>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

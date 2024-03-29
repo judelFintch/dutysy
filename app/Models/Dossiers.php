@@ -29,7 +29,7 @@ class Dossiers extends Model
      */
     public function dossiers(): HasMany
     {
-        return $this->hasMany(Mouvement::class, 'dossier_id', 'id');
+        return $this->hasMany(Mouvements::class, 'dossier_id', 'id');
     }
 
     /**

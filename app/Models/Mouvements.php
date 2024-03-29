@@ -29,7 +29,7 @@ class Mouvements extends Model
     {
         return $this->belongsTo(Dossiers::class);
     }
-
+    
 
     public function Mouvement(): BelongsTo
     {

@@ -6,6 +6,7 @@
                     <tr>
                         <th>#id</th>
                         <th>Date</th>
+                        <th>Dossier</th>
                         <th>Montant</th>
                         <th>Motif</th>
                         <th>observation</th>
@@ -24,6 +25,8 @@
                     <tr>
                         <td>{{$idcount+=1}}</td>
                         <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}
+                        </td>
+                        <td>{{ $doss->dossier->plaque }}
                         </td>
                         <td>
                             @if($doss->type=='int')

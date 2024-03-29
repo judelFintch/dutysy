@@ -25,11 +25,11 @@ class Rapport extends Component
 
     public function render()
         {   $idcount =0;
-            $bigin_date = $this->bigin_date;
+            $begin_date = $this->bigin_date;
             $end_date = $this->end_date;
-        $mouvements = Mouvements::whereDate('created_at', '>=', $bigin_date)
-        ->whereDate('created_at', '<=', $end_date)
-        ->get();
+            $mouvements = Mouvements::with('dossier')
+            ->whereDate('created_at', '>=', $begin_date)->get();
+       
 
         return view('livewire.rapport.rapport', compact('mouvements','idcount'));
     }
