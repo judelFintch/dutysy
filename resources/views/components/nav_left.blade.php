@@ -11,7 +11,11 @@
                     <a href="{{route('dossier.index')}}"><i class="la la-briefcase"></i> <span>Dossier Cloturé</span></a>
                 </li>
                 <li class="">
-                    <a href="{{route('compilation.index')}}"><i class="la la-dollar"></i> <span>Caisses</span></a>
+                <a href="{{ route('compilation.index', ['devise' => $devise[0]]) }}"><i class="la la-dollar"></i> <span>Caisses USD</span></a>
+                </li>
+                <li class="">
+                <a href="{{ route('compilation.index', ['devise' => $devise[1]]) }}"><i class="la la-dollar"></i> <span>Caisses CDF</span></a>
+
                 </li>
                 <li class="">
                     <a href="{{route('short.index',['op' => 'negatif'])}}"><i class="la la-briefcase"></i> <span>Dossier Negatif</span></a>
