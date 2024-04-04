@@ -28,8 +28,8 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
                                 <div class="dash-widget-info">
-                                <h3>{{ number_format($montantTotal)}} $</h3>
-                                    <span> {{ $outstading_count}} Dossier(s) non Cloturé</span>
+                                <h3>{{ number_format($solde_caisse->montant)}} $</h3>
+                                    <span> </span>
                                 </div>
                             </div>
                         </div>
@@ -63,10 +63,34 @@
                         </div>
                     </a>
                 </div>
-
-
-               
             </div>
+
+            <div class="row">
+
+            <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
+                    <a href="{{route('compilation.index')}}">
+                        <div class="card dash-widget">
+                            <div class="card-body">
+                                <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
+                                <div class="dash-widget-info">
+                                <h3>{{ number_format($solde_caisse->montant_cdf)}} CDF</h3>
+                                    <span> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+    <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
+       
+    </div>
+    <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
+       
+    </div>
+
+
+   
+</div>
 
   
             <hr>

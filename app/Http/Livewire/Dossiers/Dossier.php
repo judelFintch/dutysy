@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dossiers;
 
+use App\Http\Livewire\Caisses\Caisse;
 use App\Models\Mouvements;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -91,8 +92,11 @@ class Dossier extends Component
         define('compte_bureau' ,'COMPTE BUREAU');
 
         $cpb = Dossiers::where('plaque', '=',compte_bureau)->first();
+        #code non propre a refectorer par la jour des variables dynamic
+        $solde_caisse= Caisses::where('id', 1)->first();
 
-        return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif','outstading_count', 'montantTotal','montantTotalclose','cpb'));
+    
+        return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif','outstading_count', 'montantTotal','montantTotalclose','cpb','solde_caisse'));
     }
 
 

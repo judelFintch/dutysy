@@ -65,7 +65,7 @@
 
         <li class="nav-item dropdown has-arrow main-drop">
             <a href="#">
-                <span> Taux : {{$taux}} </span>
+                <span> Taux : 1$ = {{$taux}} CDF</span>
             </a>
         </li>
 
