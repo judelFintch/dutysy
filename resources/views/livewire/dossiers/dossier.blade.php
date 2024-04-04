@@ -72,7 +72,7 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>{{ number_format($solde_caisse->montant_cdf)}} CDF</h3>
+                                    <h3>{{ number_format($solde_caisse->amount_cdf)}} CDF</h3>
                                     <span> </span>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
             </div>
             <hr>
 
-            @include('livewire.dossiers.creat')
+          
 
             @if (session()->has('message'))
             <div class="alert alert-success">

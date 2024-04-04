@@ -145,7 +145,7 @@ class Dossier extends Component
                 if ($caisse) {
                     $old_mt_usd = $caisse->montant;
                     $old_mt_cdf = $caisse->amount_cdf;
-        
+    
                     $nw_mt_usd = $old_mt_usd + $this->montant_init;
                     $nw_mt_cdf = $old_mt_cdf + $this->montant_cdf;
                     $caisse->montant = $nw_mt_usd;
