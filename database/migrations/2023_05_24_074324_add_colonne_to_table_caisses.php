@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('caisses', function (Blueprint $table) {
-            $table->float("amount")->default(0);
+            $table->float("amount_cdf")->default(0);
             $table->boolean("entree")->default(0);
             $table->unsignedBigInteger("reference_id")->nullable();
         });
