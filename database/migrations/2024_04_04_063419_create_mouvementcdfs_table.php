@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('taux_jour', function (Blueprint $table) {
-            //
-            $table->boolean('status');
+        Schema::create('mouvementcdfs', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -22,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('taux_jour', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('mouvementcdfs');
     }
 };
