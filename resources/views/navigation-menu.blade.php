@@ -61,6 +61,13 @@
                 </div>
             </div>
         </li>
+       
+
+        <li class="nav-item dropdown has-arrow main-drop">
+            <a href="#">
+                <span> Taux : {{$taux}} </span>
+            </a>
+        </li>
 
         <li class="nav-item dropdown has-arrow main-drop">
             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
