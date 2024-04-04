@@ -16,6 +16,7 @@ use Illuminate\Session\SessionManager ;
 class Dossier extends Component
 {
     public $client, $destination, $creat = false, $type_marchandise, $chauffeur, $plaque, $provenance, $montant_init;
+    public $montant_cdf;
 
 
     public $selected_id;
@@ -40,6 +41,8 @@ class Dossier extends Component
     }
     public function mount(SessionManager $sessionManager)
     {
+
+        
         $this->bigin_date = date('Y-m-d');
         $this->end_date = date('Y-m-d');
     }
@@ -72,7 +75,7 @@ class Dossier extends Component
         $dossiers_close = Dossiers::where('status', 0)->count();
         $outstading_count = Dossiers::where('status', 1)->count();
         $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez récupérer les mouvements
-        $dossier_id = 1; // Remplacez 1 par l'ID du dossier pour lequel vous souhaitez récupérer les mouvements
+     
   
             $montantTotal = DB::table('mouvements')
             ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
@@ -140,9 +143,13 @@ class Dossier extends Component
                 $caisse = Caisses::where('name_caisse', 'like', $search)->first();
 
                 if ($caisse) {
-                    $old_mt = $caisse->montant;
-                    $nw_mt = $old_mt + $this->montant_init;
-                    $caisse->montant = $nw_mt;
+                    $old_mt_usd = $caisse->montant;
+                    $old_mt_cdf = $caisse->amount_cdf;
+        
+                    $nw_mt_usd = $old_mt_usd + $this->montant_init;
+                    $nw_mt_cdf = $old_mt_cdf + $this->montant_cdf;
+                    $caisse->montant = $nw_mt_usd;
+                    $caisse->amount_cdf = $nw_mt_cdf;
                     $caisse->save();
                 }
 
@@ -159,7 +166,7 @@ class Dossier extends Component
             });
 
             session()->flash('message', 'Opération réussie');
-            $this->resetInput();
+           // $this->resetInput();
             $this->creat = false;
             $this->list = true;
         } catch (\Exception $e) {

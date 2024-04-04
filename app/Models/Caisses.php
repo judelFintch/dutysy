@@ -11,6 +11,7 @@ class Caisses extends Model
     protected $fillable = [
          "name_caisse",
          "montant",
-         "type_caisse"
+         "type_caisse",
+         'amount_cdf'
     ];
 }

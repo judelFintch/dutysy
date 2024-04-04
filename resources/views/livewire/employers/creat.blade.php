@@ -50,13 +50,7 @@
     type="hidden" wire:model="fonction_id">
 @error('sexe') <span> {{ $message }}</span> @enderror
 
-<!-- <select wire.model='fonction_id'>
-<option value="default">Sélectionnez</option>
-<option value="def">Sélectionnez</option>
-@foreach($listfonction as $fonct)
-<option value="{{ $fonct->id}}"> {{ $fonct->fonction }}</option>
-@endforeach
-</select>-->
+
 
 <button class="btn btn-primary" type="button"
     wire:click.prevent="store()">Valider</button>
