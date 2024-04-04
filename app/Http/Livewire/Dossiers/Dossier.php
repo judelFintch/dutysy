@@ -11,7 +11,8 @@ use App\Models\Clients;
 use App\Models\Destinations;
 use App\Models\Caisses;
 use Illuminate\Session\SessionManager ;
-
+use App\Models\OtherDetailsDossier;
+use App\Models\OtherDetailsMouvement;
 
 class Dossier extends Component
 {
@@ -141,17 +142,26 @@ class Dossier extends Component
 
                 $search = 'Dossier';
                 $caisse = Caisses::where('name_caisse', 'like', $search)->first();
-
                 if ($caisse) {
-                    $old_mt_usd = $caisse->montant;
-                    $old_mt_cdf = $caisse->amount_cdf;
-    
-                    $nw_mt_usd = $old_mt_usd + $this->montant_init;
-                    $nw_mt_cdf = $old_mt_cdf + $this->montant_cdf;
-                    $caisse->montant = $nw_mt_usd;
-                    $caisse->amount_cdf = $nw_mt_cdf;
-                    $caisse->save();
+                    // Validation des montants saisis
+                    $montant_init = max(0, (float)$this->montant_init);
+                    $montant_cdf = max(0, (float)$this->montant_cdf);
+                    
+                    // Récupération des montants actuels
+                    $old_mt_usd = $caisse->montant ?? 0;
+                    $old_mt_cdf = $caisse->amount_cdf ?? 0;
+                
+                    // Calcul des nouveaux montants
+                    $nw_mt_usd = $old_mt_usd + $montant_init;
+                    $nw_mt_cdf = $old_mt_cdf + $montant_cdf;
+                
+                    // Mise à jour des montants dans la caisse
+                    $caisse->update([
+                        'montant' => $nw_mt_usd,
+                        'amount_cdf' => $nw_mt_cdf
+                    ]);
                 }
+                
 
                 Mouvements::create([
                     'dossier_id' => $dossier->id,
@@ -163,6 +173,18 @@ class Dossier extends Component
                     'observation' => '---',
                     'caisse_id' => $caisse->id
                 ]);
+                #a supprimer pas de sens et constitue un doublons , la somme de montant peut etre recuperr dans mouvemet
+                OtherDetailsDossier::create([
+                    'dossier_id' => $dossier->id,
+                    'amount_cdf' => $this->montant_cdf,
+                ]);
+
+                OtherDetailsDossier::create([
+                    'dossier_id' => $dossier->id,
+                    'amount_cdf' => $this->montant_cdf,
+                ]);
+                
+                
             });
 
             session()->flash('message', 'Opération réussie');

@@ -25,10 +25,10 @@
                     @endif
                     <tr>
                         <td>{{$idcount+=1}}</td>
-                        <td><a class="btn btn-sm btn-warning" href="{{route('details.mvt',['id'=>$doss->dossier->id])}}">Detail</a></td>
+                        <td><a class="btn btn-sm btn-warning" href="{{route('details.mvt',['id'=>$doss->dossier->id ?? 0])}}">Detail</a></td>
                         <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}
                         </td>
-                        <td>{{ $doss->dossier->plaque }}
+                        <td>{{ $doss->dossier->plaque ?? 0 }}
                         </td>
                         <td>
                             @if($doss->type=='int')

@@ -32,6 +32,11 @@ class Dossiers extends Model
         return $this->hasMany(Mouvements::class, 'dossier_id', 'id');
     }
 
+    public function otherDetails()
+    {
+        return $this->hasOne(OtherDetailsDossier::class);
+    }
+
     /**
      * Get all of the comments for the Dossiers
      *

@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mouvementcdfs', function (Blueprint $table) {
+        Schema::create('other_details_mouvements', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('dossier_id');
+            $table->float('amount_cdf');
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mouvementcdfs');
+        Schema::dropIfExists('other_details_mouvements');
     }
 };

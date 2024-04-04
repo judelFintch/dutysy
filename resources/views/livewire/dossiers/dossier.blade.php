@@ -27,7 +27,8 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>{{ number_format($solde_caisse->montant)}} $</h3>
+                                <h3>{{ isset($solde_caisse) ? number_format($solde_caisse->montant) : 0 }} $</h3>
+
                                     <span> </span>
                                 </div>
                             </div>
@@ -72,7 +73,8 @@
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>{{ number_format($solde_caisse->amount_cdf)}} CDF</h3>
+                                <h3>{{ isset($solde_caisse) && isset($solde_caisse->amount_cdf) ? number_format($solde_caisse->amount_cdf) : 0 }} CDF</h3>
+
                                     <span> </span>
                                 </div>
                             </div>
