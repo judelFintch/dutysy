@@ -179,7 +179,7 @@ class Dossier extends Component
                     'amount_cdf' => $this->montant_cdf,
                 ]);
 
-                OtherDetailsDossier::create([
+                OtherDetailsMouvement::create([
                     'dossier_id' => $dossier->id,
                     'amount_cdf' => $this->montant_cdf,
                 ]);

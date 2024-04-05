@@ -1,3 +1,4 @@
+
 <div id="form-client">
     <div class="row">
         <div class="col-sm-6">
@@ -5,6 +6,26 @@
                 <input type="number" class="form-control" type="text" placeholder="Saisisez le montant"
                     class="@error('montant') is-invalid @enderror" type="text" wire:model.defer="montant">
                 @error('montant') <span> {{ $message }}</span> @enderror
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <select wire:model.defer="Opdevise" class="form-control @error('devise') is-invalid @enderror">
+                <option value="">Devise</option>
+                <option value="usd">USD</option>
+                <option value="cdf">CDF</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+            <select wire:model.defer="listCaisse" class="form-control @error('motif') is-invalid @enderror">
+                <option value="">Choisisez la Caisses</option>
+                @foreach ($caisses as $caisse)
+                     <option value="{{$caisse->id}}">{{$caisse->name_caisse}} USD : {{$caisse->montant}} - CDF: {{$caisse->amount_cdf}}</option>
+                @endforeach
+            </select>
             </div>
         </div>
         <div class="col-sm-6">

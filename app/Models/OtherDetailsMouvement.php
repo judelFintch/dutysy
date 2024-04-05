@@ -9,6 +9,8 @@ class OtherDetailsMouvement extends Model
 {
     use HasFactory;
 
+    protected $fillable =['amount_cdf','dossier_id'];
+
     public function dossier()
     {
         return $this->belongsTo(Dossiers::class);

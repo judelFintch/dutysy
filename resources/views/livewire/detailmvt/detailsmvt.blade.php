@@ -64,7 +64,8 @@
             </div>
 
             <button onclick="goBack()">Retour</button>
-
+            
+            @include('livewire.detailmvt.creat')
 
             @if (session()->has('message'))
             <div class="alert alert-success">
@@ -73,13 +74,13 @@
             @endif
 
             @if($creat)
-            @include('livewire.detailmvt.creat')
+                 @include('livewire.detailmvt.creat')
             @endif
             @if($transfer)
-            @include('livewire.detailmvt.transfer')
+                  @include('livewire.detailmvt.transfer')
             @endif
             @if($list)
-            @include('livewire.detailmvt.list')
+                   @include('livewire.detailmvt.list')
             @endif
 
             <script>
