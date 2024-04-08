@@ -52,11 +52,23 @@ class Detailsmvt extends Component
     public function render()
     {
         $type = "entree";
+
         $dossiers = Dossiers::all();
-        $dossier =  Dossiers::find($this->id_dossier);
-        $tt_int =   Mouvements::where('type', 'int')->where('dossier_id', $dossier->id)->sum('montant');
-        $tt_out =   Mouvements::where('type', 'out')->where('dossier_id', $dossier->id)->sum('montant');
-        $mouvements = Mouvements::where('dossier_id', 'like', $dossier->id)->get();
+        $dossier = Dossiers::find($this->id_dossier);
+        
+        // Ensure $dossier is not null before proceeding
+        if ($dossier) {
+            $tt_int = Mouvements::where('type', 'int')->where('dossier_id', $dossier->id)->sum('montant');
+            $tt_out = Mouvements::where('type', 'out')->where('dossier_id', $dossier->id)->sum('montant');
+            $mouvements = Mouvements::with('otherDetails')->where('dossier_id', $dossier->id)->get();
+        } else {
+            // Handle the case when $dossier is null
+            // Maybe set $tt_int, $tt_out, and $mouvements to default values or handle the error
+            $tt_int = 0;
+            $tt_out = 0;
+            $mouvements = collect(); // An empty collection for consistency
+        }
+
         $caisses = Caisse::all();
         return view('livewire.detailmvt.detailsmvt', compact('dossier', 'mouvements', 'tt_int', 'tt_out', 'dossiers', 'caisses'));
     }
@@ -97,66 +109,55 @@ class Detailsmvt extends Component
         $this->validate();
         DB::beginTransaction();
         try {
-            $seacrh = "Dossier";
-            $caisse = Caisse::where('name_caisse', 'like', $seacrh)->first();
-            //a refactorer la valeur usd et cdf dois etre dans une variable globale
-            if ($this->Opdevise == 'usd') {
-                $mount_usd = $this->montant;
-                $form_mount_cdf = 0;
-                $old_mt = $caisse->montant;
-                if ($this->type == 'int') {
-                    $new_mt = $this->montant + $old_mt;
-                }
-                if ($this->type == 'out') {
-                    $new_mt = $old_mt - $this->montant;
-                }
-                $caisse->montant = $new_mt;
-            } else {
-                $mount_usd = 0;
-                //variable public recu par le fourmalair
-                $form_mount_cdf = $this->montant;
-                $old_mt_bdd = $caisse->amount_cdf;
-                //operation en entree
-                if ($this->type == 'int') {
-                    $new_mt = $form_mount_cdf + $old_mt_bdd;
-                }
-                if ($this->type == 'out') {
-                    $new_mt = $old_mt_bdd - $form_mount_cdf;
-                }
-                $caisse->amount_cdf = $new_mt;
-            }
-
-            $caisse->save();
-            $mouvement = Mouvements::create(
-                [
-                    'dossier_id' => $this->id_dossier,
-                    'montant' => $mount_usd,
-                    'type' => $this->type,
-                    'libelle' => 'operation',
-                    'motif' => $this->motif,
-                    'observation' => $this->observation,
-                    'beneficiaire' => $this->beneficiaire,
-                    'caisse_id' => $caisse->id
-                ]
-            );
-
+            $search = "Dossier";
+            $caisse = Caisse::where('name_caisse', 'like', "%{$search}%")->firstOrFail();
+    
+            // Supposons que les taux soient stockés dans un fichier de configuration / variables d'environnement
+            // Par exemple: config('app.currency_rates.usd_to_cdf')
+            $amount_usd = $this->Opdevise == 'usd' ? $this->montant : 0;
+            $amount_cdf = $this->Opdevise == 'cdf' ? $this->montant : 0;
+            $this->updateCaisseAmount($caisse, $amount_usd, $amount_cdf);
+            $mouvement = Mouvements::create([
+                'dossier_id' => $this->id_dossier,
+                'montant' => $amount_usd, // Assurez-vous que cela est correct, sinon ajustez en fonction de la logique métier.
+                'type' => $this->type,
+                'libelle' => 'operation',
+                'motif' => $this->motif,
+                'observation' => $this->observation,
+                'beneficiaire' => $this->beneficiaire,
+                'caisse_id' => $caisse->id
+            ]);
+    
             OtherDetailsMouvement::create([
                 'dossier_id' => $this->id_dossier,
-                'amount_cdf' => $form_mount_cdf,
+                'amount_cdf' => $amount_cdf,
             ]);
-
-
+    
             if ($mouvement) {
                 $this->op_print = $mouvement->id;
-                session()->flash('message', 'Operation reussi');
-                    $this->creat = false;
-                    $this->list = true;
-                    $this->resetField();
+                session()->flash('message', __('Operation réussie.'));
                 DB::commit();
             }
         } catch (\Exception $e) {
-            session()->flash('message', dd($e));
+            DB::rollBack();
+            //Log::error($e);
+            session()->flash('message', __('Une erreur est survenue lors de l\'opération.'));
         }
+    }
+
+
+    private function updateCaisseAmount($caisse, $amount_usd, $amount_cdf) {
+        if ($this->Opdevise == 'usd') {
+            $old_amount = $caisse->montant;
+            $new_amount = $this->type == 'int' ? $old_amount + $amount_usd : $old_amount - $amount_usd;
+            $caisse->montant = $new_amount;
+        } else {
+            $old_amount_cdf = $caisse->amount_cdf;
+            $new_amount_cdf = $this->type == 'int' ? $old_amount_cdf + $amount_cdf : $old_amount_cdf - $amount_cdf;
+            $caisse->amount_cdf = $new_amount_cdf;
+        }
+    
+        $caisse->save();
     }
 
     public function closeFolder($id_dossier)

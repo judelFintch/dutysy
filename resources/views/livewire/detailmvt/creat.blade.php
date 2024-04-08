@@ -14,6 +14,7 @@
                 <option value="usd">USD</option>
                 <option value="cdf">CDF</option>
             </select>
+            @error('devise') <span> {{ $message }}</span> @enderror
         </div>
     </div>
 
@@ -26,6 +27,7 @@
                      <option value="{{$caisse->id}}">{{$caisse->name_caisse}} USD : {{$caisse->montant}} - CDF: {{$caisse->amount_cdf}}</option>
                 @endforeach
             </select>
+            @error('listCaisse') <span> {{ $message }}</span> @enderror
             </div>
         </div>
         <div class="col-sm-6">
@@ -34,6 +36,7 @@
                 <option value="int">Entree</option>
                 <option value="out">Sortie</option>
             </select>
+            @error('type') <span> {{ $message }}</span> @enderror
         </div>
     </div>
     <div class="row">

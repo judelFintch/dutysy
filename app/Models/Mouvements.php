@@ -35,4 +35,13 @@ class Mouvements extends Model
     {
         return $this->belongsTo(Mouvements::class);
     }
+
+
+    public function otherDetails()
+    {
+        return $this->hasOne(OtherDetailsMouvement::class, 'dossier_id', 'dossier_id');
+    }
+
+
+    
 }
