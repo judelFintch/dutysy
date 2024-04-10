@@ -60,7 +60,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="montant_init">Montant en USD</label>
-                <input type="number" id="montant_init" name="montant_init" wire:model.defer="montant_init" placeholder="Enter amount in USD" class="form-control">
+                <input type="number" id="montant_init" name="montant_init" value="0" wire:model.defer="montant_init" placeholder="Enter amount in USD" class="form-control">
                 @error('montant_init') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="form-group">

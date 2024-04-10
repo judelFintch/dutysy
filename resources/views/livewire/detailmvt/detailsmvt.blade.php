@@ -64,8 +64,7 @@
             </div>
 
             <button onclick="goBack()">Retour</button>
-            
-            @include('livewire.detailmvt.creat')
+            <hr>
 
             @if (session()->has('message'))
             <div class="alert alert-success">
