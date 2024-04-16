@@ -140,19 +140,17 @@ class Detailsmvt extends Component
                 'beneficiaire' => $this->beneficiaire,
                 'caisse_id' => $caisse->id
             ]);
-    
-            
-    
-            if ($mouvement) {
-                $this->op_print = $mouvement->id;
-                //session()->flash('message', __('Operation réussie.'));
-               // DB::commit();
-            }
-        } catch (\Exception $e) {
-            DB::rollBack();
-            //Log::error($e);
-            session()->flash('message', __('Une erreur est survenue lors de l\'opération.'));
-        }
+        
+                if ($mouvement) {
+                    $this->op_print = $mouvement->id;
+                    session()->flash('message', __('Operation réussie.'));
+                DB::commit();
+                }
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                    //Log::error($e);
+                    session()->flash('message', __('Une erreur est survenue lors de l\'opération.'));
+                }
     }
 
 

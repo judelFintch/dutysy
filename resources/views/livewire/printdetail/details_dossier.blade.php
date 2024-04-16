@@ -56,11 +56,10 @@
                                 <div class="col-sm-6 m-b-20">
                                     <img src="{{asset('assets/img/new-castorms.jpg')}}" class="inv-logo" alt>
                                     <ul class="list-unstyled mb-0">
-                                        <li><span>STE NEW CASTORMS AGENCY</span></li>
-                                        <li> IDNAT: 6-718-N390046R</li>
-                                        <li>Lshi/RCCM 48-B470, NIF:A1705665C</li>
-                                        <li>www.newcastomsagency.com</li>
-                                        <li>www.info@newcastomsagency.com</li>
+                                        <li><span>STE  LA MANE DE BRAVE SARL</span></li>
+                                        <li> IDNAT: 05-H4901-N57665K</li>
+                                        <li>Lshi/RCCM 15-B-3463, NIF:A1008059X</li>
+                                      
                                     </ul>
                                 </div>
                                 <div class="col-sm-6 m-b-20">
@@ -109,7 +108,7 @@
                                                         <span class="float-end">{{$mvt_int->observation}}</span>
                                                     </td>
                                                     <td>
-                                                        <strong> $ </strong> <span class="float-end">{{$mvt_int->montant}}</span>
+                                                        <strong> $ </strong> <span class="float-end">{{$mvt_int->amount_usd}}</span>
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -142,7 +141,7 @@
                                                         <span class="float-end"> {{$mvt_out->observation}}</span>
                                                     </td>
                                                     <td>
-                                                        <strong>$</strong> <span class="float-end">{{$mvt_out->montant}}</span>
+                                                        <strong>$</strong> <span class="float-end">{{$mvt_out->amount_usd}}</span>
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -158,9 +157,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p>
-                                        <strong>Solde Dossier: ${{$tot_int -$tot_out}}</strong>
-                                    </p>
+                                    
                                 </div>
                             </div>
                         </div>
