@@ -45,7 +45,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified'])
     Route::get('/caisse', Caisse::class)->name('caisse.index');
     Route::get('/dossier', Dossier::class)->name('dossier.index');
     Route::get('/details_caisse/{id}',DetailsCaisse::class)->name('detailcaisse.index');
-    Route::get('/details_mvt/{id}',Detailsmvt::class)->name('details.mvt');
+    Route::get('/details_mvt/{id}/{devise}',Detailsmvt::class)->name('details.mvt');
     Route::get('/details_print/{id}',Printdetail::class)->name('print.details');
     Route::get('/ticket/{id}',Ticket::class)->name('ticket.details');
     Route::get('/taux',Taux::class)->name('taux.index');

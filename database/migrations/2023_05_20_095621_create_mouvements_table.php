@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('mouvements', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("dossier_id");
-            $table->string("type")->default("entree");
+            $table->string("type");
             $table->string("libelle");
-            $table->float("montant");
+            $table->decimal('amount_usd', 15, 2);
+            $table->decimal('amount_cdf', 15, 2);
             $table->string("motif");
             $table->string("beneficiaire");
             $table->string("observation");

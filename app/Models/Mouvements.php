@@ -13,13 +13,14 @@ class Mouvements extends Model
         "dossier_id",
         "type",
         "libelle",
-        "montant",
+        "amount_usd",
+        "amount_cdf",
         "motif",
         "beneficiaire",
         "observation",
         'caisse_id'
-    ];
 
+    ];
     /**
      * Get the dossier that owns the Mouvements
      *observation
@@ -30,18 +31,14 @@ class Mouvements extends Model
         return $this->belongsTo(Dossiers::class);
     }
     
-
     public function Mouvement(): BelongsTo
     {
         return $this->belongsTo(Mouvements::class);
     }
-
 
     public function otherDetails()
     {
         return $this->hasOne(OtherDetailsMouvement::class, 'dossier_id', 'dossier_id');
     }
 
-
-    
 }

@@ -1,7 +1,4 @@
 <div>
-
-
-
     <x-nav_left />
     <div class="page-wrapper">
         <div class="content container-fluid">
@@ -19,16 +16,16 @@
                 </div>
             </div>
 
-            <div class="row">
+            
 
+            <div class="row">
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <a href="{{route('compilation.index')}}">
                         <div class="card dash-widget">
                             <div class="card-body">
                                 <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
                                 <div class="dash-widget-info">
-                                <h3>{{ isset($solde_caisse) ? number_format($solde_caisse->montant) : 0 }} $</h3>
-
+                                <h3>{{ isset($solde_caisse) ? number_format($solde_caisse->amount_usd) : 0 }} $</h3>
                                     <span> </span>
                                 </div>
                             </div>
@@ -45,7 +42,6 @@
                                     <h3>{{$dossier_day}}</h3>
                                     <span>Dossier(s) du jour({{$bigin_date}})</span>
                                 </div>
-
                             </div>
                         </div>
                     </a>
@@ -73,7 +69,6 @@
                                 <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
                                 <div class="dash-widget-info">
                                 <h3>{{ isset($solde_caisse) && isset($solde_caisse->amount_cdf) ? number_format($solde_caisse->amount_cdf) : 0 }} CDF</h3>
-
                                     <span> </span>
                                 </div>
                             </div>

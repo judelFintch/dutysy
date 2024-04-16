@@ -10,7 +10,7 @@ class Caisses extends Model
     use HasFactory;
     protected $fillable = [
          "name_caisse",
-         "montant",
+         "amount_usd",
          "type_caisse",
          'amount_cdf'
     ];

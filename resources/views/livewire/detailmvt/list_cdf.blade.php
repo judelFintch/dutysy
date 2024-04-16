@@ -6,8 +6,8 @@
                     <tr>
                         <th>#id</th>
                         <th>Date</th>
-                        <th>Débit USD</th>
-                        <th>Crédit USD</th>
+                        <th>Débit cdf</th>
+                        <th>Crédit cdf</th>
                         
                         <th>Motif</th>
                         <th>Observation</th>
@@ -24,17 +24,19 @@
                             
                             <!-- Gestion des montants en USD -->
                             @if($doss->type == 'int')
-                                <td><span class="badge bg-inverse-success"> + {{ number_format($doss->amount_usd) }} $</span></td>
+                                <td><span class="badge bg-inverse-success"> + {{ number_format($doss->amount_cdf) }} cdf</span></td>
                                 <td></td>
                             @elseif($doss->type == 'out')
                                 <td></td>
-                                <td><span class="badge bg-inverse-danger"> - {{ number_format($doss->amount_usd) }} $</span></td>
+                                <td><span class="badge bg-inverse-danger"> - {{ number_format($doss->amount_cdf) }} cdf</span></td>
                             @else
                                 <td></td>
                                 <td></td>
                             @endif
                             <!-- Gestion des montants en CDF, vérification de l'existence de otherDetails -->
                             
+                              
+                          
                             <td>{{ $doss->motif }}</td>
                             <td>{{ $doss->observation }}</td>
                             <td class="text-end">{{ $doss->beneficiaire }}</td>

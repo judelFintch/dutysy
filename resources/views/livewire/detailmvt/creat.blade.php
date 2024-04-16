@@ -24,7 +24,7 @@
             <select wire:model.defer="listCaisse" class="form-control @error('motif') is-invalid @enderror">
                 <option value="">Choisisez la Caisses</option>
                 @foreach ($caisses as $caisse)
-                     <option value="{{$caisse->id}}">{{$caisse->name_caisse}} USD : {{$caisse->montant}} - CDF: {{$caisse->amount_cdf}}</option>
+                     <option value="{{$caisse->id}}">{{$caisse->name_caisse}} USD : {{$caisse->amount_usd}} - CDF: {{$caisse->amount_cdf}}</option>
                 @endforeach
             </select>
             @error('listCaisse') <span> {{ $message }}</span> @enderror

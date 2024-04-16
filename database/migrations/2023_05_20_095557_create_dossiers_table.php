@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string("plaque");
             $table->string("provenance");
             $table->boolean("status");
-            $table->float("montant_init")->default(0);
+            $table->decimal('amount_usd', 15, 2);
+            $table->decimal('amount_cdf', 15, 2);
             $table->timestamps();
         });
     }

@@ -57,6 +57,7 @@
                 @error('provenance') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
+        
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="montant_init">Montant en USD</label>

@@ -17,6 +17,12 @@
                                 class="fa fa-plus"></i>Operation</a>
                     </div>
                     @endif
+                    <div class="col-auto float-end ms-auto">
+                        <select wire:model.live="devise" class="form-control @error('id_dossier') is-invalid @enderror">
+                            <option value="usd">Rapport usd</option>
+                            <option value="cdf">Rapport cdf</option>
+                        </select>
+                    </div>
 
                     <div class="col-auto float-end ms-auto">
                         <a href="{{route('print.details',['id'=>$id_dossier])}}" class="btn add-btn" id="add_client"><i
@@ -39,29 +45,57 @@
 
                     </div>
                 </div>
-            </div>
+</div>
+            @if($devise ===  'usd')
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="stats-info">
+                            <h6>Entrées </h6>
+                            <h4>{{number_format($tt_int)}} <span>$</span></h4>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="stats-info">
+                            <h6 class="text-success">Sortie</h6>
+                            <h4>{{number_format($tt_out)}} <span>$</span></h4>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="stats-info">
+                            <h6>Solde</h6>
+                            <h4>{{number_format($tt_int-$tt_out)}} <span>$</span></h4>
+                        </div>
+                    </div>
+                </div>
+                @else
 
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                    <div class="stats-info">
-                        <h6>Entrées </h6>
-                        <h4>{{number_format($tt_int)}} <span>$</span></h4>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="stats-info">
+                            <h6>Entrées </h6>
+                            <h4>{{number_format($tt_int_cdf)}} <span>cdf</span></h4>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                    <div class="stats-info">
-                        <h6 class="text-success">Sortie</h6>
-                        <h4>{{number_format($tt_out)}} <span>$</span></h4>
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="stats-info">
+                            <h6 class="text-success">Sortie</h6>
+                            <h4>{{number_format($tt_out_cdf)}} <span>cdf</span></h4>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                    <div class="stats-info">
-                        <h6>Solde</h6>
-                        <h4>{{number_format($tt_int-$tt_out)}} <span>$</span></h4>
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="stats-info">
+                            <h6>Solde</h6>
+                            <h4>{{number_format($tt_int_cdf-$tt_out_cdf)}} <span>cdf</span></h4>
+                        </div>
                     </div>
                 </div>
 
-            </div>
+                @endif
+
+
+                
+
+
 
             <button onclick="goBack()">Retour</button>
             <hr>
@@ -78,8 +112,14 @@
             @if($transfer)
                   @include('livewire.detailmvt.transfer')
             @endif
+
             @if($list)
+             @if($devise =='usd')
                    @include('livewire.detailmvt.list')
+             @else
+                    @include('livewire.detailmvt.list_cdf')
+             @endif
+
             @endif
 
             <script>

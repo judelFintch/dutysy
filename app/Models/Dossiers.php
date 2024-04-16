@@ -20,7 +20,8 @@ class Dossiers extends Model
             "plaque",
             "provenance",
             'status',
-            "montant_init"
+            "amount_usd",
+            "amount_cdf"
     ];
     /**
      * Get all of the comments for the Dossiers
