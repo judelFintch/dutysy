@@ -8,6 +8,7 @@ use App\Models\Dossiers as Dossiers;
 use App\Models\Caisses as Caisse;
 use App\Models\CorbeilleMouvement as CorbeilleMouvement;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 
 class Detailsmvt extends Component
@@ -153,17 +154,29 @@ class Detailsmvt extends Component
                     session()->flash('message', __('Une erreur est survenue lors de l\'opération.'));
                 }
     }
+private function updateCaisseAmount($caisse, $amount_usd, $amount_cdf) {
+       // Obtention des montants actuels
+        $old_amount_usd = $caisse->amount_usd;
+        $new_amount_usd = $this->type == 'int' ? $old_amount_usd + $amount_usd : $old_amount_usd - $amount_usd;
 
+        $old_amount_cdf = $caisse->amount_cdf;
+        $new_amount_cdf = $this->type == 'int' ? $old_amount_cdf + $amount_cdf : $old_amount_cdf - $amount_cdf;
 
-    private function updateCaisseAmount($caisse, $amount_usd, $amount_cdf) {
-       
-            $old_amount = $caisse->amount_usd;
-            $new_amount = $this->type == 'int' ? $old_amount + $amount_usd : $old_amount - $amount_usd;
-            $caisse->amount_usd = $new_amount;
-      
-            $old_amount_cdf = $caisse->amount_cdf;
-            $new_amount_cdf = $this->type == 'int' ? $old_amount_cdf + $amount_cdf : $old_amount_cdf - $amount_cdf;
-            $caisse->amount_cdf = $new_amount_cdf;
+        // Vérification pour USD
+        if ($this->type != 'int' && $old_amount_usd < $amount_usd) {
+            throw new Exception("Le montant disponible en USD est insuffisant pour effectuer cette opération.");
+        }
+
+        // Vérification pour CDF
+        if ($this->type != 'int' && $old_amount_cdf < $amount_cdf) {
+            throw new Exception("Le montant disponible en CDF est insuffisant pour effectuer cette opération.");
+        }
+
+        // Mise à jour des montants dans la base
+        $caisse->amount_usd = $new_amount_usd;
+        $caisse->amount_cdf = $new_amount_cdf;
+        $caisse->save();
+
         
         $caisse->save();
     }
