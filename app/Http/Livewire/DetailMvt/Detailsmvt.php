@@ -183,27 +183,30 @@ class Detailsmvt extends Component
         try {
             $mvt_by_id = Mouvements::find($id);
 
-            if ($mvt_by_id) {
-                $userEmail = auth()->user()->email;
-                $store = CorbeilleMouvement::create(
-                    [
-                        'dossier_id' => $mvt_by_id->dossier_id,
-                        'montant' => $mvt_by_id->montant,
-                        'type' => $mvt_by_id->type,
-                        'libelle' => $mvt_by_id->libelle,
-                        'motif' => $mvt_by_id->motif,
-                        'observation' => $mvt_by_id->observation,
-                        'beneficiaire' => $mvt_by_id->beneficiaire,
-                        'caisse_id' => $mvt_by_id->caisse_id,
-                        'user_id' => $userEmail
-                    ]
+                if ($mvt_by_id) {
+                    $userEmail = auth()->user()->email;
+                    $store = CorbeilleMouvement::create(
+                        [
+                            'dossier_id' => $mvt_by_id->dossier_id,
+                            'amount_usd' => $mvt_by_id->amount_usd,
+                            'amount_cdf' => $mvt_by_id->amount_cdf,
+                            'type' => $mvt_by_id->type,
+                            'libelle' => $mvt_by_id->libelle,
+                            'motif' => $mvt_by_id->motif,
+                            'observation' => $mvt_by_id->observation,
+                            'beneficiaire' => $mvt_by_id->beneficiaire,
+                            'caisse_id' => $mvt_by_id->caisse_id,
+                            'user_id' => $userEmail
+                        ]
                 );
                 if ($store) {
                     $caisse = Caisse::find(1);
                     if ($mvt_by_id->type == 'int') {
-                        $caisse->decrement('montant', $mvt_by_id->montant);
+                        $caisse->decrement('amount_usd', $mvt_by_id->amount_usd);
+                        $caisse->decrement('amount_cdf', $mvt_by_id->amount_cdf);
                     } else {
-                        $caisse->increment('montant', $mvt_by_id->montant);
+                        $caisse->increment('amount_usd', $mvt_by_id->amount_usd);
+                        $caisse->increment('amount_cdf', $mvt_by_id->amount_cdf);
                     }
                     $caisse->save();
                     $mvt_by_id->delete();
