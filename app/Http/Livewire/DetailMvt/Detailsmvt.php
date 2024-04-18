@@ -7,15 +7,14 @@ use App\Models\Mouvements as Mouvements;
 use App\Models\Dossiers as Dossiers;
 use App\Models\Caisses as Caisse;
 use App\Models\CorbeilleMouvement as CorbeilleMouvement;
-use App\Models\OtherDetailsMouvement;
 use Illuminate\Support\Facades\DB;
 
 
 class Detailsmvt extends Component
 {
     public $id_dossier, $idcount = 0, $creat = false, $list = true, $op_print = false;
-    public $id_mouvement_tr, $motif_tr, $montant_tr, $observation_tr, $type_tr, $beneficiaire_tr, $id_dossier_tr, $listCaisse, $Opdevise;
-    public $type, $motif, $observation, $beneficiaire, $montant, $transfer = false, $transfer_id;
+    public $id_mouvement_tr, $motif_tr, $montant_tr, $observation_tr, $type_tr, $beneficiaire_tr, $id_dossier_tr, $listCaisse;
+    public $type, $motif, $observation, $beneficiaire, $amount_cdf,$amount_usd, $transfer = false, $transfer_id,$date;
     protected $listeners = [
         'closeFolder' => 'closeFolder',
         'deleteMvt' => 'deleteMvt'
@@ -38,18 +37,19 @@ class Detailsmvt extends Component
     }
 
     protected $rules = [
-        'montant' => 'required',
+        'amount_cdf' => 'required',
+        'amount_usd' => 'required',
         'observation' => 'required',
         'beneficiaire' => 'required',
         'motif' => 'required',
         'type' => 'required',
-        'Opdevise' => 'required',
         'listCaisse' => 'required'
     ];
 
     public function resetField()
     {
-        $this->montant = '';
+        $this->amount_cdf = '';
+        $this->amount_usd = '';
         $this->observation = '';
         $this->motif = '';
         $this->beneficiaire = '';
@@ -58,11 +58,8 @@ class Detailsmvt extends Component
     public function render()
     {
         $type = "entree";
-
         $dossiers = Dossiers::all();
         $dossier = Dossiers::find($this->id_dossier);
-        
-    
         
         // Ensure $dossier is not null before proceeding
         if ($dossier) {
@@ -124,8 +121,8 @@ class Detailsmvt extends Component
             $caisse = Caisse::where('name_caisse', 'like', "%{$search}%")->firstOrFail();
             // Supposons que les taux soient stockés dans un fichier de configuration / variables d'environnement
             // Par exemple: config('app.currency_rates.usd_to_cdf')
-            $amount_usd = $this->Opdevise == 'usd' ? $this->montant : 0;
-            $amount_cdf = $this->Opdevise == 'cdf' ? $this->montant : 0;
+            $amount_usd =  $this->amount_usd;
+            $amount_cdf = $this->amount_cdf;
 
           
             $this->updateCaisseAmount($caisse, $amount_usd, $amount_cdf);
@@ -155,16 +152,15 @@ class Detailsmvt extends Component
 
 
     private function updateCaisseAmount($caisse, $amount_usd, $amount_cdf) {
-        if ($this->Opdevise == 'usd') {
+       
             $old_amount = $caisse->amount_usd;
             $new_amount = $this->type == 'int' ? $old_amount + $amount_usd : $old_amount - $amount_usd;
             $caisse->amount_usd = $new_amount;
-        } else {
+      
             $old_amount_cdf = $caisse->amount_cdf;
             $new_amount_cdf = $this->type == 'int' ? $old_amount_cdf + $amount_cdf : $old_amount_cdf - $amount_cdf;
             $caisse->amount_cdf = $new_amount_cdf;
-        }
-    
+        
         $caisse->save();
     }
 
@@ -182,35 +178,34 @@ class Detailsmvt extends Component
     {
         try {
             $mvt_by_id = Mouvements::find($id);
-
-                if ($mvt_by_id) {
-                    $userEmail = auth()->user()->email;
-                    $store = CorbeilleMouvement::create(
-                        [
-                            'dossier_id' => $mvt_by_id->dossier_id,
-                            'amount_usd' => $mvt_by_id->amount_usd,
-                            'amount_cdf' => $mvt_by_id->amount_cdf,
-                            'type' => $mvt_by_id->type,
-                            'libelle' => $mvt_by_id->libelle,
-                            'motif' => $mvt_by_id->motif,
-                            'observation' => $mvt_by_id->observation,
-                            'beneficiaire' => $mvt_by_id->beneficiaire,
-                            'caisse_id' => $mvt_by_id->caisse_id,
-                            'user_id' => $userEmail
-                        ]
-                );
-                if ($store) {
-                    $caisse = Caisse::find(1);
-                    if ($mvt_by_id->type == 'int') {
-                        $caisse->decrement('amount_usd', $mvt_by_id->amount_usd);
-                        $caisse->decrement('amount_cdf', $mvt_by_id->amount_cdf);
-                    } else {
-                        $caisse->increment('amount_usd', $mvt_by_id->amount_usd);
-                        $caisse->increment('amount_cdf', $mvt_by_id->amount_cdf);
+                    if ($mvt_by_id) {
+                        $userEmail = auth()->user()->email;
+                        $store = CorbeilleMouvement::create(
+                            [
+                                'dossier_id' => $mvt_by_id->dossier_id,
+                                'amount_usd' => $mvt_by_id->amount_usd,
+                                'amount_cdf' => $mvt_by_id->amount_cdf,
+                                'type' => $mvt_by_id->type,
+                                'libelle' => $mvt_by_id->libelle,
+                                'motif' => $mvt_by_id->motif,
+                                'observation' => $mvt_by_id->observation,
+                                'beneficiaire' => $mvt_by_id->beneficiaire,
+                                'caisse_id' => $mvt_by_id->caisse_id,
+                                'user_id' => $userEmail
+                            ]
+                    );
+                    if ($store) {
+                        $caisse = Caisse::find(1);
+                        if ($mvt_by_id->type == 'int') {
+                            $caisse->decrement('amount_usd', $mvt_by_id->amount_usd);
+                            $caisse->decrement('amount_cdf', $mvt_by_id->amount_cdf);
+                        } else {
+                            $caisse->increment('amount_usd', $mvt_by_id->amount_usd);
+                            $caisse->increment('amount_cdf', $mvt_by_id->amount_cdf);
+                        }
+                        $caisse->save();
+                        $mvt_by_id->delete();
                     }
-                    $caisse->save();
-                    $mvt_by_id->delete();
-                }
             }
         } catch (\Exception $e) {
             dd($e);

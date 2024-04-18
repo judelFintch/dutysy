@@ -13,8 +13,7 @@
                     </div>
                     @if($dossier->status ===1)
                     <div class="col-auto float-end ms-auto">
-                        <a href="#" wire:click="showform()" class="btn add-btn" id="add_client"><i
-                                class="fa fa-plus"></i>Operation</a>
+                        <a href="#" wire:click="showform()" class="btn add-btn" id="add_client"><i class="fa fa-plus"></i>Operation</a>
                     </div>
                     @endif
                     <div class="col-auto float-end ms-auto">
@@ -25,14 +24,12 @@
                     </div>
 
                     <div class="col-auto float-end ms-auto">
-                        <a href="{{route('print.details',['id'=>$id_dossier])}}" class="btn add-btn" id="add_client"><i
-                                class="fa fa-print"></i>Imprimer</a>
+                        <a href="{{route('print.details',['id'=>$id_dossier])}}" class="btn add-btn" id="add_client"><i class="fa fa-print"></i>Imprimer</a>
                     </div>
 
                     @if($dossier->status ===1)
                     <div class="col-auto float-end ms-auto">
-                        <button onclick="closeFolder({{ $id_dossier }})" class="btn alert-danger" id="add_client"><i
-                                class="fa fa-delete"></i>Cloturer</button>
+                        <button onclick="closeFolder({{ $id_dossier }})" class="btn alert-danger" id="add_client"><i class="fa fa-delete"></i>Cloturer</button>
                     </div>
                     @endif
 
@@ -45,58 +42,50 @@
 
                     </div>
                 </div>
-</div>
-            @if($devise ===  'usd')
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="stats-info">
-                            <h6>Entrées </h6>
-                            <h4>{{number_format($tt_int)}} <span>$</span></h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="stats-info">
-                            <h6 class="text-success">Sortie</h6>
-                            <h4>{{number_format($tt_out)}} <span>$</span></h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="stats-info">
-                            <h6>Solde</h6>
-                            <h4>{{number_format($tt_int-$tt_out)}} <span>$</span></h4>
-                        </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="stats-info">
+                        <h6>Entrées </h6>
+                        <h4>{{number_format($tt_int)}} <span>$</span></h4>
                     </div>
                 </div>
-                @else
-
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="stats-info">
-                            <h6>Entrées </h6>
-                            <h4>{{number_format($tt_int_cdf)}} <span>cdf</span></h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="stats-info">
-                            <h6 class="text-success">Sortie</h6>
-                            <h4>{{number_format($tt_out_cdf)}} <span>cdf</span></h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="stats-info">
-                            <h6>Solde</h6>
-                            <h4>{{number_format($tt_int_cdf-$tt_out_cdf)}} <span>cdf</span></h4>
-                        </div>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="stats-info">
+                        <h6 class="text-success">Sortie</h6>
+                        <h4>{{number_format($tt_out)}} <span>$</span></h4>
                     </div>
                 </div>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="stats-info">
+                        <h6>Solde</h6>
+                        <h4>{{number_format($tt_int-$tt_out)}} <span>$</span></h4>
+                    </div>
+                </div>
+            </div>
+         
 
-                @endif
-
-
-                
-
-
-
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="stats-info">
+                        <h6>Entrées </h6>
+                        <h4>{{number_format($tt_int_cdf)}} <span>cdf</span></h4>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="stats-info">
+                        <h6 class="text-success">Sortie</h6>
+                        <h4>{{number_format($tt_out_cdf)}} <span>cdf</span></h4>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="stats-info">
+                        <h6>Solde</h6>
+                        <h4>{{number_format($tt_int_cdf-$tt_out_cdf)}} <span>cdf</span></h4>
+                    </div>
+                </div>
+            </div>
             <button onclick="goBack()">Retour</button>
             <hr>
 
@@ -105,22 +94,22 @@
                 {{ session('message') }} <a href="{{route('ticket.details', ['id' =>$op_print])}}"> Imprimer le recu</a>
             </div>
             @endif
+            @include('livewire.detailmvt.creat')
+                @if($creat)
+                @include('livewire.detailmvt.creat')
+                @endif
+                @if($transfer)
+                @include('livewire.detailmvt.transfer')
+                @endif
 
-            @if($creat)
-                 @include('livewire.detailmvt.creat')
-            @endif
-            @if($transfer)
-                  @include('livewire.detailmvt.transfer')
-            @endif
+                @if($list)
+                @if($devise =='usd')
+                @include('livewire.detailmvt.list')
+                @else
+                @include('livewire.detailmvt.list_cdf')
+                @endif
 
-            @if($list)
-             @if($devise =='usd')
-                   @include('livewire.detailmvt.list')
-             @else
-                    @include('livewire.detailmvt.list_cdf')
-             @endif
-
-            @endif
+                @endif
 
             <script>
                 function closeFolder(id) {

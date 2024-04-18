@@ -2,21 +2,25 @@
 <div id="form-client">
     <div class="row">
         <div class="col-sm-6">
+        <label for="provenance">Montant USD</label>
             <div class="form-group">
-                <input type="number" class="form-control" type="text" placeholder="Saisisez le montant"
-                    class="@error('montant') is-invalid @enderror" type="text" wire:model.defer="montant">
+                <input type="number" value="0" class="form-control" type="text" placeholder="Saisisez le montant en USD"
+                    class="@error('montant_usd') is-invalid @enderror" type="text" wire:model.defer="amount_usd">
                 @error('montant') <span> {{ $message }}</span> @enderror
             </div>
+            
         </div>
+
         <div class="col-sm-6">
-            <select wire:model.defer="Opdevise" class="form-control @error('devise') is-invalid @enderror">
-                <option value="">Devise</option>
-                <option value="usd">USD</option>
-                <option value="cdf">CDF</option>
-            </select>
-            @error('devise') <span> {{ $message }}</span> @enderror
+        <label for="provenance">Montant cdf</label>
+        <div class="form-group">
+                <input type="number" value="0" class="form-control" type="text" placeholder="Saisisez le montant en CDF"
+                    class="@error('montant') is-invalid @enderror" type="text" wire:model.defer="amount_cdf">
+                @error('amount_cdf') <span> {{ $message }}</span> @enderror
+            </div>
         </div>
     </div>
+
 
     <div class="row">
         <div class="col-sm-6">
@@ -59,6 +63,15 @@
             <div class="form-group">
                 <input class="form-control" placeholder="Observation" class="@error('observation') is-invalid @enderror"
                     type="text" wire:model.defer="observation">
+                @error('observation') <span> {{ $message }}</span> @enderror
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+            <input class="form-control @error('date') is-invalid @enderror" placeholder="Date"
+       type="date" wire:model.defer="date" value="{{ old('date', now()->toDateString()) }}">
+
                 @error('observation') <span> {{ $message }}</span> @enderror
             </div>
         </div>
