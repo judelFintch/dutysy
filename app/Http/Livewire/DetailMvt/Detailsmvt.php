@@ -107,6 +107,7 @@ class Detailsmvt extends Component
 
             $this->list = true;
             $this->transfer = false;
+        
             session()->flash('message', 'Trasfert reussi');
         } catch (\Exception $e) {
             dd($e);
@@ -142,6 +143,7 @@ class Detailsmvt extends Component
         
                 if ($mouvement) {
                     $this->op_print = $mouvement->id;
+                    $this->resetField();
                     session()->flash('message', __('Operation réussie.'));
                 DB::commit();
                 }
