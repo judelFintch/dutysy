@@ -43,7 +43,8 @@ class Detailsmvt extends Component
         'beneficiaire' => 'required',
         'motif' => 'required',
         'type' => 'required',
-        'listCaisse' => 'required'
+        'listCaisse' => 'required',
+        'date' => 'required',
     ];
 
     public function resetField()
@@ -135,7 +136,8 @@ class Detailsmvt extends Component
                 'motif' => $this->motif,
                 'observation' => $this->observation,
                 'beneficiaire' => $this->beneficiaire,
-                'caisse_id' => $caisse->id
+                'caisse_id' => $caisse->id,
+                'created_at' => $this->date
             ]);
         
                 if ($mouvement) {

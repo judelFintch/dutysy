@@ -94,7 +94,7 @@
                 {{ session('message') }} <a href="{{route('ticket.details', ['id' =>$op_print])}}"> Imprimer le recu</a>
             </div>
             @endif
-            @include('livewire.detailmvt.creat')
+           
                 @if($creat)
                 @include('livewire.detailmvt.creat')
                 @endif
