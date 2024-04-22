@@ -7,10 +7,7 @@ bonjour
                         <li class="">
                             <a href="{{route('dossier.index')}}"><i class="la la-briefcase"></i> <span>Dossier</span></a>
                         </li>
-                        <li class="">
-                            <a href="{{route('caisse.index')}}"><i class="la la-dollar"></i> <span>Caisses</span></a>
-                        </li>
-
+                      
     
                         <li class="">
                             <a href="{{route('client.index')}}"><i class="la la-user"></i> <span>Clients</span></a>

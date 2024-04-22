@@ -10,6 +10,7 @@ class Rapport extends Component
 {
     public $bigin_date, $end_date, $type_op;
     public $listeners =['setDate'];
+    public $devise ='usd';
 
 
     public function setDate($data){

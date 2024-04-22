@@ -13,6 +13,7 @@ use App\Models\Caisses;
 class Compilation extends Component
 {
 
+    public $devise ='usd';
     
     public function render()
     {
@@ -20,7 +21,7 @@ class Compilation extends Component
     ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
     ->where('dossiers.status', '=', 1)
     ->select('dossiers.plaque')
-    ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS solde')
+    ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.amount_usd ELSE -mouvements.amount_usd END) AS solde')
     ->groupBy('dossiers.id', 'dossiers.plaque')
     ->get();
 
@@ -28,7 +29,7 @@ class Compilation extends Component
     ->join('dossiers', 'mouvements.dossier_id', '=', 'dossiers.id')
     ->where('dossiers.status', '=', 1)
    
-    ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.montant ELSE -mouvements.montant END) AS somme_solde')
+    ->selectRaw('SUM(CASE WHEN mouvements.type = "int" THEN mouvements.amount_usd ELSE -mouvements.amount_usd END) AS somme_solde')
     ->value('somme_solde');
 
 // Passer les résultats à la vue

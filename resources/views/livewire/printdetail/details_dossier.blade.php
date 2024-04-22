@@ -56,7 +56,8 @@
                                 <div class="col-sm-6 m-b-20">
                                     <img src="{{asset('assets/img/new-castorms.jpg')}}" class="inv-logo" alt>
                                     <ul class="list-unstyled mb-0">
-                                        <li><span>STE  LA MANE DE BRAVE SARL</span></li>
+                                        <li><span>STE  LA MANNE DE BRAVE SARL</span></li>
+                                        <li> 960, Chaussé LDK, Batiment Methodiste, 2 eme Niveau</li>
                                         <li> IDNAT: 05-H4901-N57665K</li>
                                         <li>Lshi/RCCM 15-B-3463, NIF:A1008059X</li>
                                       
