@@ -8,7 +8,8 @@
                         <th>#Detail</th>
                         <th>Date</th>
                         <th>Dossier</th>
-                        <th>Montant</th>
+                        <th>USD</th>
+                        <th>CDF</th>
                         <th>Motif</th>
                         <th>observation</th>
                         <th class="text-end">bénéficiaire</th>
@@ -33,9 +34,17 @@
                         </td>
                         <td>
                             @if($doss->type=='int')
-                            <span class="badge bg-inverse-success"> +{{ number_format($doss->montant) }} $</span>
+                            <span class="badge bg-inverse-success"> +{{ number_format($doss->amount_usd) }} $</span>
                             @else
-                            <span class="badge bg-inverse-danger"> - {{ number_format($doss->montant) }} $</span>
+                            <span class="badge bg-inverse-danger"> - {{ number_format($doss->amount_usd) }} $</span>
+                            @endif
+                        </td>
+
+                        <td>
+                            @if($doss->type=='int')
+                            <span class="badge bg-inverse-success"> +{{ number_format($doss->amount_cdf) }} $</span>
+                            @else
+                            <span class="badge bg-inverse-danger"> - {{ number_format($doss->amount_cdf) }} $</span>
                             @endif
                         </td>
                         <td>{{ $doss->motif }}</td>
