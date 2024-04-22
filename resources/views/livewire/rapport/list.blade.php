@@ -42,9 +42,9 @@
 
                         <td>
                             @if($doss->type=='int')
-                            <span class="badge bg-inverse-success"> +{{ number_format($doss->amount_cdf) }} $</span>
+                            <span class="badge bg-inverse-success"> +{{ number_format($doss->amount_cdf) }} CDF</span>
                             @else
-                            <span class="badge bg-inverse-danger"> - {{ number_format($doss->amount_cdf) }} $</span>
+                            <span class="badge bg-inverse-danger"> - {{ number_format($doss->amount_cdf) }} CDF</span>
                             @endif
                         </td>
                         <td>{{ $doss->motif }}</td>
