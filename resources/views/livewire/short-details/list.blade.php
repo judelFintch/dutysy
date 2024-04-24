@@ -18,13 +18,14 @@
                     @foreach ($dossiers as $doss)
                     <tr>
                         <td>{{$idcount+=1}}</td>
-                        <td><a class="btn btn-sm btn-warning" href="{{route('details.mvt',['id'=>$doss->id])}}">Detail</a></td>
+                        <td><a class="btn btn-sm btn-warning" href="{{route('details.mvt',['id'=>$doss->id, 'devise' => $devise])}}">Detail</a></td>
                         <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
-                        <td><a href="{{route('details.mvt',['id'=>$doss->id])}}">{{ $doss->plaque }}</a>
+                        <td><a href="{{route('details.mvt',['id'=>$doss->id, 'devise' => $devise])}}">{{ $doss->plaque }}</a>
                         </td>
                         <td>{{ $doss->type_marchandise }}</td>
                         <td>{{ $doss->client->name  }}</td>
                             @if($archive)
+
 
                                 <td>
                                     <button class="btn btn-danger">Archives</button>

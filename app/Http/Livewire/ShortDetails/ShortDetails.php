@@ -9,6 +9,7 @@ use App\Models\Dossiers;
 class ShortDetails extends Component
 {
     public $op, $today,$archives = false;
+    public $devise ='usd';
     public function mount($op){
         $this->op = $op;
         $this->today = date('Y-m-d');
