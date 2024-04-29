@@ -25,8 +25,6 @@
                         <td>{{ $doss->type_marchandise }}</td>
                         <td>{{ $doss->client->name  }}</td>
                             @if($archive)
-
-
                                 <td>
                                     <button class="btn btn-danger">Archives</button>
                                 </td>
