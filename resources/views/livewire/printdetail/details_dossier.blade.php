@@ -134,45 +134,62 @@
                             </div>
                             <h4 class="payslip-title">{{$dossier->plaque}}/ {{date('y-d')}}-{{$dossier->client->name}}</h4>
                             
-<div class="col-sm-12">
+                            <div class="col-sm-12">
     <div>
         <h4 class="m-b-10"><strong>Transactions</strong></h4>
         <table class="table table-bordered">
-          
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Motif</th>
+                    <th>Crédit USD</th>
+                    <th>Débit USD</th>
+                    <th>Crédit CDF</th>
+                    <th>Débit CDF</th>
+                </tr>
+            </thead>
             <tbody>
+                <?php $total_credit_usd = 0; $total_debit_usd = 0; $total_credit_cdf = 0; $total_debit_cdf = 0; ?>
                 @foreach($mvt as $doss)
                 <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
-                            <td>{{ $doss->motif }}</td>
-                            <!-- Gestion des montants en USD -->
-                            @if($doss->type == 'int')
-                                <td><span class="badge bg-inverse-success"> + {{ number_format($doss->amount_usd) }} $</span></td>
-                                <td></td>
-                            @elseif($doss->type == 'out')
-                                <td></td>
-                                <td><span class="badge bg-inverse-danger"> - {{ number_format($doss->amount_usd) }} $</span></td>
-                            @else
-                                <td></td>
-                                <td></td>
-                            @endif
-                            <!-- Gestion des montants en CDF -->
-                            @if($doss->type == 'int')
-                                <td><span class="badge bg-inverse-info"> + {{ number_format($doss->amount_cdf) }} FC</span></td>
-                                <td></td>
-                            @elseif($doss->type == 'out')
-                                <td></td>
-                                <td><span class="badge bg-inverse-warning"> - {{ number_format($doss->amount_cdf) }} FC</span></td>
-                            @else
-                                <td></td>
-                                <td></td>
-                            @endif
-                           
-                        </tr>
-                        @endforeach
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
+                    <td>{{ $doss->motif }}</td>
+                    <!-- Gestion des montants en USD -->
+                    @if($doss->type == 'int')
+                    <td><span class="badge bg-inverse-success"> + {{ number_format($doss->amount_usd) }} $</span></td>
+                    <td></td>
+                    <?php $total_credit_usd += $doss->amount_usd; ?>
+                    @elseif($doss->type == 'out')
+                    <td></td>
+                    <td><span class="badge bg-inverse-danger"> - {{ number_format($doss->amount_usd) }} $</span></td>
+                    <?php $total_debit_usd += $doss->amount_usd; ?>
+                    @endif
+                    <!-- Gestion des montants en CDF -->
+                    @if($doss->type == 'int')
+                    <td><span class="badge bg-inverse-info"> + {{ number_format($doss->amount_cdf) }} FC</span></td>
+                    <td></td>
+                    <?php $total_credit_cdf += $doss->amount_cdf; ?>
+                    @elseif($doss->type == 'out')
+                    <td></td>
+                    <td><span class="badge bg-inverse-warning"> - {{ number_format($doss->amount_cdf) }} FC</span></td>
+                    <?php $total_debit_cdf += $doss->amount_cdf; ?>
+                    @endif
+                </tr>
+                @endforeach
+                <tr>
+                    <td colspan="3">Total</td>
+                    <td>{{ number_format($total_credit_usd) }} $</td>
+                    <td>{{ number_format($total_debit_usd) }} $</td>
+                    <td>{{ number_format($total_credit_cdf) }} FC</td>
+                    <td>{{ number_format($total_debit_cdf) }} FC</td>
+                </tr>
             </tbody>
         </table>
     </div>
+</div>
+
 </div>
 
                             
