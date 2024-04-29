@@ -140,7 +140,7 @@
         <table class="table table-bordered">
           
             <tbody>
-                @foreach($mv_out as $doss)
+                @foreach($mvt as $doss)
                 <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
@@ -167,10 +167,9 @@
                                 <td></td>
                                 <td></td>
                             @endif
-                            <td class="text-end">{{ $doss->beneficiaire }}</td>
+                           
                         </tr>
                         @endforeach
-               
             </tbody>
         </table>
     </div>

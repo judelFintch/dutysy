@@ -19,9 +19,7 @@ class Printdetail extends Component
     }
     public function render()
     {
-        $mv_int = Mouvements::where('dossier_id',  $this->dossier_id)
-        ->where('type', 'int')
-        ->get(); 
+        $mvt= Mouvements::where('dossier_id',  $this->dossier_id)->get(); 
 
         $mv_out = Mouvements::where('dossier_id',  $this->dossier_id)
         ->where('type', 'out')
@@ -29,6 +27,6 @@ class Printdetail extends Component
         $dossier = Dossiers::where('id',  $this->dossier_id)->first(); 
         $id_client =$dossier->client_id;
         $client = Clients::where('id', $id_client)->first(); 
-        return view('livewire.printdetail.printdetail', compact('mv_int','mv_out','dossier','client'));
+        return view('livewire.printdetail.printdetail', compact('mvt','mv_out','dossier','client'));
     }
 }
