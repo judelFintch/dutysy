@@ -187,9 +187,7 @@
                                             <tr>
                                                 <td colspan="3"><strong>Solde</strong></td>
                                                 <td>{{ number_format($total_credit_usd - $total_debit_usd) }} $</td>
-                                                
-                                                <td>{{ number_format( $total_debit_cdf - $total_credit_cdf) }} FC</td>
-                                                
+                                                <td>{{ number_format( $total_credit_cdf-$total_debit_cdf) }} FC</td>
                                             </tr>
                                         </tbody>
                                     </table>
