@@ -152,7 +152,7 @@
                                             @foreach($mvt as $doss)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
+                                                <td>{{ date("Y-m-d", strtotime($doss->date_created)) }}</td>
                                                 <td>{{ $doss->motif }}</td>
                                                 <!-- Gestion des montants en USD -->
                                                 @if($doss->type == 'int')
@@ -182,6 +182,14 @@
                                                 <td>{{ number_format($total_debit_usd) }} $</td>
                                                 <td>{{ number_format($total_credit_cdf) }} FC</td>
                                                 <td>{{ number_format($total_debit_cdf) }} FC</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="3"><strong>Solde</strong></td>
+                                                <td>{{ number_format($total_credit_usd - $total_debit_usd) }} $</td>
+                                                
+                                                <td>{{ number_format( $total_debit_cdf - $total_credit_cdf) }} FC</td>
+                                                
                                             </tr>
                                         </tbody>
                                     </table>
