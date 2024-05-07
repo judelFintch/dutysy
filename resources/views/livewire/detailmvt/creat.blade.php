@@ -8,7 +8,6 @@
                     class="@error('montant_usd') is-invalid @enderror" type="text" wire:model.defer="amount_usd">
                 @error('montant') <span> {{ $message }}</span> @enderror
             </div>
-            
         </div>
 
         <div class="col-sm-6">

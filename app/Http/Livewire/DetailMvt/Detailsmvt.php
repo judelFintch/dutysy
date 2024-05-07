@@ -9,10 +9,10 @@ use App\Models\Caisses as Caisse;
 use App\Models\CorbeilleMouvement as CorbeilleMouvement;
 use Illuminate\Support\Facades\DB;
 use Exception;
-
-
+use Carbon\Carbon;
 class Detailsmvt extends Component
 {
+    public $timestamps = false;
     public $id_dossier, $idcount = 0, $creat = false, $list = true, $op_print = false;
     public $id_mouvement_tr, $motif_tr, $montant_tr, $observation_tr, $type_tr, $beneficiaire_tr, $id_dossier_tr, $listCaisse;
     public $type, $motif, $observation, $beneficiaire, $amount_cdf,$amount_usd, $transfer = false, $transfer_id,$date;
@@ -139,6 +139,7 @@ class Detailsmvt extends Component
                 'observation' => $this->observation,
                 'beneficiaire' => $this->beneficiaire,
                 'caisse_id' => $caisse->id,
+                'date_created' => $this->date,
                 'created_at' => $this->date
             ]);
         

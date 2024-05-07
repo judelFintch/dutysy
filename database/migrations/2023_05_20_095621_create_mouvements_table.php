@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("motif");
             $table->string("beneficiaire");
             $table->string("observation");
+            $table->date('date_created');
             $table->unsignedBigInteger("caisse_id");
             $table->timestamps();
         });

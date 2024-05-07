@@ -18,7 +18,8 @@ class Mouvements extends Model
         "motif",
         "beneficiaire",
         "observation",
-        'caisse_id'
+        'caisse_id',
+        'date_created'
 
     ];
     /**

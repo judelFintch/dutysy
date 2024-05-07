@@ -21,7 +21,7 @@
                         @foreach ($mouvements as $doss)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
+                            <td>{{ date("Y-m-d", strtotime($doss->date_created)) }}</td>
                             
                             <!-- Gestion des montants en USD -->
                             @if($doss->type == 'int')
