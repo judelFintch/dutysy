@@ -70,6 +70,15 @@
                 @error('montant_cdf') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+            <input class="form-control @error('date') is-invalid @enderror" placeholder="Date"
+       type="date" wire:model.defer="date" value="{{ old('date', now()->toDateString()) }}">
+
+                @error('observation') <span> {{ $message }}</span> @enderror
+            </div>
+        </div>
     </div>
 
     <div class="form-group pt-3 d-flex justify-content-center align-items-center">

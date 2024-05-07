@@ -23,6 +23,7 @@ class Dossier extends Component
     public $update_dossier = false, $idcount = 0, $list = true;
     public $bigin_date, $end_date;
     public $query, $search;
+    public $date;
 
     protected $rules = [
         'client' => 'required',
@@ -31,6 +32,7 @@ class Dossier extends Component
         'chauffeur' => 'required',
         'plaque' => 'required',
         'provenance' => 'required',
+        'date' => 'required',
         'montant_init' => 'required'
     ];
     public function showForm()
@@ -158,7 +160,7 @@ class Dossier extends Component
                         'amount_cdf' => $nw_mt_cdf
                     ]);
                 }
-                
+                $date = new \DateTime;
                 Mouvements::create([
                     'dossier_id' => $dossier->id,
                     'type' => 'int',
@@ -168,6 +170,7 @@ class Dossier extends Component
                     'motif' => $this->chauffeur,
                     'beneficiaire' =>  $this->provenance,
                     'observation' => '---',
+                    'date_created' =>$this->date,
                     'caisse_id' => $caisse->id
                 ]);
               
