@@ -133,6 +133,7 @@ class Dossier extends Component
                     'provenance' => $this->provenance,
                     'amount_usd' => $this->montant_init,
                     'amount_cdf' => $this->montant_cdf,
+                    'date_created'=>$this->date,
                     'status' => true
                 ]);
 

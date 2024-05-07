@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean("status");
             $table->decimal('amount_usd', 15, 2);
             $table->decimal('amount_cdf', 15, 2);
+            $table->date('date_created');
             $table->timestamps();
         });
     }

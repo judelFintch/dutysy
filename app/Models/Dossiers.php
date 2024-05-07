@@ -21,7 +21,8 @@ class Dossiers extends Model
             "provenance",
             'status',
             "amount_usd",
-            "amount_cdf"
+            "amount_cdf",
+            "date_created",
     ];
     /**
      * Get all of the comments for the Dossiers
