@@ -14,6 +14,7 @@
                 visibility: visible;
             }
 
+
             #contenu_original {
                 position: static;
                 max-width: none;
@@ -70,15 +71,14 @@
 
                                 <div class="row">
                                     <div class="col-sm-6 m-b-20">
-                                        <img src="{{asset('assets/img/new-castorms.jpg')}}" class="inv-logo" alt>
-                                        <ul class="list-unstyled mb-0">
-                                            <li><span>STE NEW CASTORMS AGENCY</span></li>
-                                            <li> IDNAT: 6-718-N390046R</li>
-                                            <li>Lshi/RCCM 48-B470, NIF:A1705665C</li>
-                                            <li>www.newcastomsagency.com</li>
-                                            <li>www.info@newcastomsagency.com</li>
-                                        </ul>
-                                    </div>
+                                    <img src="{{asset('assets/img/new-castorms.jpg')}}" class="invoice-logo" alt="">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><span>STE LA MANNE DE BRAVE SARL</span></li>
+                                        <li>960, Chaussé LDK, Batiment Methodiste, 2 eme Niveau</li>
+                                        <li>IDNAT: 05-H4901-N57665K</li>
+                                        <li>Lshi/RCCM 15-B-3463, NIF:A1008059X</li>
+                                    </ul>
+                                </div>
                                     <div class="col-sm-6 m-b-20">
                                         <div class="invoice-details">
                                             <h3 class="text-uppercase">#{{$dossier->plaque}}/ {{date('y-d')}}</h3>
@@ -105,7 +105,7 @@
                                 </div>
                                 <h4 class="payslip-title">#/O/NCA/OP/{{$dossier->type}}/{{$id_ticket}}/{{date('d')}}/ {{date('y-m')}}</h4>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                <div class="col-sm-12">
                                         <div>
                                             
                                             <table class="table table-bordered">
@@ -113,7 +113,7 @@
 
                                                     <tr>
                                                         <td>
-                                                            <strong>Motif</strong> <span
+                                                             <span
                                                                 class="float-end"></span>
                                                         </td>
                                                         <td>
@@ -121,12 +121,21 @@
                                                                 class="float-end">{{$dossier->motif}}</span>
                                                         </td>
                                                         <td>
-                                                            <strong>Observation</strong> <span
+                                                             <span
                                                                 class="float-end">{{$dossier->observation}}</span>
                                                         </td>
                                                         <td>
-                                                            <strong>Motant</strong> <span
+                                                            <span
                                                                 class="float-end">$ {{$dossier->montant}}</span>
+                                                        </td>
+                                                        <td>
+                                                             <span
+                                                                class="float-end">$ {{$dossier->amount_cdf}}</span>
+                                                        </td>
+
+                                                        <td>
+                                                             <span
+                                                                class="float-end">$ {{$dossier->amount_usd}}</span>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -134,7 +143,10 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td><strong>Total</strong> <span
-                                                                class="float-end"><strong>$  {{$dossier->montant}}
+                                                                class="float-end"><strong>USD  {{$dossier->amount_usd}}
+                                                                </strong></span></td>
+                                                                <td><strong>Total</strong> <span
+                                                                class="float-end"><strong>CDF  {{$dossier->amount_cdf}}
                                                                 </strong></span></td>
                                                     </tr>
                                                 </tbody>
@@ -165,16 +177,15 @@
                             <div id="contenu_copy" class="card-body">
 
                                 <div class="row">
-                                    <div class="col-sm-6 m-b-20">
-                                        <img src="{{asset('assets/img/new-castorms.jpg')}}" class="inv-logo" alt>
-                                        <ul class="list-unstyled mb-0">
-                                            <li><span>STE NEW CASTORMS AGENCY</span></li>
-                                            <li> IDNAT: 6-718-N390046R</li>
-                                            <li>Lshi/RCCM 48-B470, NIF:A1705665C</li>
-                                            <li>www.newcastomsagency.com</li>
-                                            <li>www.info@newcastomsagency.com</li>
-                                        </ul>
-                                    </div>
+                                <div class="col-sm-6 m-b-20">
+                                    <img src="{{asset('assets/img/new-castorms.jpg')}}" class="invoice-logo" alt="">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><span>STE LA MANNE DE BRAVE SARL</span></li>
+                                        <li>960, Chaussé LDK, Batiment Methodiste, 2 eme Niveau</li>
+                                        <li>IDNAT: 05-H4901-N57665K</li>
+                                        <li>Lshi/RCCM 15-B-3463, NIF:A1008059X</li>
+                                    </ul>
+                                </div>
                                     <div class="col-sm-6 m-b-20">
                                         <div class="invoice-details">
                                             <h3 class="text-uppercase">#{{$dossier->plaque}}/ {{date('y-d')}}</h3>
@@ -209,7 +220,7 @@
 
                                                     <tr>
                                                         <td>
-                                                            <strong>Motif</strong> <span
+                                                             <span
                                                                 class="float-end"></span>
                                                         </td>
                                                         <td>
@@ -217,12 +228,21 @@
                                                                 class="float-end">{{$dossier->motif}}</span>
                                                         </td>
                                                         <td>
-                                                            <strong>Observation</strong> <span
+                                                             <span
                                                                 class="float-end">{{$dossier->observation}}</span>
                                                         </td>
                                                         <td>
-                                                            <strong>Motant</strong> <span
+                                                            <span
                                                                 class="float-end">$ {{$dossier->montant}}</span>
+                                                        </td>
+                                                        <td>
+                                                             <span
+                                                                class="float-end">$ {{$dossier->amount_cdf}}</span>
+                                                        </td>
+
+                                                        <td>
+                                                             <span
+                                                                class="float-end">$ {{$dossier->amount_usd}}</span>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -230,7 +250,10 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td><strong>Total</strong> <span
-                                                                class="float-end"><strong>$  {{$dossier->montant}}
+                                                                class="float-end"><strong>USD  {{$dossier->amount_usd}}
+                                                                </strong></span></td>
+                                                                <td><strong>Total</strong> <span
+                                                                class="float-end"><strong>CDF  {{$dossier->amount_cdf}}
                                                                 </strong></span></td>
                                                     </tr>
                                                 </tbody>
