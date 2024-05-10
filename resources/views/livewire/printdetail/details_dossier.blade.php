@@ -141,10 +141,10 @@
                                                 <th>#</th>
                                                 <th>Date</th>
                                                 <th>Motif</th>
-                                                <th>Crédit USD</th>
-                                                <th>Débit USD</th>
-                                                <th>Crédit CDF</th>
-                                                <th>Débit CDF</th>
+                                                <th>Debit USD</th>
+                                                <th>Credit USD</th>
+                                                <th>Debit CDF</th>
+                                                <th>Credit CDF</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -187,8 +187,8 @@
                                             <tr>
                                                  
                                                 <td colspan="3"><strong>Solde</strong></td>
-                                                <td>{{ number_format($total_credit_usd - $total_debit_usd) }} $</td>
-                                                <td>{{ number_format( $total_credit_cdf-$total_debit_cdf) }} FC</td>
+                                                <td  colspan="2"> USD   ( {{ number_format($total_credit_usd) }} - {{ number_format($total_debit_usd) }} ) :{{ number_format($total_credit_usd - $total_debit_usd) }} </td>
+                                                <td  colspan="2">CDF ( {{ number_format($total_credit_cdf) }} - {{ number_format($total_debit_cdf) }} ) {{ number_format( $total_credit_cdf-$total_debit_cdf) }} </td>
                                             </tr>
                                         </tbody>
                                     </table>

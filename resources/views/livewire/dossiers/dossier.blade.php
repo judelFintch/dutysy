@@ -34,18 +34,19 @@
                 </div>
 
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
-                    <a href="{{route('short.index' ,['op' => 'byday'])}}">
+                    <a href="{{route('compilation.index')}}">
                         <div class="card dash-widget">
                             <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
+                                <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
                                 <div class="dash-widget-info">
-                                    <h3>{{$dossier_day}}</h3>
-                                    <span>Dossier(s) du jour({{$bigin_date}})</span>
+                                <h3>{{ isset($solde_caisse) && isset($solde_caisse->amount_cdf) ? number_format($solde_caisse->amount_cdf) : 0 }} CDF</h3>
+                                    <span> </span>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
+
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <a href="{{route('short.index',['op' => 'close'])}}">
                         <div class="card dash-widget">
@@ -61,28 +62,7 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
-                    <a href="{{route('compilation.index')}}">
-                        <div class="card dash-widget">
-                            <div class="card-body">
-                                <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
-                                <div class="dash-widget-info">
-                                <h3>{{ isset($solde_caisse) && isset($solde_caisse->amount_cdf) ? number_format($solde_caisse->amount_cdf) : 0 }} CDF</h3>
-                                    <span> </span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
-
-                </div>
-                <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
-
-                </div>
-            </div>
+           
 
             <hr>
 
