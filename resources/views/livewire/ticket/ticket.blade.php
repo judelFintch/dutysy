@@ -103,7 +103,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <h4 class="payslip-title">#/O/NCA/OP/{{$dossier->type}}/{{$id_ticket}}/{{date('d')}}/ {{date('y-m')}}</h4>
+                                <h4 class="payslip-title">#/O/MB/OP/{{$dossier->type}}/{{$id_ticket}}/{{date('d')}}/ {{date('y-m')}}</h4>
                                 <div class="row">
                                 <div class="col-sm-12">
                                         <div>
@@ -210,7 +210,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <h4 class="payslip-title">#/Copy/NCA/OP/{{$dossier->type}}/{{$id_ticket}}/{{date('d')}}/ {{date('y-m')}}</h4>
+                                <h4 class="payslip-title">#/Copy/MB/OP/{{$dossier->type}}/{{$id_ticket}}/{{date('d')}}/ {{date('y-m')}}</h4>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div>

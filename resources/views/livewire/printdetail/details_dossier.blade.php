@@ -141,6 +141,7 @@
                                                 <th>#</th>
                                                 <th>Date</th>
                                                 <th>Motif</th>
+                                                <th>Beneficiaire</th>
                                                 <th>Debit USD</th>
                                                 <th>Credit USD</th>
                                                 <th>Debit CDF</th>
@@ -154,6 +155,7 @@
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{ date("Y-m-d", strtotime($doss->date_created)) }}</td>
                                                 <td>{{ $doss->motif }}</td>
+                                                <td>{{ $doss->beneficiaire }}</td>
                                                 <!-- Gestion des montants en USD -->
                                                 @if($doss->type == 'int')
                                                 <td><span class="badge bg-inverse-success"> + {{ number_format($doss->amount_usd) }} $</span></td>
@@ -185,7 +187,6 @@
                                             </tr>
 
                                             <tr>
-                                                 
                                                 <td colspan="3"><strong>Solde</strong></td>
                                                 <td  colspan="2"> USD   ( {{ number_format($total_credit_usd) }} - {{ number_format($total_debit_usd) }} ) :{{ number_format($total_credit_usd - $total_debit_usd) }} </td>
                                                 <td  colspan="2">CDF ( {{ number_format($total_credit_cdf) }} - {{ number_format($total_debit_cdf) }} ) {{ number_format( $total_credit_cdf-$total_debit_cdf) }} </td>
