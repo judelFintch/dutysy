@@ -26,9 +26,12 @@
         <!-- Clients Filter -->
         <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
             <div class="form-group custom-select">
-                <select wire:model.defer="selectClients" class="form-control">
-                    <option value="">Clients</option>
-                    <!-- Ajoutez les options des clients ici -->
+                <select wire:model.defer="selectClientId" class="form-control">
+                       <option value="">Clients</option>
+                    @foreach($clients as $client)
+                        <option value="{{ $client->id}}">{{ $client->name }}</option>
+                        <!-- Ajoutez les options des clients ici -->
+                    @endforeach
                 </select>
                 @error('selectClients') <span class="text-danger">{{ $message }}</span> @enderror
             </div>

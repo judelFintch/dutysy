@@ -3,13 +3,14 @@
 namespace App\Http\Livewire\Rapport;
 use App\Models\Mouvements as Mouvements;
 use App\Models\Dossiers as Dossier;
+use App\Models\Clients  as Clients;
 use Illuminate\Validation\Rule;
 
 use Livewire\Component;
 
 class Rapport extends Component
 {
-    public $begin_date, $end_date,$selectOpType,$selectClients;
+    public $begin_date, $end_date,$selectOpType,$selectClientId;
     public $devise ='usd';
 
 
@@ -25,7 +26,7 @@ class Rapport extends Component
             'begin_date' => 'required|date|before_or_equal:end_date',
             'end_date' => 'required|date|after_or_equal:begin_date',
             'selectOpType' => ['nullable', Rule::in(['int', 'out'])],
-            'selectClients' => 'nullable|string' // Ajustez cette règle selon vos besoins
+            'selectClientId' => 'nullable|string' // Ajustez cette règle selon vos besoins
         ];
     }
 
@@ -49,10 +50,18 @@ class Rapport extends Component
             if (!empty($this->selectOpType)) {
                 $query->where('type', $this->selectOpType);
             }
+
+                    // Ajouter la condition de l'ID client si elle est définie
+            if (!empty($this->selectClients)) {
+                $query->where('client_id', $this->selectClientId);
+            }
+
     
         // Récupérer les mouvements avec les conditions appliquées
         $mouvements = $query->get();
-        return view('livewire.rapport.rapport', compact('mouvements','idcount'));
+        $clients = Clients::all();
+
+        return view('livewire.rapport.rapport', compact('mouvements','idcount','clients'));
     }
 
 }
