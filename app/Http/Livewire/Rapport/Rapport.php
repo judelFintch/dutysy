@@ -40,23 +40,23 @@ class Rapport extends Component
         {   $idcount =0;
             $begin_date = $this->begin_date;
             $end_date = $this->end_date;
+        
             // Incorporez la fin de la journée pour la date de fin
             $end_of_day = date('Y-m-d 23:59:59', strtotime($end_date));
-           
             $query = Mouvements::with('dossier')
             ->whereBetween('created_at', [$begin_date, $end_of_day]);
-    
         // Ajouter la condition de type d'opération si elle est définie
             if (!empty($this->selectOpType)) {
                 $query->where('type', $this->selectOpType);
             }
-
                     // Ajouter la condition de l'ID client si elle est définie
-            if (!empty($this->selectClients)) {
-                $query->where('client_id', $this->selectClientId);
+            if (!empty($this->selectClientId)) {
+                $query->whereHas('dossier', function ($query) {
+                    $query->where('client_id', $this->selectClientId);
+                });
             }
 
-    
+           // dd($this->selectClientId);
         // Récupérer les mouvements avec les conditions appliquées
         $mouvements = $query->get();
         $clients = Clients::all();

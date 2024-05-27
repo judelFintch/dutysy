@@ -28,10 +28,10 @@
             <div class="form-group custom-select">
                 <select wire:model.defer="selectClientId" class="form-control">
                        <option value="">Clients</option>
-                    @foreach($clients as $client)
-                        <option value="{{ $client->id}}">{{ $client->name }}</option>
-                        <!-- Ajoutez les options des clients ici -->
-                    @endforeach
+                        @foreach($clients as $client)
+                            <option value="{{ $client->id}}">{{ $client->name }}</option>
+                            <!-- Ajoutez les options des clients ici -->
+                        @endforeach
                 </select>
                 @error('selectClients') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
@@ -67,6 +67,8 @@
         </div>
     </div>
 </form>
+
+{{$selectClientId}}
                 <!-- End Filter Row -->
                 @include('livewire.rapport.list')
             </div>
