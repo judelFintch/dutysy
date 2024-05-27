@@ -1,8 +1,12 @@
 <div>
     <div>
+        <!-- Sidebar Navigation Component -->
         <x-nav_left />
+        <!-- Page Wrapper -->
         <div class="page-wrapper">
+            <!-- Content Container -->
             <div class="content container-fluid">
+                <!-- Page Header -->
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
@@ -12,13 +16,59 @@
                                 <li class="breadcrumb-item active">Dossier</li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
-                @json($listeners);
-                   @include('partials.filter_rapport')
-                   @include('livewire.rapport.list')
+                <!-- End Page Header -->
+
+                <!-- Filter Row -->
+                <form wire:submit.prevent="submit" class="w-100">
+    <div class="row filter-row">
+        <!-- Clients Filter -->
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+            <div class="form-group custom-select">
+                <select wire:model.defer="selectClients" class="form-control">
+                    <option value="">Clients</option>
+                    <!-- Ajoutez les options des clients ici -->
+                </select>
+                @error('selectClients') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
         </div>
+
+        <!-- Operation Type Filter -->
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+            <div class="form-group custom-select">
+                <select wire:model.defer="selectOpType" class="form-control">
+                    <option value="">Tout type</option>
+                    <option value="int">Entree</option>
+                    <option value="out">Sortie</option>
+                </select>
+                @error('selectOpType') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
+        </div>
+
+        <!-- Begin Date Filter -->
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+            <input type="date" wire:model.defer="begin_date" class="form-control">
+            @error('begin_date') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+
+        <!-- End Date Filter -->
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+            <input type="date" wire:model.defer="end_date" class="form-control">
+            @error('end_date') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+
+        <!-- Search Button -->
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+            <button type="submit" class="btn btn-success w-100">Search</button>
+        </div>
+    </div>
+</form>
+                <!-- End Filter Row -->
+                @include('livewire.rapport.list')
+            </div>
+            <!-- End Content Container -->
+        </div>
+        <!-- End Page Wrapper -->
     </div>
 </div>

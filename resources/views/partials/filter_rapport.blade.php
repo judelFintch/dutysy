@@ -1,14 +1,15 @@
 <div class="row filter-row">
+<form wire:submit.prevent="submit" class="w-100">
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
         <div class="form-group custom-select">
-            <select wire:model="op" class="select floating">
+            <select wire:model="selectClients" class="select floating">
                 <option value="">Toutes</option>
             </select>
         </div>
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
         <div class="form-group custom-select">
-            <select wire:change="type_op" id="type_op" name="type_op" class="select floating">
+            <select wire:change.live="selectOpType" id="type_op" name="type_op" class="select floating">
                 <option>Tout type</option>
                 <option> Entree</option>
                 <option> Sortie </option>

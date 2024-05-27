@@ -11,11 +11,11 @@
                         <th>Débit CDF</th>
                         <th>Crédit CDF</th>
                         <th>Motif</th>
-                       
                         <th class="text-end">Bénéficiaire</th>
-                        <th class="text-end">Action</th>
+                      
                     </tr>
                 </thead>
+                
                 <tbody>
                     @if(count($mouvements) > 0)
                         @foreach ($mouvements as $doss)
@@ -50,12 +50,7 @@
                             <td>{{ $doss->motif }}</td>
                             
                             <td class="text-end">{{ $doss->beneficiaire }}</td>
-                            <td class="text-end">
-                                @if($doss->dossier && $doss->dossier->status == 1)
-                                    <a class="badge bg-inverse-warning" wire:click="transfert_edit({{$doss->id}})">Operations</a>
-                                    <button onclick="deleteMvt({{$doss->id}})" class="btn btn-danger">Del</button>
-                                @endif
-                            </td>
+                           
                         </tr>
                         @endforeach
                     @else
