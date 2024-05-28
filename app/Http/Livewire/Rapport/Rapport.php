@@ -43,32 +43,26 @@ class Rapport extends Component
         $end_date = $this->end_date;
         // Incorporez la fin de la journée pour la date de fin
         $end_of_day = date('Y-m-d 23:59:59', strtotime($end_date));
-
         $query = Mouvements::with('dossier')
             ->whereBetween('created_at', [$begin_date, $end_of_day]);
-
         // Ajouter la condition de type d'opération si elle est définie
         if (!empty($this->selectOpType)) {
             $query->where('type', $this->selectOpType);
         }
-
         // Ajouter la condition de l'ID client si elle est définie
         if (!empty($this->selectClientId)) {
             $query->whereHas('dossier', function ($query) {
                 $query->where('client_id', $this->selectClientId);
             });
         }
-
         // Ajouter la condition de recherche si la variable $search est définie
         if (!empty($this->searchQuery)) {
-            $search = '%' . $this->searchQuery. '%'; // Ajouter les wildcards pour la recherche 'like'
-            $query = Mouvements::with('dossier')->where('motif', 'like', $search);
-            
+            $search = '%' . $this->searchQuery . '%'; // Ajouter les wildcards pour la recherche 'like'
+            $query->where('motif', 'like', $search);
         }
-
         // Exécuter la requête et obtenir les résultats
         $mouvements = $query->get();
-
+        
         $clients = Clients::all();
         return view('livewire.rapport.rapport', compact('mouvements', 'clients'));
     }

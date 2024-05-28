@@ -5,6 +5,7 @@
                 <thead>
                     <tr>
                         <th>#id</th>
+                        <th>Dossier</th>
                         <th>Date</th>
                         <th>Débit USD</th>
                         <th>Crédit USD</th>
@@ -21,6 +22,7 @@
                         @foreach ($mouvements as $doss)
                         <tr>
                             <td>{{$loop->iteration}}</td>
+                            <td>{{ $doss->dossier->plaque }}</td>
                             <td>{{ date("Y-m-d", strtotime($doss->created_at)) }}</td>
                             
                             <!-- Gestion des montants en USD -->
