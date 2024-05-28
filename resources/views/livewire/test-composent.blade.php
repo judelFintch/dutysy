@@ -1,3 +1,4 @@
+<div>
 <div class="header">
     <div class="header-left">
         <a href="{{route('dashboard')}}" class="logo">
@@ -16,21 +17,7 @@
     </div>
 
     <a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
-
     <ul class="nav user-menu">
-
-        <li class="nav-item">
-            <div class="top-nav-search">
-                <a href="javascript:void(0);" class="responsive-search">
-                    <i class="fa fa-search"></i>
-                </a>
-                <form action="search">
-                    <input wire:model.live="coonect" class="form-control" type="text" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-        </li>
-
         <li class="nav-item dropdown has-arrow flag-nav">
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="javascript:void(0);" class="dropdown-item">
@@ -83,4 +70,5 @@
         </li>
     </ul>
 
+</div>
 </div>

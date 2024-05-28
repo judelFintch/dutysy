@@ -33,7 +33,8 @@
     </head>
     <body>
         <div >
-            @livewire('navigation-menu')
+       
+        @livewire('test-composent')
             <!-- Page Heading -->
             @if (isset($header))
                 <header>
@@ -42,11 +43,11 @@
                     </div>
                 </header>
             @endif
-
             <!-- Page Content -->
             <main>
                 <div class="main-wrapper">
                      {{ $slot }}
+                     <input type="text" wire:mode.live="jud">
                 </div>
             </main>
         </div>

@@ -51,6 +51,7 @@ class Dossier extends Component
     }
     public function render()
     {
+        
         $search = '%' . $this->search . '%';
         $clients = Clients::all();
         $destinations = Destinations::all();
@@ -97,11 +98,6 @@ class Dossier extends Component
         $solde_caisse= Caisses::where('id', 1)->first();
         return view('livewire.dossiers.dossier', compact('dossiers', 'destinations', 'clients', 'dossier_day', 'dossiers_close', 'negatif','outstading_count', 'montantTotal','montantTotalclose','cpb','solde_caisse'));
     }
-
-
-    
-
-
 
 
     private function resetInput()
