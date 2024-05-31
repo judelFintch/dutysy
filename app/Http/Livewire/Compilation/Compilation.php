@@ -33,7 +33,7 @@ class Compilation extends Component
     ->value('somme_solde');
 
 // Passer les résultats à la vue
-
-        return view('livewire.compilation.compilation', compact('compile','montantTotal'));
+        $solde_caisse= Caisses::where('id', 1)->first();
+        return view('livewire.compilation.compilation', compact('compile','solde_caisse'));
     }
 }

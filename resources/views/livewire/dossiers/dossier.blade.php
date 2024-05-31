@@ -34,6 +34,7 @@
                     </a>
                 </div>
 
+                
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <a href="{{route('compilation.index')}}">
                         <div class="card dash-widget">

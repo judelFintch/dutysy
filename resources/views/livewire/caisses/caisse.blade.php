@@ -20,7 +20,7 @@
             </div>
 
 
-            @include('livewire.caisses.caisse_list')
+           
             @if (session()->has('message'))
             <div class="alert alert-success">
                 {{ session('message') }}

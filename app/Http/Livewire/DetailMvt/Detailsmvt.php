@@ -79,8 +79,8 @@ class Detailsmvt extends Component
 
         $mouvements = Mouvements::where('dossier_id', $dossier->id)->get();
 
-        $caisses = Caisse::all();
-        return view('livewire.detailmvt.detailsmvt', compact('dossier', 'mouvements', 'tt_int', 'tt_out','tt_int_cdf', 'tt_out_cdf','dossiers', 'caisses'));
+        $solde_caisse= Caisse::where('id', 1)->first();
+        return view('livewire.detailmvt.detailsmvt', compact('dossier', 'mouvements', 'tt_int', 'tt_out','tt_int_cdf', 'tt_out_cdf','dossiers', 'solde_caisse'));
     }
     public function transfert_edit($id)
     {

@@ -10,8 +10,9 @@ class Caisse extends Component
     public $caisse_name,$init_montant,$type_caisse,$details_caisse;
     public function render()
     {
-        $this->details_caisse =Caisses::all();
-        return view('livewire.caisses.caisse');
+        $this->details_caisse =Caisses::first();
+        $solde_caisse= Caisses::where('id', 1)->first();
+        return view('livewire.caisses.caisse','solde_caisse');
     }
     protected $rules =[
         'caisse_name' => 'required',
