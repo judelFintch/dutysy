@@ -74,6 +74,7 @@
                         <td colspan="10"> Aucune Donnée</td>
                     </tr>
                     @endif
+
                 </tbody>
             </table>
         </div>
