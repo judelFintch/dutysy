@@ -62,7 +62,6 @@ class Rapport extends Component
         }
         // Exécuter la requête et obtenir les résultats
         $mouvements = $query->get();
-        
         $clients = Clients::all();
         return view('livewire.rapport.rapport', compact('mouvements', 'clients'));
     }
