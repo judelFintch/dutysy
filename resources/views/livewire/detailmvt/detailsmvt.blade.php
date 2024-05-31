@@ -43,7 +43,9 @@
                     </div>
                 </div>
             </div>
-           
+
+
+            @if($id_dossier <> 23)
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                     <div class="stats-info">
@@ -86,6 +88,9 @@
                     </div>
                 </div>
             </div>
+
+          @endif
+
             <button onclick="goBack()">Retour</button>
             <hr>
 
