@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\DB;
 use Exception;
 use Carbon\Carbon;
 class Detailsmvt extends Component
+
 {
     public $timestamps = false;
     public $id_dossier, $idcount = 0, $creat = false, $list = true, $op_print = false;
     public $id_mouvement_tr, $motif_tr, $montant_tr, $observation_tr, $type_tr, $beneficiaire_tr, $id_dossier_tr, $listCaisse;
     public $type, $motif, $observation, $beneficiaire, $amount_cdf,$amount_usd, $transfer = false, $transfer_id,$date;
+    public $caisses;
     protected $listeners = [
         'closeFolder' => 'closeFolder',
         'deleteMvt' => 'deleteMvt'
@@ -26,6 +28,7 @@ class Detailsmvt extends Component
     {
         $this->id_dossier = $id;
         $this->devise = $devise;
+        $this->caisses = Caisse::all();
     }
     public function showform()
     {
