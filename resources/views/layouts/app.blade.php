@@ -13,6 +13,9 @@
 
         <!-- Scripts 
         @vite(['resources/css/app.css', 'resources/js/app.js'])-->
+        <link rel="stylesheet" href="{{ asset('assets/css/dashlite.css?ver=3.1.2') }}">
+        <link id="skin-default" rel="{{ asset('stylesheet" href="assets/css/theme.css?ver=3.1.2') }}">
+    
 
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
@@ -31,7 +34,7 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body>
+    <body class="nk-body ui-rounder npc-default has-sidebar ">
         <div >
        
         @livewire('test-composent')
@@ -47,7 +50,7 @@
             <main>
                 <div class="main-wrapper">
                      {{ $slot }}
-                     <input type="text" wire:mode.live="jud">
+                   
                 </div>
             </main>
         </div>
