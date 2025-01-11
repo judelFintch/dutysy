@@ -35,5 +35,6 @@ class Compilation extends Component
 // Passer les résultats à la vue
         $solde_caisse= Caisses::where('id', 1)->first();
         return view('livewire.compilation.compilation', compact('compile','solde_caisse'));
+        
     }
 }

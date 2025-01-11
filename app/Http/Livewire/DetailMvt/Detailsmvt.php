@@ -8,23 +8,24 @@ use App\Models\Dossiers as Dossiers;
 use App\Models\Caisses as Caisse;
 use App\Models\CorbeilleMouvement as CorbeilleMouvement;
 use Illuminate\Support\Facades\DB;
+use App\Enums\TypeCaisse;
 use Exception;
 use Carbon\Carbon;
 class Detailsmvt extends Component
-
 {
     public $timestamps = false;
     public $id_dossier, $idcount = 0, $creat = false, $list = true, $op_print = false;
-    public $id_mouvement_tr, $motif_tr, $montant_tr, $observation_tr, $type_tr, $beneficiaire_tr, $id_dossier_tr, $listCaisse;
-    public $type, $motif, $observation, $beneficiaire, $amount_cdf,$amount_usd, $transfer = false, $transfer_id,$date;
+    public $id_mouvement_tr, $motif_tr, $montant_tr, $observation_tr = null, $type_tr, $beneficiaire_tr, $id_dossier_tr, $listCaisse;
+    public $type, $motif, $observation, $beneficiaire, $amount_cdf, $amount_usd, $transfer = false, $transfer_id, $date;
     public $caisses;
     protected $listeners = [
         'closeFolder' => 'closeFolder',
         'deleteMvt' => 'deleteMvt'
     ];
+
     public $devise;
 
-    public function mount($id,$devise)
+    public function mount($id, $devise)
     {
         $this->id_dossier = $id;
         $this->devise = $devise;
@@ -36,7 +37,8 @@ class Detailsmvt extends Component
         $this->list = false;
     }
 
-    public function changeDevise(){
+    public function changeDevise()
+    {
 
     }
 
@@ -65,15 +67,15 @@ class Detailsmvt extends Component
         $type = "entree";
         $dossiers = Dossiers::all();
         $dossier = Dossiers::find($this->id_dossier);
-        
+
         // Ensure $dossier is not null before proceeding
         if ($dossier) {
             $tt_int = Mouvements::where('type', 'int')->where('dossier_id', $dossier->id)->sum('amount_usd');
             $tt_out = Mouvements::where('type', 'out')->where('dossier_id', $dossier->id)->sum('amount_usd');
-           
+
             $tt_int_cdf = Mouvements::where('type', 'int')->where('dossier_id', $dossier->id)->sum('amount_cdf');
             $tt_out_cdf = Mouvements::where('type', 'out')->where('dossier_id', $dossier->id)->sum('amount_cdf');
-            
+
             // Handle the case when $dossier is null
             // Maybe set $tt_int, $tt_out, and $mouvements to default values or handle the error
             ;
@@ -82,8 +84,8 @@ class Detailsmvt extends Component
 
         $mouvements = Mouvements::where('dossier_id', $dossier->id)->get();
 
-        $solde_caisse= Caisse::where('id', 1)->first();
-        return view('livewire.detailmvt.detailsmvt', compact('dossier', 'mouvements', 'tt_int', 'tt_out','tt_int_cdf', 'tt_out_cdf','dossiers', 'solde_caisse'));
+        $solde_caisse = Caisse::where('id', 1)->first();
+        return view('livewire.detailmvt.detailsmvt', compact('dossier', 'mouvements', 'tt_int', 'tt_out', 'tt_int_cdf', 'tt_out_cdf', 'dossiers', 'solde_caisse'));
     }
     public function transfert_edit($id)
     {
@@ -111,7 +113,7 @@ class Detailsmvt extends Component
 
             $this->list = true;
             $this->transfer = false;
-        
+
             session()->flash('message', 'Trasfert reussi');
         } catch (\Exception $e) {
             dd($e);
@@ -120,17 +122,20 @@ class Detailsmvt extends Component
 
     public function store()
     {
-        $this->validate();
+
+        //$this->validate();
         DB::beginTransaction();
         try {
             $search = "Dossier";
-            $caisse = Caisse::where('name_caisse', 'like', "%{$search}%")->firstOrFail();
+            $caisse = Caisse::find($this->listCaisse);
+
             // Supposons que les taux soient stockés dans un fichier de configuration / variables d'environnement
             // Par exemple: config('app.currency_rates.usd_to_cdf')
-            $amount_usd =  $this->amount_usd;
+            $amount_usd = $this->amount_usd;
             $amount_cdf = $this->amount_cdf;
+            $this->observation = $caisse->name_caisse;
 
-          
+
             $this->updateCaisseAmount($caisse, $amount_usd, $amount_cdf);
             $mouvement = Mouvements::create([
                 'dossier_id' => $this->id_dossier,
@@ -145,21 +150,22 @@ class Detailsmvt extends Component
                 'date_created' => $this->date,
                 'created_at' => $this->date
             ]);
-        
-                if ($mouvement) {
-                    $this->op_print = $mouvement->id;
-                    $this->resetField();
-                    session()->flash('message', __('Operation réussie.'));
+
+            if ($mouvement) {
+                $this->op_print = $mouvement->id;
+                $this->resetField();
+                session()->flash('message', __('Operation réussie.'));
                 DB::commit();
-                }
-                } catch (\Exception $e) {
-                    DB::rollBack();
-                    //Log::error($e);
-                    session()->flash('message', __('Une erreur est survenue lors de l\'opération.'));
-                }
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            //Log::error($e);
+            session()->flash('message', __('Une erreur est survenue lors de l\'opération.'));
+        }
     }
-private function updateCaisseAmount($caisse, $amount_usd, $amount_cdf) {
-       // Obtention des montants actuels
+    private function updateCaisseAmount($caisse, $amount_usd, $amount_cdf)
+    {
+        // Obtention des montants actuels
         $old_amount_usd = $caisse->amount_usd;
         $new_amount_usd = $this->type == 'int' ? $old_amount_usd + $amount_usd : $old_amount_usd - $amount_usd;
 
@@ -181,7 +187,7 @@ private function updateCaisseAmount($caisse, $amount_usd, $amount_cdf) {
         $caisse->amount_cdf = $new_amount_cdf;
         $caisse->save();
 
-        
+
         $caisse->save();
     }
 
@@ -199,34 +205,34 @@ private function updateCaisseAmount($caisse, $amount_usd, $amount_cdf) {
     {
         try {
             $mvt_by_id = Mouvements::find($id);
-                    if ($mvt_by_id) {
-                        $userEmail = auth()->user()->email;
-                        $store = CorbeilleMouvement::create(
-                            [
-                                'dossier_id' => $mvt_by_id->dossier_id,
-                                'amount_usd' => $mvt_by_id->amount_usd,
-                                'amount_cdf' => $mvt_by_id->amount_cdf,
-                                'type' => $mvt_by_id->type,
-                                'libelle' => $mvt_by_id->libelle,
-                                'motif' => $mvt_by_id->motif,
-                                'observation' => $mvt_by_id->observation,
-                                'beneficiaire' => $mvt_by_id->beneficiaire,
-                                'caisse_id' => $mvt_by_id->caisse_id,
-                                'user_id' => $userEmail
-                            ]
-                    );
-                    if ($store) {
-                        $caisse = Caisse::find(1);
-                        if ($mvt_by_id->type == 'int') {
-                            $caisse->decrement('amount_usd', $mvt_by_id->amount_usd);
-                            $caisse->decrement('amount_cdf', $mvt_by_id->amount_cdf);
-                        } else {
-                            $caisse->increment('amount_usd', $mvt_by_id->amount_usd);
-                            $caisse->increment('amount_cdf', $mvt_by_id->amount_cdf);
-                        }
-                        $caisse->save();
-                        $mvt_by_id->delete();
+            if ($mvt_by_id) {
+                $userEmail = auth()->user()->email;
+                $store = CorbeilleMouvement::create(
+                    [
+                        'dossier_id' => $mvt_by_id->dossier_id,
+                        'amount_usd' => $mvt_by_id->amount_usd,
+                        'amount_cdf' => $mvt_by_id->amount_cdf,
+                        'type' => $mvt_by_id->type,
+                        'libelle' => $mvt_by_id->libelle,
+                        'motif' => $mvt_by_id->motif,
+                        'observation' => $mvt_by_id->observation,
+                        'beneficiaire' => $mvt_by_id->beneficiaire,
+                        'caisse_id' => $mvt_by_id->caisse_id,
+                        'user_id' => $userEmail
+                    ]
+                );
+                if ($store) {
+                    $caisse = Caisse::find(1);
+                    if ($mvt_by_id->type == 'int') {
+                        $caisse->decrement('amount_usd', $mvt_by_id->amount_usd);
+                        $caisse->decrement('amount_cdf', $mvt_by_id->amount_cdf);
+                    } else {
+                        $caisse->increment('amount_usd', $mvt_by_id->amount_usd);
+                        $caisse->increment('amount_cdf', $mvt_by_id->amount_cdf);
                     }
+                    $caisse->save();
+                    $mvt_by_id->delete();
+                }
             }
         } catch (\Exception $e) {
             dd($e);

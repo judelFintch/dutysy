@@ -1,7 +1,7 @@
 <div>
-<x-nav_left />
+    <x-nav_left />
     <div class="page-wrapper">
-     
+
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row align-items-center">
@@ -13,25 +13,24 @@
                         </ul>
                     </div>
                     <div class="col-auto float-end ms-auto">
-                        <a href="#" wire:click="showform()" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_salary"><i
-                                class="fa fa-plus"></i> Nouvelle Caisse</a>
+                        <a href="#" wire:click="showForm()" class="btn add-btn" data-bs-toggle="modal"
+                            data-bs-target="#add_salary"><i class="fa fa-plus"></i> Nouvelle Caisse</a>
                     </div>
                 </div>
             </div>
-
-
-           
             @if (session()->has('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
             @endif
-           
-            @if($creat)
-              @include('livewire.caisses.creat')
-            @endif
+
+            @if ($isCreating)
+                @include('livewire.caisses.creat')
+                  @endif
+
+
         </div>
     </div>
 
 
-<div>
+    <div>

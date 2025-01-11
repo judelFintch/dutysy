@@ -1,40 +1,63 @@
 <?php
 
 namespace App\Http\Livewire\Caisses;
-use App\Models\Caisses as Caisses;
 
+use App\Models\Caisses;
 use Livewire\Component;
+use App\Enums\TypeCaisse;
+
 class Caisse extends Component
 {
-    public $creat = false;
-    public $caisse_name,$init_montant,$type_caisse,$details_caisse;
+    public $isCreating = false;
+    public $caisseName, $amountUsd, $amountCdf, $typeCaisse, $detailsCaisse;
+
+    protected $rules = [
+        'caisseName' => 'required|string|max:60|unique:caisses,name_caisse',
+        'amountUsd' => 'required|numeric|min:0',
+        'amountCdf' => 'required|numeric|min:0',
+        'typeCaisse' => 'required|string|max:60|unique:caisses,type_caisse',
+    ];
+
     public function render()
     {
-        $this->details_caisse =Caisses::first();
-        $solde_caisse= Caisses::where('id', 1)->first();
-        return view('livewire.caisses.caisse','solde_caisse');
+        $this->detailsCaisse = Caisses::all();
+        return view('livewire.caisses.caisse', [
+            'typeCaisseOptions' => TypeCaisse::values(),
+        ]);
     }
-    protected $rules =[
-        'caisse_name' => 'required',
-        'init_montant' => 'required',
-        'type_caisse' => 'required'
-    ];
-    public function showform(){
-        $this->creat=true;
+
+    public function showForm()
+    {
+        $this->isCreating = true;
     }
-    public function store(){
+    public function store()
+    {
         $this->validate();
-        $this->creat=false;
-        try{
+
+        try {
             Caisses::create([
-                'name_caisse' => $this->caisse_name,
-                'montant' => $this->init_montant,
-                'type_caisse' => $this->type_caisse
+                'name_caisse' => $this->caisseName,
+                'amount_usd' => $this->amountUsd,
+                'amount_cdf' => $this->amountCdf,
+                'type_caisse' => $this->typeCaisse,
             ]);
-            session()->flash('message', 'Creation reussi');
+
+            session()->flash('success', 'Création réussie');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Création échouée : ' . $e->getMessage());
         }
-        catch(\Exception $e){
-            session()->flash('message', 'Creation echouee');
-        }
+
+
+
+        // $this->resetForm();
+    }
+
+    private function resetForm()
+    {
+        $this->isCreating = false;
+        $this->caisseName = '';
+        $this->amountUsd = '';
+        $this->amountCdf = '';
+        $this->typeCaisse = '';
     }
 }
