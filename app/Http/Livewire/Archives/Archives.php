@@ -8,17 +8,17 @@ use Livewire\Component;
 class Archives extends Component
 {
     public $idcount = 0;
-    public $devise ='usd';
+    public $devise = 'usd';
 
     public function archivesFolder()
     {
         Dossiers::where('status', 0)->update(['status' => 3]);
-        redirect('/Archives');
+        redirect()->route('archives.index');
     }
 
     public function render()
     {
-        $dossiers =  Dossiers::where('status', 3)->get();
+        $dossiers = Dossiers::where('status', 3)->get();
         return view('livewire.archives.archives', compact('dossiers'));
     }
 }

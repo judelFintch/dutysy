@@ -39,14 +39,7 @@
                         @endif
                     @endif
 
-                    <div class="col-auto float-end ms-auto">
-                        <select wire:model="id_dossier" class="form-control @error('id_dossier') is-invalid @enderror">
-                            @foreach ($dossiers as $dossier)
-                                <option value="{{ $dossier->id }}">{{ $dossier->plaque }}</option>
-                            @endforeach
-                        </select>
-
-                    </div>
+                   
                 </div>
             </div>
 

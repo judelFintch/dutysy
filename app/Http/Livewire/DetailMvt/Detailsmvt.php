@@ -134,8 +134,6 @@ class Detailsmvt extends Component
             $amount_usd = $this->amount_usd;
             $amount_cdf = $this->amount_cdf;
             $this->observation = $caisse->name_caisse;
-
-
             $this->updateCaisseAmount($caisse, $amount_usd, $amount_cdf);
             $mouvement = Mouvements::create([
                 'dossier_id' => $this->id_dossier,
@@ -198,7 +196,8 @@ class Detailsmvt extends Component
                 'status' => false,
             ]
         )->save();
-        redirect('shortdetails/close');
+        redirect()->route('short.index', ['op' => 'close']);
+
     }
 
     public function deleteMvt($id)
