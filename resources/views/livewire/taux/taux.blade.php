@@ -18,17 +18,17 @@
                 </div>
             </div>
 
-                @if (session()->has('message'))
+            @if (session()->has('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
                 </div>
-                @endif
+            @endif
 
 
-                @if($create)
-                    @include('livewire.taux.create')
-                @endif
-               
+            @if ($create)
+                @include('livewire.taux.create')
+            @endif
+
         </div>
     </div>
 </div>

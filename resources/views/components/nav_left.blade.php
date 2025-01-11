@@ -5,14 +5,14 @@
                 <!-- Menu principal -->
                 <li>
                     <a href="{{ route('dossier.index') }}">
-                        <i class="la la-briefcase"></i> 
+                        <i class="la la-briefcase"></i>
                         <span>Dossier</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('dossier.index') }}">
-                        <i class="la la-briefcase"></i> 
+                        <i class="la la-briefcase"></i>
                         <span>Dossier Cloturé</span>
                     </a>
                 </li>
@@ -25,9 +25,9 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('short.index', ['op' => 'negatif']) }}">
+                    <a href="{{ route('kcc.dashboard') }}">
                         <i class="la la-briefcase"></i>
-                        <span>Dossier Négatif</span>
+                        <span>KCC</span>
                     </a>
                 </li>
 
@@ -40,7 +40,7 @@
 
                 <li>
                     <a href="{{ route('employer.index') }}">
-                        <i class="la la-users"></i> 
+                        <i class="la la-users"></i>
                         <span>Employés</span>
                     </a>
                 </li>
