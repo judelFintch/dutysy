@@ -17,12 +17,7 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ route('compilation.index', ['devise' => $devise[0]]) }}">
-                        <i class="la la-dollar"></i>
-                        <span>Solde</span>
-                    </a>
-                </li>
+
 
                 <li>
                     <a href="{{ route('caisse.index') }}">

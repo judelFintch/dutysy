@@ -1,17 +1,28 @@
-<div class="row">
-    @foreach ($detailsCaisse as $res)
-        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-            <a href="">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-dollar"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>{{ number_format($res->montant) }}</h3>
-                            <span>{{ $res->name_caisse }}</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-    @endforeach
-</div>
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th><i class="fa fa-archive"></i> Nom de la Caisse</th>
+            <th><i class="fa fa-dollar-sign"></i> Montant (USD)</th>
+            <th><i class="fa fa-money-bill-wave"></i> Montant (CDF)</th>
+            <th><i class="fa fa-money-bill-wave"></i> Type</th>
+            <th><i class="fa fa-cogs"></i> Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($detailsCaisse as $index => $res)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $res->name_caisse }}</td>
+                <td class="text-success font-weight-bold">{{ number_format($res->amount_usd, 2) }} $</td>
+                <td class="text-primary font-weight-bold">{{ number_format($res->amount_cdf, 0, ',', ' ') }} CDF</td>
+                <td>{{ $res->type_caisse }}</td>
+                <td>
+                    <a href="" class="btn btn-primary btn-sm">
+                        <i class="fa fa-eye"></i> Voir
+                    </a>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>

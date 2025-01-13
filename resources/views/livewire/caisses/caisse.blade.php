@@ -26,11 +26,8 @@
 
             @if ($isCreating)
                 @include('livewire.caisses.creat')
-                  @endif
-
-
+            @endif
         </div>
+        @include('livewire.caisses.caisse_list')
     </div>
-
-
     <div>
