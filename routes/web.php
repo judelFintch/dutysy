@@ -23,6 +23,8 @@ use App\Http\Livewire\Compilation\Compilation;
 use App\Http\Livewire\Banque\Banque;
 use App\Http\Livewire\Transaction\TransactionComponent;
 use App\Http\Livewire\Transaction\TransactionReportComponent;
+use App\Http\Livewire\Company\CompanyInfoComponent;
+use App\Http\Livewire\Company\CompanyStoreComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +70,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/banque', Banque::class)->name('banque.situation');
         Route::get('/transactions', TransactionComponent::class)->name('transactions.index');
         Route::get('/transactions/report', TransactionReportComponent::class)->name('transactions.report');
+        Route::get('/company-info', CompanyInfoComponent::class)->name('company.info');
+        Route::get('/company-store', CompanyStoreComponent::class)->name('company.store');
     });
 });
 

@@ -89,6 +89,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('company.info') }}">
+                        <i class="la la-archive"></i>
+                        <span>Mon Entreprise</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
