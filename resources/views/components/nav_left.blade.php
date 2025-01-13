@@ -5,42 +5,33 @@
                 <!-- Menu principal -->
                 <li>
                     <a href="{{ route('dossier.index') }}">
-                        <i class="la la-briefcase"></i>
+                        <i class="la la-folder"></i>
                         <span>Dossier</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('dossier.index') }}">
-                        <i class="la la-briefcase"></i>
-                        <span>Dossier Cloturé</span>
-                    </a>
-                </li>
-
-
-
                 <li>
                     <a href="{{ route('caisse.index') }}">
-                        <i class="la la-dollar"></i>
+                        <i class="la la-money"></i>
                         <span>Caisses</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('client.index') }}">
-                        <i class="la la-user"></i>
+                        <i class="la la-address-book"></i>
                         <span>Clients</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('employer.index') }}">
-                        <i class="la la-users"></i>
+                        <i class="la la-user-tie"></i>
                         <span>Employés</span>
                     </a>
                 </li>
+
                 <!-- Nouveau menu : Situation Banque -->
                 <li>
                     <a href="{{ route('banque.situation') }}">
-                        <i class="la la-credit-card"></i>
+                        <i class="la la-university"></i>
                         <span>Banque</span>
                     </a>
                 </li>
@@ -49,10 +40,9 @@
                 <li class="menu-title">
                     <span>Opérations</span>
                 </li>
-
                 <li class="submenu">
                     <a href="#">
-                        <i class="la la-pie-chart"></i>
+                        <i class="la la-chart-bar"></i>
                         <span> Rapports </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -61,10 +51,9 @@
                         <li><a href="invoice_reports">Rapport Général</a></li>
                     </ul>
                 </li>
-
                 <li class="submenu">
                     <a href="#">
-                        <i class="la la-graduation-cap"></i>
+                        <i class="la la-edit"></i>
                         <span>Création</span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -77,25 +66,22 @@
                 <!-- Section autres éléments -->
                 <li>
                     <a href="{{ route('trash.index') }}">
-                        <i class="la la-trash"></i>
+                        <i class="la la-trash-alt"></i>
                         <span>Corbeille</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ route('archives.index') }}">
-                        <i class="la la-archive"></i>
+                        <i class="la la-box"></i>
                         <span>Archives</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ route('company.info') }}">
-                        <i class="la la-archive"></i>
+                        <i class="la la-building"></i>
                         <span>Mon Entreprise</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </div>
