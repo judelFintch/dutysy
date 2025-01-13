@@ -10,7 +10,7 @@ use App\Http\Livewire\Employers\Employer;
 use App\Http\Livewire\Secteurs\Secteur;
 use App\Http\Livewire\Dossiers\Dossier;
 use App\Http\Livewire\Depenses\Depense;
-use App\Http\Livewire\DetailsCaisse\DetailsCaisse;
+use App\Http\Livewire\DetailsCaisse\Detailscaisse;
 use App\Http\Livewire\DetailMvt\DetailsMvt;
 use App\Http\Livewire\Printdetail\Printdetail;
 use App\Http\Livewire\Taux\Taux;
@@ -55,7 +55,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/ticket/{id}', Ticket::class)->name('ticket.details');
     });
 
-    Route::get('/kcc', KccDashboard::class)->name('kcc.dashboard');
+
 
     Route::prefix('management')->group(function () {
         Route::get('/taux', Taux::class)->name('taux.index');
