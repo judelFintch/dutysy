@@ -13,8 +13,8 @@
                         </ul>
                     </div>
                     <div class="col-auto float-end ms-auto">
-                        <a href="#" wire:click="showForm()" class="btn add-btn" data-bs-toggle="modal"
-                            data-bs-target="#add_salary"><i class="fa fa-plus"></i> Nouvelle</a>
+                        <a href="{{ route('company.store') }}" class="btn add-btn"><i class="fa fa-plus"></i>
+                            Modifier</a>
                     </div>
                 </div>
             </div>
