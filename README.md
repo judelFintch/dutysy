@@ -95,6 +95,7 @@ Usage
 Accounting Module
 
 The accounting module enables you to track all financial activities efficiently:
+
 1. Recording Transactions
 
     Incoming Funds: Record payments made to the customs agency for duties, fees, or services.
@@ -109,9 +110,9 @@ The accounting module enables you to track all financial activities efficiently:
 3. Financial Reports
 
     Generate detailed reports that include:
-        Revenues and expenses by currency.
-        Total balances for all accounts.
-        Summaries of cash inflow and outflow over a selected date range.
+    Revenues and expenses by currency.
+    Total balances for all accounts.
+    Summaries of cash inflow and outflow over a selected date range.
     Export reports in PDF format for auditing or review.
 
 4. Currencies
@@ -174,7 +175,7 @@ This project is licensed under the MIT License.
 Contact
 
 For inquiries or support, please contact:
-Email: support@customsmanagement.com
+Email: judel@judfintch.com
 Website: Customs Management
 
 This README.md provides a comprehensive overview of the software, now emphasizing accounting and financial management aspects. Let me know if you need additional adjustments!
