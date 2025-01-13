@@ -32,7 +32,7 @@
                 <li>
                     <a href="{{ route('banque.situation') }}">
                         <i class="la la-university"></i>
-                        <span>Banque</span>
+                        <span>Transactions</span>
                     </a>
                 </li>
 
