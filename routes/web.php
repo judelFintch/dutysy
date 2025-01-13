@@ -51,7 +51,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::prefix('details')->group(function () {
         Route::get('/caisse/{id}', DetailsCaisse::class)->name('detailcaisse.index');
-        Route::get('/mvt/{id}/{devise}', DetailsMvt::class)->name('details.mvt');
+       // Route::get('/mvt/{id}/{devise}', DetailsMvt::class)->name('details.mvt');
         Route::get('/print/{id}', Printdetail::class)->name('print.details');
         Route::get('/ticket/{id}', Ticket::class)->name('ticket.details');
     });
