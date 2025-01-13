@@ -7,8 +7,7 @@ use App\Models\Mouvements as Mouvements;
 use App\Models\Dossiers as Dossiers;
 use App\Models\Caisses as Caisse;
 use App\Models\CorbeilleMouvement as CorbeilleMouvement;
-use Illuminate\Support\Facades\DB;
-use App\Enums\TypeCaisse;
+use App\Models\ReferencesCamion;
 use Exception;
 use Carbon\Carbon;
 class Detailsmvt extends Component
@@ -16,7 +15,7 @@ class Detailsmvt extends Component
     public $timestamps = false;
     public $id_dossier, $idcount = 0, $creat = false, $list = true, $op_print = false;
     public $id_mouvement_tr, $motif_tr, $montant_tr, $observation_tr = null, $type_tr, $beneficiaire_tr, $id_dossier_tr, $listCaisse;
-    public $type, $motif, $observation, $beneficiaire, $amount_cdf, $amount_usd, $transfer = false, $transfer_id, $date;
+    public $type, $motif, $observation, $beneficiaire, $amount_cdf, $amount_usd, $transfer = false, $transfer_id, $date, $reference;
     public $caisses;
     protected $listeners = [
         'closeFolder' => 'closeFolder',
@@ -30,6 +29,9 @@ class Detailsmvt extends Component
         $this->id_dossier = $id;
         $this->devise = $devise;
         $this->caisses = Caisse::all();
+        $this->reference = ReferencesCamion::where('dossier_id', $id)->first();
+
+       
     }
     public function showform()
     {

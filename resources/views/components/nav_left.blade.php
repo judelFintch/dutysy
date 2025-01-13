@@ -30,33 +30,23 @@
                         <span>Caisses</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('kcc.dashboard') }}">
-                        <i class="la la-briefcase"></i>
-                        <span>KCC</span>
-                    </a>
-                </li>
-
                 <li>
                     <a href="{{ route('client.index') }}">
                         <i class="la la-user"></i>
                         <span>Clients</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ route('employer.index') }}">
                         <i class="la la-users"></i>
                         <span>Employés</span>
                     </a>
                 </li>
-
                 <!-- Nouveau menu : Situation Banque -->
                 <li>
                     <a href="{{ route('banque.situation') }}">
                         <i class="la la-credit-card"></i>
-                        <span>Situation Banque</span>
+                        <span>Banque</span>
                     </a>
                 </li>
 

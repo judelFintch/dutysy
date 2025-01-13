@@ -12,17 +12,17 @@ class Dossiers extends Model
 {
     use HasFactory;
     protected $fillable = [
-            "client_id",
-            "dossier_id",
-            "destination_id",
-            "type_marchandise",
-            "chauffeur",
-            "plaque",
-            "provenance",
-            'status',
-            "amount_usd",
-            "amount_cdf",
-            "date_created",
+        "client_id",
+        "dossier_id",
+        "destination_id",
+        "type_marchandise",
+        "chauffeur",
+        "plaque",
+        "provenance",
+        'status',
+        "amount_usd",
+        "amount_cdf",
+        "date_created",
     ];
     /**
      * Get all of the comments for the Dossiers
@@ -49,31 +49,37 @@ class Dossiers extends Model
         return $this->hasOne(Caisses::class, 'reference_id', 'id');
     }
 
-   /**
-    * Get the client that owns the Dossiers
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
-   public function client(): BelongsTo
-   {
-       return $this->belongsTo(Clients::class);
-   }
+    /**
+     * Get the client that owns the Dossiers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Clients::class);
+    }
 
-   /**
-    * Get the destination that owns the Dossiers
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
-   public function destination(): BelongsTo
-   {
-       return $this->belongsTo(Destinations::class);
-   }
+    /**
+     * Get the destination that owns the Dossiers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function destination(): BelongsTo
+    {
+        return $this->belongsTo(Destinations::class);
+    }
 
 
-   public function mouvements(): HasMany
+    public function mouvements(): HasMany
     {
         return $this->hasMany(Mouvements::class);
 
+    }
+
+
+    public function camions()
+    {
+        return $this->hasMany(ReferencesCamion::class);
     }
 
 }

@@ -7,7 +7,8 @@ use App\Models\{
     Dossiers,
     Destinations,
     Mouvements,
-    Caisses
+    Caisses,
+    ReferencesCamion,
 };
 use Illuminate\Support\Facades\DB;
 use Illuminate\Session\SessionManager;
@@ -18,7 +19,12 @@ class Dossier extends Component
     public $client, $destination, $creat = false, $type_marchandise, $chauffeur, $plaque, $provenance;
     public $montant_init = 0, $montant_cdf = 0, $devise = 'usd';
     public $selected_id, $update_dossier = false, $idcount = 0, $list = true;
-    public $bigin_date, $end_date, $query, $search, $date;
+    public $bigin_date, $end_date, $query, $search, $date, $referenceInput = false;
+
+    public $mode, $formReference = false;
+
+    const LOT = 'par_lot';
+    const SIMPLE = 'simple';
 
     protected $rules = [
         'client' => 'required',
@@ -37,10 +43,14 @@ class Dossier extends Component
         $this->list = false;
     }
 
+
+
     public function mount(SessionManager $sessionManager)
     {
         $this->bigin_date = date('Y-m-d');
         $this->end_date = date('Y-m-d');
+
+
     }
 
     public function updatedQuery()
@@ -55,7 +65,6 @@ class Dossier extends Component
         $destinations = Destinations::all();
         $dossier_day = Dossiers::whereDate('created_at', $this->bigin_date)->count();
         $dossiers = Dossiers::orderBy('id', 'DESC')->where('status', 1);
-
         if ($this->search) {
             $dossiers->where('plaque', 'like', $search);
         }
@@ -94,6 +103,14 @@ class Dossier extends Component
         $cpb = Dossiers::where('plaque', compte_bureau)->first();
         $solde_caisse = Caisses::where('id', 1)->first();
 
+        if ($this->mode == self::LOT) {
+            $this->formReference = true;
+        }
+        if ($this->mode == self::SIMPLE) {
+            $this->formReference = false;
+        }
+
+
         return view('livewire.dossiers.dossier', compact(
             'dossiers',
             'destinations',
@@ -105,7 +122,8 @@ class Dossier extends Component
             'montantTotal',
             'montantTotalclose',
             'cpb',
-            'solde_caisse'
+            'solde_caisse',
+
         ));
     }
 
@@ -124,7 +142,6 @@ class Dossier extends Component
     public function store()
     {
         $this->validate();
-
         try {
             DB::transaction(function () {
                 $dossier = Dossiers::create([
@@ -138,6 +155,11 @@ class Dossier extends Component
                     'amount_cdf' => $this->montant_cdf,
                     'date_created' => $this->date,
                     'status' => true
+                ]);
+                // Créer une nouvelle référence de camion liée au dossier
+                $create = ReferencesCamion::create([
+                    'dossier_id' => $dossier->id,
+                    'reference' => $this->referenceInput,
                 ]);
 
                 $caisse = Caisses::where('name_caisse', 'like', 'Dossier')->first();

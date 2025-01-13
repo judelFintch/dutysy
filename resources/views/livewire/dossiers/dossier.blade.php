@@ -81,6 +81,9 @@
                 <div class="alert alert-success">
                     {{ session('message') }}
                 </div>
+
+                
+
             @endif
             @if ($update_dossier)
                 @include('livewire.dossiers.update')
@@ -92,6 +95,8 @@
             @if ($list)
                 @include('livewire.dossiers.list')
             @endif
+
+
         </div>
     </div>
 </div>

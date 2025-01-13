@@ -39,7 +39,7 @@
                         @endif
                     @endif
 
-                   
+
                 </div>
             </div>
 
@@ -125,6 +125,9 @@
                 @endif
             @endif
 
+
+
+
             <button onclick="goBack()">Retour</button>
             <hr>
 
@@ -135,6 +138,16 @@
                         recu</a>
                 </div>
             @endif
+
+            @if ($reference)
+                <div class="card bg-light shadow-sm p-3 mb-4 mt-4">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary mb-2">Référence du Camion</h5>
+                        <p class="card-text fs-4 fw-bold text-dark">{{ $reference->reference }}</p>
+                    </div>
+                </div>
+            @endif
+
 
             @if ($creat)
                 @include('livewire.detailmvt.creat')
