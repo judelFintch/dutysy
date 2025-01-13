@@ -12,8 +12,12 @@
                         </ul>
                     </div>
                     <div class="col-auto float-end ms-auto">
-                        <a href="#" wire:click="showForm()" class="btn add-btn" data-bs-toggle="modal"
-                            data-bs-target="#add_salary"><i class="fa fa-plus"></i> Retrait</a>
+                        <a href="{{ route('transactions.report') }}" class="btn add-btn"><i class="fa fa-plus"></i>
+                            Rapport</a>
+                    </div>
+                    <div class="col-auto float-end ms-auto">
+                        <a href="{{ route('transactions.index') }}" class="btn add-btn"><i class="fa fa-plus"></i>
+                            Retrait</a>
                     </div>
                 </div>
             </div>

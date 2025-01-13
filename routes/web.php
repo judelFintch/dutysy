@@ -21,7 +21,8 @@ use App\Http\Livewire\Trash\Trash;
 use App\Http\Livewire\Archives\Archives;
 use App\Http\Livewire\Compilation\Compilation;
 use App\Http\Livewire\Banque\Banque;
-use App\Http\Livewire\Kcc\KccDashboard;
+use App\Http\Livewire\Transaction\TransactionComponent;
+use App\Http\Livewire\Transaction\TransactionReportComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/archives', Archives::class)->name('archives.index');
         Route::get('/compile', Compilation::class)->name('compilation.index');
         Route::get('/banque', Banque::class)->name('banque.situation');
+        Route::get('/transactions', TransactionComponent::class)->name('transactions.index');
+        Route::get('/transactions/report', TransactionReportComponent::class)->name('transactions.report');
     });
 });
 
