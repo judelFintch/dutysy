@@ -11,7 +11,7 @@ use App\Http\Livewire\Secteurs\Secteur;
 use App\Http\Livewire\Dossiers\Dossier;
 use App\Http\Livewire\Depenses\Depense;
 use App\Http\Livewire\DetailsCaisse\Detailscaisse;
-use App\Http\Livewire\DetailMvt\DetailsMvt;
+use App\Http\Livewire\DetailMvt\Detailsmvt;
 use App\Http\Livewire\Printdetail\Printdetail;
 use App\Http\Livewire\Taux\Taux;
 use App\Http\Livewire\Ticket\Ticket;
