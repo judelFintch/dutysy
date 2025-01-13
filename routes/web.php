@@ -1,26 +1,27 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\{
-    Destinations\Destination,
-    Clients\Client,
-    Caisses\Caisse,
-    Employers\Employer,
-    Secteurs\Secteur,
-    Dossiers\Dossier,
-    Depenses\Depense,
-    DetailMvt\DetailsMvt,
-    Printdetail\Printdetail,
-    Taux\Taux,
-    Ticket\Ticket,
-    Rapport\Rapport,
-    ShortDetails\ShortDetails,
-    Trash\Trash,
-    Archives\Archives,
-    Compilation\Compilation,
-    Banque\Banque,
-    Kcc\KccDashboard
-};
+
+// Appels individuels des classes
+use App\Http\Livewire\Destinations\Destination;
+use App\Http\Livewire\Clients\Client;
+use App\Http\Livewire\Caisses\Caisse;
+use App\Http\Livewire\Employers\Employer;
+use App\Http\Livewire\Secteurs\Secteur;
+use App\Http\Livewire\Dossiers\Dossier;
+use App\Http\Livewire\Depenses\Depense;
+use App\Http\Livewire\DetailsCaisse\DetailsCaisse;
+use App\Http\Livewire\DetailMvt\DetailsMvt;
+use App\Http\Livewire\Printdetail\Printdetail;
+use App\Http\Livewire\Taux\Taux;
+use App\Http\Livewire\Ticket\Ticket;
+use App\Http\Livewire\Rapport\Rapport;
+use App\Http\Livewire\ShortDetails\ShortDetails;
+use App\Http\Livewire\Trash\Trash;
+use App\Http\Livewire\Archives\Archives;
+use App\Http\Livewire\Compilation\Compilation;
+use App\Http\Livewire\Banque\Banque;
+use App\Http\Livewire\Kcc\KccDashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,6 @@ use App\Http\Livewire\{
 */
 
 Route::get('/', fn() => view('auth.login'));
-
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', Dossier::class)->name('dashboard');
@@ -49,12 +49,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
 
     Route::prefix('details')->group(function () {
-       // Route::get('/caisse/{id}', DetailsCaisse::class)->name('detailcaisse.index');
+        Route::get('/caisse/{id}', DetailsCaisse::class)->name('detailcaisse.index');
         Route::get('/mvt/{id}/{devise}', DetailsMvt::class)->name('details.mvt');
         Route::get('/print/{id}', Printdetail::class)->name('print.details');
         Route::get('/ticket/{id}', Ticket::class)->name('ticket.details');
     });
-
 
     Route::get('/kcc', KccDashboard::class)->name('kcc.dashboard');
 
