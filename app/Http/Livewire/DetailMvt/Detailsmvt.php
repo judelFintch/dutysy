@@ -10,6 +10,7 @@ use App\Models\CorbeilleMouvement as CorbeilleMouvement;
 use App\Models\ReferencesCamion;
 use Exception;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class Detailsmvt extends Component
 {
     public $timestamps = false;
