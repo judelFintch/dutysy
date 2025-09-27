@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Rapport;
 use App\Models\Mouvements as Mouvements;
 use App\Models\Clients  as Clients;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
 use Livewire\Component;
@@ -83,7 +84,11 @@ class Rapport extends Component
     {
         $mouvements = $this->buildMouvementQuery()->get();
         $clients = Clients::all();
-        return view('livewire.rapport.rapport', compact('mouvements', 'clients'));
+        $summary = $this->buildSummary($mouvements);
+        $journalRows = $this->formatJournalRows($mouvements);
+        $insights = $this->buildInsights($summary);
+
+        return view('livewire.rapport.rapport', compact('mouvements', 'clients', 'summary', 'journalRows', 'insights'));
     }
 
     protected function buildMouvementQuery()
@@ -135,6 +140,11 @@ class Rapport extends Component
 
     protected function generateExcelDocument($mouvements)
     {
+        $usdEntries = (float) $mouvements->where('type', 'int')->sum('amount_usd');
+        $usdExits = (float) $mouvements->where('type', 'out')->sum('amount_usd');
+        $cdfEntries = (float) $mouvements->where('type', 'int')->sum('amount_cdf');
+        $cdfExits = (float) $mouvements->where('type', 'out')->sum('amount_cdf');
+
         $rows = [];
         $runningUsd = 0;
         $runningCdf = 0;
@@ -182,12 +192,12 @@ class Rapport extends Component
                 ['type' => 'String', 'value' => ''],
                 ['type' => 'String', 'value' => ''],
                 ['type' => 'String', 'value' => 'Total'],
+                ['type' => 'Number', 'value' => $usdEntries],
+                ['type' => 'Number', 'value' => $usdExits],
+                ['type' => 'Number', 'value' => $cdfEntries],
+                ['type' => 'Number', 'value' => $cdfExits],
                 ['type' => 'Number', 'value' => $runningUsd],
-                ['type' => 'String', 'value' => ''],
                 ['type' => 'Number', 'value' => $runningCdf],
-                ['type' => 'String', 'value' => ''],
-                ['type' => 'String', 'value' => ''],
-                ['type' => 'String', 'value' => ''],
                 ['type' => 'String', 'value' => ''],
             ], 'Footer');
         }
@@ -252,5 +262,168 @@ XML;
         }
 
         return htmlspecialchars((string) $value, ENT_QUOTES | ENT_XML1, 'UTF-8');
+    }
+
+    protected function buildSummary(Collection $mouvements): array
+    {
+        $entries = $mouvements->where('type', 'int');
+        $exits = $mouvements->where('type', 'out');
+
+        $periodStart = $this->begin_date
+            ? Carbon::parse($this->begin_date)
+            : ($mouvements->count() ? Carbon::parse($mouvements->min('created_at')) : null);
+
+        $periodEnd = $this->end_date
+            ? Carbon::parse($this->end_date)
+            : ($mouvements->count() ? Carbon::parse($mouvements->max('created_at')) : null);
+
+        $durationDays = null;
+        if ($periodStart && $periodEnd) {
+            $durationDays = max(1, $periodStart->diffInDays($periodEnd) + 1);
+        }
+
+        $beneficiaryStats = $mouvements->filter(fn ($mvt) => !empty($mvt->beneficiaire))
+            ->groupBy('beneficiaire')
+            ->map->count()
+            ->sortDesc();
+
+        $motifStats = $mouvements->filter(fn ($mvt) => !empty($mvt->motif))
+            ->groupBy('motif')
+            ->map->count()
+            ->sortDesc();
+
+        $usdEntries = (float) $entries->sum('amount_usd');
+        $usdExits = (float) $exits->sum('amount_usd');
+        $cdfEntries = (float) $entries->sum('amount_cdf');
+        $cdfExits = (float) $exits->sum('amount_cdf');
+
+        return [
+            'count' => $mouvements->count(),
+            'entries_count' => $entries->count(),
+            'exits_count' => $exits->count(),
+            'usd' => [
+                'entries' => $usdEntries,
+                'exits' => $usdExits,
+                'net' => $usdEntries - $usdExits,
+            ],
+            'cdf' => [
+                'entries' => $cdfEntries,
+                'exits' => $cdfExits,
+                'net' => $cdfEntries - $cdfExits,
+            ],
+            'period' => [
+                'start' => $periodStart,
+                'end' => $periodEnd,
+                'duration_days' => $durationDays,
+            ],
+            'top_beneficiary' => $beneficiaryStats->keys()->first(),
+            'top_beneficiary_count' => $beneficiaryStats->first(),
+            'top_motif' => $motifStats->keys()->first(),
+            'top_motif_count' => $motifStats->first(),
+        ];
+    }
+
+    protected function buildInsights(array $summary): array
+    {
+        if (empty($summary['count'])) {
+            return ['Aucun mouvement enregistré pour la période sélectionnée.'];
+        }
+
+        $insights = [];
+        $periodStart = $summary['period']['start'];
+        $periodEnd = $summary['period']['end'];
+        if ($periodStart && $periodEnd) {
+            $insights[] = sprintf(
+                'Analyse du %s au %s (%d jour%s).',
+                $periodStart->format('d/m/Y'),
+                $periodEnd->format('d/m/Y'),
+                $summary['period']['duration_days'] ?? 1,
+                (($summary['period']['duration_days'] ?? 1) > 1 ? 's' : '')
+            );
+        }
+
+        $usdNet = $summary['usd']['net'];
+        $cdfNet = $summary['cdf']['net'];
+
+        if ($usdNet > 0) {
+            $insights[] = 'Le flux USD est excédentaire de ' . number_format($usdNet, 2, ',', ' ') . ' $.';
+        } elseif ($usdNet < 0) {
+            $insights[] = 'Le flux USD est déficitaire de ' . number_format(abs($usdNet), 2, ',', ' ') . ' $.';
+        } else {
+            $insights[] = 'Les flux USD sont équilibrés sur la période.';
+        }
+
+        if ($cdfNet > 0) {
+            $insights[] = 'Le flux CDF est excédentaire de ' . number_format($cdfNet, 2, ',', ' ') . ' FC.';
+        } elseif ($cdfNet < 0) {
+            $insights[] = 'Le flux CDF est déficitaire de ' . number_format(abs($cdfNet), 2, ',', ' ') . ' FC.';
+        } else {
+            $insights[] = 'Les flux CDF sont équilibrés sur la période.';
+        }
+
+        if (!empty($summary['entries_count']) || !empty($summary['exits_count'])) {
+            $insights[] = sprintf(
+                '%d entrée(s) et %d sortie(s) enregistrées.',
+                $summary['entries_count'],
+                $summary['exits_count']
+            );
+        }
+
+        if (!empty($summary['top_beneficiary'])) {
+            $insights[] = sprintf(
+                'Bénéficiaire le plus fréquent : %s (%d occurrence%s).',
+                $summary['top_beneficiary'],
+                $summary['top_beneficiary_count'],
+                $summary['top_beneficiary_count'] > 1 ? 's' : ''
+            );
+        }
+
+        if (!empty($summary['top_motif'])) {
+            $insights[] = sprintf(
+                'Motif dominant : %s (%d occurrence%s).',
+                $summary['top_motif'],
+                $summary['top_motif_count'],
+                $summary['top_motif_count'] > 1 ? 's' : ''
+            );
+        }
+
+        if (!empty($summary['period']['duration_days']) && $summary['period']['duration_days'] > 1) {
+            $insights[] = sprintf(
+                'Moyenne quotidienne des entrées : %s USD et %s FC.',
+                number_format($summary['usd']['entries'] / $summary['period']['duration_days'], 2, ',', ' '),
+                number_format($summary['cdf']['entries'] / $summary['period']['duration_days'], 2, ',', ' ')
+            );
+        }
+
+        return $insights;
+    }
+
+    protected function formatJournalRows(Collection $mouvements): Collection
+    {
+        $runningUsd = 0;
+        $runningCdf = 0;
+
+        return $mouvements->map(function ($mvt) use (&$runningUsd, &$runningCdf) {
+            $isEntry = $mvt->type === 'int';
+            $debitUsd = $isEntry ? (float) $mvt->amount_usd : 0;
+            $creditUsd = !$isEntry ? (float) $mvt->amount_usd : 0;
+            $debitCdf = $isEntry ? (float) $mvt->amount_cdf : 0;
+            $creditCdf = !$isEntry ? (float) $mvt->amount_cdf : 0;
+
+            $runningUsd += $debitUsd;
+            $runningUsd -= $creditUsd;
+            $runningCdf += $debitCdf;
+            $runningCdf -= $creditCdf;
+
+            return [
+                'model' => $mvt,
+                'debit_usd' => $debitUsd,
+                'credit_usd' => $creditUsd,
+                'debit_cdf' => $debitCdf,
+                'credit_cdf' => $creditCdf,
+                'running_usd' => $runningUsd,
+                'running_cdf' => $runningCdf,
+            ];
+        });
     }
 }

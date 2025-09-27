@@ -121,6 +121,58 @@
 
 
                 <!-- End Filter Row -->
+                @if(($summary['count'] ?? 0) > 0)
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 shadow-sm" style="border-left: 4px solid #28a745;">
+                            <div class="card-body">
+                                <h6 class="text-muted text-uppercase small">Flux USD</h6>
+                                <p class="mb-1"><strong>{{ number_format($summary['usd']['entries'], 2) }} $</strong> encaissés</p>
+                                <p class="mb-1"><strong>{{ number_format($summary['usd']['exits'], 2) }} $</strong> sortis</p>
+                                <p class="mb-0 text-{{ ($summary['usd']['net']) >= 0 ? 'success' : 'warning' }}">
+                                    Solde : {{ number_format($summary['usd']['net'], 2) }} $
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 shadow-sm" style="border-left: 4px solid #17a2b8;">
+                            <div class="card-body">
+                                <h6 class="text-muted text-uppercase small">Flux CDF</h6>
+                                <p class="mb-1"><strong>{{ number_format($summary['cdf']['entries'], 2) }} FC</strong> encaissés</p>
+                                <p class="mb-1"><strong>{{ number_format($summary['cdf']['exits'], 2) }} FC</strong> sortis</p>
+                                <p class="mb-0 text-{{ ($summary['cdf']['net']) >= 0 ? 'success' : 'warning' }}">
+                                    Solde : {{ number_format($summary['cdf']['net'], 2) }} FC
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 shadow-sm" style="border-left: 4px solid #007bff;">
+                            <div class="card-body">
+                                <h6 class="text-muted text-uppercase small">Résumé rapide</h6>
+                                <p class="mb-1">{{ $summary['entries_count'] }} entrée(s)</p>
+                                <p class="mb-1">{{ $summary['exits_count'] }} sortie(s)</p>
+                                <p class="mb-0">Total mouvements : {{ $summary['count'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                @if(!empty($insights))
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h6 class="text-muted text-uppercase small mb-3"><i class="la la-lightbulb-o mr-2"></i>Lecture du journal</h6>
+                        <ul class="mb-0 pl-3">
+                            @foreach($insights as $insight)
+                            <li class="mb-1">{{ $insight }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                @endif
+
                 @include('livewire.rapport.list')
             </div>
             <!-- End Content Container -->

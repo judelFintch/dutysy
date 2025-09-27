@@ -1,21 +1,27 @@
-@php
-    $total_usd = 0;
-    $total_cdf = 0;
-    $intCount = 0;
-    $outCount = 0;
-@endphp
-
 <div class="row">
     <div class="col-md-12">
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-white d-flex flex-wrap justify-content-between align-items-center">
                 <div>
                     <h5 class="card-title mb-0">Journal de caisse</h5>
-                    <small class="text-muted">Vue détaillée des mouvements filtrés</small>
+                    <small class="text-muted">
+                        @if($summary['period']['start'] && $summary['period']['end'])
+                            Vue du {{ $summary['period']['start']->format('d/m/Y') }} au {{ $summary['period']['end']->format('d/m/Y') }}
+                        @else
+                            Vue détaillée des mouvements filtrés
+                        @endif
+                    </small>
                 </div>
                 <div class="d-flex flex-wrap">
-                    <span class="badge badge-success mr-2 mb-1">Entrées : {{ $mouvements->where('type', 'int')->count() }}</span>
-                    <span class="badge badge-danger mb-1">Sorties : {{ $mouvements->where('type', 'out')->count() }}</span>
+                    <span class="badge badge-success mr-2 mb-1" title="Total des entrées">
+                        Entrées : {{ $summary['entries_count'] }}
+                    </span>
+                    <span class="badge badge-danger mr-2 mb-1" title="Total des sorties">
+                        Sorties : {{ $summary['exits_count'] }}
+                    </span>
+                    <span class="badge {{ ($summary['usd']['net']) >= 0 ? 'badge-primary' : 'badge-warning' }} mb-1" title="Solde net USD">
+                        Solde USD : {{ number_format($summary['usd']['net'], 2) }} $
+                    </span>
                 </div>
             </div>
             <div class="card-body p-0">
@@ -33,51 +39,55 @@
                                 <th>Crédit CDF</th>
                                 <th>Motif</th>
                                 <th class="text-end">Bénéficiaire</th>
+                                <th class="text-end">Solde USD</th>
+                                <th class="text-end">Solde CDF</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($mouvements as $doss)
+                            @forelse ($journalRows as $index => $row)
                             @php
-                                $isEntry = $doss->type === 'int';
-                                $debitUsd = $isEntry ? $doss->amount_usd : 0;
-                                $creditUsd = !$isEntry ? $doss->amount_usd : 0;
-                                $debitCdf = $isEntry ? $doss->amount_cdf : 0;
-                                $creditCdf = !$isEntry ? $doss->amount_cdf : 0;
-                                $total_usd += $debitUsd;
-                                $total_usd -= $creditUsd;
-                                $total_cdf += $debitCdf;
-                                $total_cdf -= $creditCdf;
+                                $movement = $row['model'];
                             @endphp
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ optional($doss->dossier)->plaque ?? 'N/A' }}</td>
-                                <td>{{ date('Y-m-d', strtotime($doss->created_at)) }}</td>
+                                <td>{{ optional($movement->dossier)->plaque ?? 'N/A' }}</td>
+                                <td>{{ date('Y-m-d', strtotime($movement->created_at)) }}</td>
                                 <td>
-                                    @if($debitUsd)
-                                        <span class="badge badge-success">+ {{ number_format($debitUsd) }} $</span>
+                                    @if($row['debit_usd'])
+                                        <span class="badge badge-success">+ {{ number_format($row['debit_usd']) }} $</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($creditUsd)
-                                        <span class="badge badge-danger">- {{ number_format($creditUsd) }} $</span>
+                                    @if($row['credit_usd'])
+                                        <span class="badge badge-danger">- {{ number_format($row['credit_usd']) }} $</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($debitCdf)
-                                        <span class="badge badge-info">+ {{ number_format($debitCdf) }} FC</span>
+                                    @if($row['debit_cdf'])
+                                        <span class="badge badge-info">+ {{ number_format($row['debit_cdf']) }} FC</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($creditCdf)
-                                        <span class="badge badge-warning">- {{ number_format($creditCdf) }} FC</span>
+                                    @if($row['credit_cdf'])
+                                        <span class="badge badge-warning">- {{ number_format($row['credit_cdf']) }} FC</span>
                                     @endif
                                 </td>
-                                <td style="max-width: 220px; white-space: normal;">{{ $doss->motif }}</td>
-                                <td class="text-end">{{ $doss->beneficiaire ?: 'N/A' }}</td>
+                                <td style="max-width: 220px; white-space: normal;">{{ $movement->motif ?: '—' }}</td>
+                                <td class="text-end">{{ $movement->beneficiaire ?: 'N/A' }}</td>
+                                <td class="text-end">
+                                    <span class="badge {{ $row['running_usd'] >= 0 ? 'badge-primary' : 'badge-warning' }}">
+                                        {{ number_format($row['running_usd'], 2) }} $
+                                    </span>
+                                </td>
+                                <td class="text-end">
+                                    <span class="badge {{ $row['running_cdf'] >= 0 ? 'badge-primary' : 'badge-warning' }}">
+                                        {{ number_format($row['running_cdf'], 2) }} FC
+                                    </span>
+                                </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="9" class="text-center py-4 text-muted">
+                                <td colspan="11" class="text-center py-4 text-muted">
                                     <i class="la la-inbox d-block mb-2" style="font-size: 2rem;"></i>
                                     Aucun mouvement ne correspond aux filtres sélectionnés
                                 </td>
@@ -88,9 +98,10 @@
                         <tfoot class="table-info">
                             <tr>
                                 <th colspan="3">Solde cumulé</th>
-                                <th colspan="2">{{ number_format($total_usd) }} $</th>
-                                <th colspan="2">{{ number_format($total_cdf) }} FC</th>
-                                <th colspan="2"></th>
+                                <th colspan="2">Entrées USD : {{ number_format($summary['usd']['entries'], 2) }} $</th>
+                                <th colspan="2">Entrées CDF : {{ number_format($summary['cdf']['entries'], 2) }} FC</th>
+                                <th colspan="2">Net USD : {{ number_format($summary['usd']['net'], 2) }} $</th>
+                                <th colspan="2">Net CDF : {{ number_format($summary['cdf']['net'], 2) }} FC</th>
                             </tr>
                         </tfoot>
                         @endif
