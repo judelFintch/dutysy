@@ -91,6 +91,26 @@ class Rapport extends Component
         return view('livewire.rapport.rapport', compact('mouvements', 'clients', 'summary', 'journalRows', 'insights'));
     }
 
+    public function exportJournal()
+    {
+        $this->validate();
+
+        $mouvements = $this->buildMouvementQuery()->get();
+
+        if ($mouvements->isEmpty()) {
+            return;
+        }
+
+        $filename = 'journal_caisse_' . now()->format('Ymd_His') . '.xls';
+        $content = $this->generateExcelDocument($mouvements);
+
+        return response()->streamDownload(function () use ($content) {
+            echo $content;
+        }, $filename, [
+            'Content-Type' => 'application/vnd.ms-excel',
+        ]);
+    }
+
     protected function buildMouvementQuery()
     {
         $query = Mouvements::with('dossier');
@@ -119,6 +139,127 @@ class Rapport extends Component
         }
 
         return $query->orderBy('created_at');
+    }
+
+    protected function generateExcelDocument(Collection $mouvements): string
+    {
+        $rows = [];
+        $runningUsd = 0;
+        $runningCdf = 0;
+
+        $rows[] = $this->excelRow([
+            ['type' => 'String', 'value' => 'Date'],
+            ['type' => 'String', 'value' => 'Dossier'],
+            ['type' => 'String', 'value' => 'Motif'],
+            ['type' => 'String', 'value' => 'Débit USD'],
+            ['type' => 'String', 'value' => 'Crédit USD'],
+            ['type' => 'String', 'value' => 'Débit CDF'],
+            ['type' => 'String', 'value' => 'Crédit CDF'],
+            ['type' => 'String', 'value' => 'Solde USD'],
+            ['type' => 'String', 'value' => 'Solde CDF'],
+            ['type' => 'String', 'value' => 'Bénéficiaire'],
+        ], 'Header');
+
+        foreach ($mouvements as $mvt) {
+            $debitUsd = $mvt->type === 'int' ? (float) $mvt->amount_usd : 0.0;
+            $creditUsd = $mvt->type === 'out' ? (float) $mvt->amount_usd : 0.0;
+            $debitCdf = $mvt->type === 'int' ? (float) $mvt->amount_cdf : 0.0;
+            $creditCdf = $mvt->type === 'out' ? (float) $mvt->amount_cdf : 0.0;
+
+            $runningUsd += $debitUsd;
+            $runningUsd -= $creditUsd;
+            $runningCdf += $debitCdf;
+            $runningCdf -= $creditCdf;
+
+            $rows[] = $this->excelRow([
+                ['type' => 'String', 'value' => Carbon::parse($mvt->created_at)->format('Y-m-d H:i')],
+                ['type' => 'String', 'value' => optional($mvt->dossier)->plaque ?? 'N/A'],
+                ['type' => 'String', 'value' => $mvt->motif],
+                ['type' => 'Number', 'value' => $debitUsd],
+                ['type' => 'Number', 'value' => $creditUsd],
+                ['type' => 'Number', 'value' => $debitCdf],
+                ['type' => 'Number', 'value' => $creditCdf],
+                ['type' => 'Number', 'value' => $runningUsd],
+                ['type' => 'Number', 'value' => $runningCdf],
+                ['type' => 'String', 'value' => $mvt->beneficiaire],
+            ]);
+        }
+
+        $totals = $this->buildSummary($mouvements);
+
+        $rows[] = $this->excelRow([
+            ['type' => 'String', 'value' => ''],
+            ['type' => 'String', 'value' => ''],
+            ['type' => 'String', 'value' => 'Synthèse'],
+            ['type' => 'Number', 'value' => $totals['usd']['entries']],
+            ['type' => 'Number', 'value' => $totals['usd']['exits']],
+            ['type' => 'Number', 'value' => $totals['cdf']['entries']],
+            ['type' => 'Number', 'value' => $totals['cdf']['exits']],
+            ['type' => 'Number', 'value' => $totals['usd']['net']],
+            ['type' => 'Number', 'value' => $totals['cdf']['net']],
+            ['type' => 'String', 'value' => ''],
+        ], 'Footer');
+
+        $rowsXml = implode("\n", $rows);
+
+        $xml = <<<XML
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:x="urn:schemas-microsoft-com:office:excel"
+    xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+    xmlns:html="http://www.w3.org/TR/REC-html40">
+    <Styles>
+        <Style ss:ID="Default" ss:Name="Normal">
+            <Alignment ss:Vertical="Center" />
+            <Font ss:FontName="Calibri" ss:Size="11" />
+        </Style>
+        <Style ss:ID="Header">
+            <Alignment ss:Horizontal="Center" ss:Vertical="Center" />
+            <Font ss:FontName="Calibri" ss:Size="11" ss:Bold="1" />
+            <Interior ss:Color="#E1EDF7" ss:Pattern="Solid" />
+        </Style>
+        <Style ss:ID="Footer">
+            <Font ss:FontName="Calibri" ss:Size="11" ss:Bold="1" />
+            <Interior ss:Color="#F5F5F5" ss:Pattern="Solid" />
+        </Style>
+    </Styles>
+    <Worksheet ss:Name="Journal">
+        <Table ss:DefaultColumnWidth="90">
+            {$rowsXml}
+        </Table>
+    </Worksheet>
+</Workbook>
+XML;
+
+        return $xml;
+    }
+
+    protected function excelRow(array $cells, string $styleId = null): string
+    {
+        $styleAttribute = $styleId ? ' ss:StyleID="' . $styleId . '"' : '';
+        $cellsXml = array_map(function ($cell) {
+            $type = $cell['type'];
+            $value = $this->escapeForXml($cell['value']);
+
+            if ($type === 'Number' && $value === '') {
+                $type = 'String';
+            }
+
+            return '<Cell><Data ss:Type="' . $type . '">' . $value . '</Data></Cell>';
+        }, $cells);
+
+        return '<Row' . $styleAttribute . '>' . implode('', $cellsXml) . '</Row>';
+    }
+
+    protected function escapeForXml($value): string
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        return htmlspecialchars((string) $value, ENT_QUOTES | ENT_XML1, 'UTF-8');
     }
 
 

@@ -103,6 +103,9 @@
                                     <button type="button" class="btn btn-outline-secondary flex-grow-1 flex-lg-grow-0 mr-lg-2 mb-2" style="min-width: 140px;" wire:click="resetFilters">
                                         <i class="la la-refresh mr-1"></i>Réinitialiser
                                     </button>
+                                    <button type="button" class="btn btn-info flex-grow-1 flex-lg-grow-0 mb-2" style="min-width: 160px;" wire:click="exportJournal">
+                                        <i class="la la-file-excel-o mr-1"></i>Exporter en Excel
+                                    </button>
                                 </div>
                             </div>
                         </form>
