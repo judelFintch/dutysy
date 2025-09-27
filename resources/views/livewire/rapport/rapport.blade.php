@@ -1,4 +1,36 @@
-<div>
+<div class="rapport-compact">
+    <style>
+        .rapport-compact .page-title {
+            font-size: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .rapport-compact .card,
+        .rapport-compact .table,
+        .rapport-compact .form-control,
+        .rapport-compact .input-group-text,
+        .rapport-compact label,
+        .rapport-compact .badge,
+        .rapport-compact button {
+            font-size: 0.9rem;
+        }
+
+        .rapport-compact .card-title {
+            font-size: 1rem;
+        }
+
+        .rapport-compact .table caption,
+        .rapport-compact .table th,
+        .rapport-compact .table td {
+            font-size: 0.88rem;
+        }
+
+        .rapport-compact .card-body p,
+        .rapport-compact .card-body li {
+            font-size: 0.9rem;
+        }
+    </style>
     <div>
         <!-- Sidebar Navigation Component -->
         <x-nav_left />

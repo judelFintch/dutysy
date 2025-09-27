@@ -143,22 +143,22 @@ class Rapport extends Component
 
     protected function generateExcelDocument(Collection $mouvements): string
     {
-        $rows = [];
-        $runningUsd = 0;
-        $runningCdf = 0;
+        $columns = [
+            'Date',
+            'Dossier',
+            'Motif',
+            'Débit USD',
+            'Crédit USD',
+            'Débit CDF',
+            'Crédit CDF',
+            'Solde USD',
+            'Solde CDF',
+            'Bénéficiaire',
+        ];
 
-        $rows[] = $this->excelRow([
-            ['type' => 'String', 'value' => 'Date'],
-            ['type' => 'String', 'value' => 'Dossier'],
-            ['type' => 'String', 'value' => 'Motif'],
-            ['type' => 'String', 'value' => 'Débit USD'],
-            ['type' => 'String', 'value' => 'Crédit USD'],
-            ['type' => 'String', 'value' => 'Débit CDF'],
-            ['type' => 'String', 'value' => 'Crédit CDF'],
-            ['type' => 'String', 'value' => 'Solde USD'],
-            ['type' => 'String', 'value' => 'Solde CDF'],
-            ['type' => 'String', 'value' => 'Bénéficiaire'],
-        ], 'Header');
+        $rows = [];
+        $runningUsd = 0.0;
+        $runningCdf = 0.0;
 
         foreach ($mouvements as $mvt) {
             $debitUsd = $mvt->type === 'int' ? (float) $mvt->amount_usd : 0.0;
@@ -171,95 +171,72 @@ class Rapport extends Component
             $runningCdf += $debitCdf;
             $runningCdf -= $creditCdf;
 
-            $rows[] = $this->excelRow([
-                ['type' => 'String', 'value' => Carbon::parse($mvt->created_at)->format('Y-m-d H:i')],
-                ['type' => 'String', 'value' => optional($mvt->dossier)->plaque ?? 'N/A'],
-                ['type' => 'String', 'value' => $mvt->motif],
-                ['type' => 'Number', 'value' => $debitUsd],
-                ['type' => 'Number', 'value' => $creditUsd],
-                ['type' => 'Number', 'value' => $debitCdf],
-                ['type' => 'Number', 'value' => $creditCdf],
-                ['type' => 'Number', 'value' => $runningUsd],
-                ['type' => 'Number', 'value' => $runningCdf],
-                ['type' => 'String', 'value' => $mvt->beneficiaire],
-            ]);
+            $rows[] = [
+                Carbon::parse($mvt->created_at)->format('Y-m-d H:i'),
+                optional($mvt->dossier)->plaque ?? 'N/A',
+                $mvt->motif,
+                $debitUsd,
+                $creditUsd,
+                $debitCdf,
+                $creditCdf,
+                $runningUsd,
+                $runningCdf,
+                $mvt->beneficiaire,
+            ];
         }
 
         $totals = $this->buildSummary($mouvements);
 
-        $rows[] = $this->excelRow([
-            ['type' => 'String', 'value' => ''],
-            ['type' => 'String', 'value' => ''],
-            ['type' => 'String', 'value' => 'Synthèse'],
-            ['type' => 'Number', 'value' => $totals['usd']['entries']],
-            ['type' => 'Number', 'value' => $totals['usd']['exits']],
-            ['type' => 'Number', 'value' => $totals['cdf']['entries']],
-            ['type' => 'Number', 'value' => $totals['cdf']['exits']],
-            ['type' => 'Number', 'value' => $totals['usd']['net']],
-            ['type' => 'Number', 'value' => $totals['cdf']['net']],
-            ['type' => 'String', 'value' => ''],
-        ], 'Footer');
+        $footer = [
+            '',
+            '',
+            'Synthèse',
+            $totals['usd']['entries'],
+            $totals['usd']['exits'],
+            $totals['cdf']['entries'],
+            $totals['cdf']['exits'],
+            $totals['usd']['net'],
+            $totals['cdf']['net'],
+            '',
+        ];
 
-        $rowsXml = implode("\n", $rows);
+        $style = <<<CSS
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #dee2e6; padding: 6px; text-align: left; }
+            th { background-color: #f1f4f8; font-weight: bold; }
+            tfoot td { font-weight: bold; background-color: #eef5ff; }
+            .text-right { text-align: right; }
+        CSS;
 
-        $xml = <<<XML
-<?xml version="1.0"?>
-<?mso-application progid="Excel.Sheet"?>
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-    xmlns:o="urn:schemas-microsoft-com:office:office"
-    xmlns:x="urn:schemas-microsoft-com:office:excel"
-    xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-    xmlns:html="http://www.w3.org/TR/REC-html40">
-    <Styles>
-        <Style ss:ID="Default" ss:Name="Normal">
-            <Alignment ss:Vertical="Center" />
-            <Font ss:FontName="Calibri" ss:Size="11" />
-        </Style>
-        <Style ss:ID="Header">
-            <Alignment ss:Horizontal="Center" ss:Vertical="Center" />
-            <Font ss:FontName="Calibri" ss:Size="11" ss:Bold="1" />
-            <Interior ss:Color="#E1EDF7" ss:Pattern="Solid" />
-        </Style>
-        <Style ss:ID="Footer">
-            <Font ss:FontName="Calibri" ss:Size="11" ss:Bold="1" />
-            <Interior ss:Color="#F5F5F5" ss:Pattern="Solid" />
-        </Style>
-    </Styles>
-    <Worksheet ss:Name="Journal">
-        <Table ss:DefaultColumnWidth="90">
-            {$rowsXml}
-        </Table>
-    </Worksheet>
-</Workbook>
-XML;
+        $html = '<html><head><meta charset="UTF-8"><style>' . $style . '</style></head><body>';
+        $html .= '<table>';
+        $html .= '<thead><tr>';
+        foreach ($columns as $header) {
+            $html .= '<th>' . htmlspecialchars($header, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</th>';
+        }
+        $html .= '</tr></thead><tbody>';
 
-        return $xml;
-    }
-
-    protected function excelRow(array $cells, string $styleId = null): string
-    {
-        $styleAttribute = $styleId ? ' ss:StyleID="' . $styleId . '"' : '';
-        $cellsXml = array_map(function ($cell) {
-            $type = $cell['type'];
-            $value = $this->escapeForXml($cell['value']);
-
-            if ($type === 'Number' && $value === '') {
-                $type = 'String';
+        foreach ($rows as $row) {
+            $html .= '<tr>';
+            foreach ($row as $index => $cell) {
+                $value = $cell;
+                $formatted = is_numeric($value) ? number_format((float) $value, 2, '.', '') : (string) $value;
+                $class = is_numeric($value) ? ' class="text-right"' : '';
+                $html .= '<td' . $class . '>' . htmlspecialchars($formatted, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</td>';
             }
-
-            return '<Cell><Data ss:Type="' . $type . '">' . $value . '</Data></Cell>';
-        }, $cells);
-
-        return '<Row' . $styleAttribute . '>' . implode('', $cellsXml) . '</Row>';
-    }
-
-    protected function escapeForXml($value): string
-    {
-        if ($value === null) {
-            return '';
+            $html .= '</tr>';
         }
 
-        return htmlspecialchars((string) $value, ENT_QUOTES | ENT_XML1, 'UTF-8');
+        $html .= '</tbody><tfoot><tr>';
+        foreach ($footer as $cell) {
+            $value = $cell;
+            $formatted = is_numeric($value) ? number_format((float) $value, 2, '.', '') : (string) $value;
+            $class = is_numeric($value) ? ' class="text-right"' : '';
+            $html .= '<td' . $class . '>' . htmlspecialchars($formatted, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</td>';
+        }
+        $html .= '</tr></tfoot></table></body></html>';
+
+        return $html;
     }
 
 
