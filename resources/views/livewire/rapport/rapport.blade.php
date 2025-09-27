@@ -103,22 +103,11 @@
                                     <button type="button" class="btn btn-outline-secondary flex-grow-1 flex-lg-grow-0 mr-lg-2 mb-2" style="min-width: 140px;" wire:click="resetFilters">
                                         <i class="la la-refresh mr-1"></i>Réinitialiser
                                     </button>
-                                    <button type="button" class="btn btn-info flex-grow-1 flex-lg-grow-0 mb-2" style="min-width: 160px;" wire:click="exportJournal" wire:loading.attr="disabled">
-                                        <i class="la la-file-excel-o mr-1"></i>Exporter en Excel
-                                    </button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-
-                <div wire:loading class="d-flex justify-content-center align-items-center" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255,255,255,0.75); z-index: 1050;">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">Chargement...</span>
-                    </div>
-                </div>
-
-
 
                 <!-- End Filter Row -->
                 @if(($summary['count'] ?? 0) > 0)
