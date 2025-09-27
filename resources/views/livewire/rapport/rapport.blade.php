@@ -28,68 +28,95 @@
                 <!-- End Page Header -->
 
                 <!-- Filter Row -->
-                <form wire:submit.prevent="submit" class="w-100">
-                    <div class="row filter-row">
-                        <!-- Clients Filter -->
-                        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                            <div class="form-group custom-select">
-                                <select wire:model.defer="selectClientId" class="form-control" {{ $includeAllClients ? 'disabled' : '' }}>
-                                    <option value="">Sélectionner un client</option>
-                                    @foreach($clients as $client)
-                                    <option value="{{ $client->id}}">{{ $client->name }}</option>
-                                    <!-- Ajoutez les options des clients ici -->
-                                    @endforeach
-                                </select>
-                                @error('selectClientId') <span class="text-danger">{{ $message }}</span> @enderror
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0"><i class="la la-filter mr-2"></i>Filtres</h5>
+                            <span class="badge badge-light" title="Nombre de mouvements affichés">{{ $mouvements->count() }} mouvements</span>
+                        </div>
+
+                        <form wire:submit.prevent="submit" class="w-100">
+                            <div class="row">
+                                <!-- Clients Filter -->
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+                                    <label class="text-muted text-uppercase small d-block mb-1">Client</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="la la-user"></i></span>
+                                        <select wire:model.defer="selectClientId" class="form-control" {{ $includeAllClients ? 'disabled' : '' }}>
+                                            <option value="">Sélectionner un client</option>
+                                            @foreach($clients as $client)
+                                            <option value="{{ $client->id}}">{{ $client->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('selectClientId') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" wire:model="includeAllClients" id="includeAllClients">
+                                        <label class="form-check-label" for="includeAllClients">Tous les clients</label>
+                                    </div>
+                                </div>
+
+                                <!-- Operation Type Filter -->
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+                                    <label class="text-muted text-uppercase small d-block mb-1">Type d'opération</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="la la-random"></i></span>
+                                        <select wire:model.defer="selectOpType" class="form-control" {{ $includeAllOperations ? 'disabled' : '' }}>
+                                            <option value="">Tout type</option>
+                                            <option value="int">Entrée</option>
+                                            <option value="out">Sortie</option>
+                                        </select>
+                                    </div>
+                                    @error('selectOpType') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" wire:model="includeAllOperations" id="includeAllOperations">
+                                        <label class="form-check-label" for="includeAllOperations">Toutes les opérations</label>
+                                    </div>
+                                </div>
+
+                                <!-- Begin Date Filter -->
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+                                    <label for="begin_date" class="text-muted text-uppercase small d-block mb-1">Date de début</label>
+                                    <input id="begin_date" type="date" wire:model.defer="begin_date" class="form-control">
+                                    @error('begin_date') <span class="text-danger small">{{ $message }}</span> @enderror
+                                </div>
+
+                                <!-- End Date Filter -->
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+                                    <label for="end_date" class="text-muted text-uppercase small d-block mb-1">Date de fin</label>
+                                    <input id="end_date" type="date" wire:model.defer="end_date" class="form-control">
+                                    @error('end_date') <span class="text-danger small">{{ $message }}</span> @enderror
+                                </div>
+
+                                <div class="col-12 col-lg-8 col-xl-6 mb-3">
+                                    <label for="searchQuery" class="text-muted text-uppercase small d-block mb-1">Recherche avancée</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="la la-search"></i></span>
+                                        <input id="searchQuery" wire:model.defer="searchQuery" class="form-control" type="text" placeholder="Filtrer par motif ou bénéficiaire">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-4 col-xl-6 d-flex flex-wrap align-items-end">
+                                    <button type="submit" class="btn btn-success flex-grow-1 flex-lg-grow-0 mr-lg-2 mb-2" style="min-width: 140px;">
+                                        <i class="la la-check mr-1"></i>Filtrer
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary flex-grow-1 flex-lg-grow-0 mr-lg-2 mb-2" style="min-width: 140px;" wire:click="resetFilters">
+                                        <i class="la la-refresh mr-1"></i>Réinitialiser
+                                    </button>
+                                    <button type="button" class="btn btn-info flex-grow-1 flex-lg-grow-0 mb-2" style="min-width: 160px;" wire:click="exportJournal" wire:loading.attr="disabled">
+                                        <i class="la la-file-excel-o mr-1"></i>Exporter en Excel
+                                    </button>
+                                </div>
                             </div>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox" wire:model="includeAllClients" id="includeAllClients">
-                                <label class="form-check-label" for="includeAllClients">Tous les clients</label>
-                            </div>
-                        </div>
-
-                        <!-- Operation Type Filter -->
-                        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                            <div class="form-group custom-select">
-                                <select wire:model.defer="selectOpType" class="form-control" {{ $includeAllOperations ? 'disabled' : '' }}>
-                                    <option value="">Tout type</option>
-                                    <option value="int">Entree</option>
-                                    <option value="out">Sortie</option>
-                                </select>
-                                @error('selectOpType') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox" wire:model="includeAllOperations" id="includeAllOperations">
-                                <label class="form-check-label" for="includeAllOperations">Toutes les opérations</label>
-                            </div>
-                        </div>
-
-                        <!-- Begin Date Filter -->
-                        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                            <input type="date" wire:model.defer="begin_date" class="form-control">
-                            @error('begin_date') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-
-                        <!-- End Date Filter -->
-                        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                            <input type="date" wire:model.defer="end_date" class="form-control">
-                            @error('end_date') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-
-                        <!-- Search Button -->
-                        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12 mb-2 mb-xl-0">
-                            <button type="submit" class="btn btn-success w-100">Filtrer</button>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                            <button type="button" class="btn btn-outline-secondary w-100" wire:click="resetFilters">Réinitialiser</button>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12 mt-2 mt-xl-0">
-                            <button type="button" class="btn btn-info w-100" wire:click="exportJournal">Exporter le journal</button>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+
+                <div wire:loading class="d-flex justify-content-center align-items-center" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255,255,255,0.75); z-index: 1050;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Chargement...</span>
+                    </div>
+                </div>
 
 
 
