@@ -33,26 +33,34 @@
                         <!-- Clients Filter -->
                         <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                             <div class="form-group custom-select">
-                                <select wire:model.defer="selectClientId" class="form-control">
-                                    <option value="">Clients</option>
+                                <select wire:model.defer="selectClientId" class="form-control" {{ $includeAllClients ? 'disabled' : '' }}>
+                                    <option value="">Sélectionner un client</option>
                                     @foreach($clients as $client)
                                     <option value="{{ $client->id}}">{{ $client->name }}</option>
                                     <!-- Ajoutez les options des clients ici -->
                                     @endforeach
                                 </select>
-                                @error('selectClients') <span class="text-danger">{{ $message }}</span> @enderror
+                                @error('selectClientId') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" wire:model="includeAllClients" id="includeAllClients">
+                                <label class="form-check-label" for="includeAllClients">Tous les clients</label>
                             </div>
                         </div>
 
                         <!-- Operation Type Filter -->
                         <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                             <div class="form-group custom-select">
-                                <select wire:model.defer="selectOpType" class="form-control">
+                                <select wire:model.defer="selectOpType" class="form-control" {{ $includeAllOperations ? 'disabled' : '' }}>
                                     <option value="">Tout type</option>
                                     <option value="int">Entree</option>
                                     <option value="out">Sortie</option>
                                 </select>
                                 @error('selectOpType') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" wire:model="includeAllOperations" id="includeAllOperations">
+                                <label class="form-check-label" for="includeAllOperations">Toutes les opérations</label>
                             </div>
                         </div>
 
@@ -69,8 +77,16 @@
                         </div>
 
                         <!-- Search Button -->
+                        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12 mb-2 mb-xl-0">
+                            <button type="submit" class="btn btn-success w-100">Filtrer</button>
+                        </div>
+
                         <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                            <button type="submit" class="btn btn-success w-100">Search</button>
+                            <button type="button" class="btn btn-outline-secondary w-100" wire:click="resetFilters">Réinitialiser</button>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12 mt-2 mt-xl-0">
+                            <button type="button" class="btn btn-info w-100" wire:click="exportJournal">Exporter le journal</button>
                         </div>
                     </div>
                 </form>
